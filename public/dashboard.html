@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Finkele Climate Risk Intelligence Dashboard - Real-time monitoring and analytics">
+    <title>Finkele - Climate Risk Dashboard</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="dashboard-body">
+    <!-- Dashboard Header -->
+    <header class="dashboard-header">
+        <div class="header-container">
+            <div class="header-left">
+                <a href="index.html" class="back-link">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    Back to Main
+                </a>
+                <h1 class="dashboard-title">Climate Risk Intelligence Center</h1>
+            </div>
+            <div class="header-right">
+                <div class="live-indicator">
+                    <span class="live-dot"></span>
+                    <span>LIVE DATA</span>
+                </div>
+                <div class="current-time" id="dashboard-time"></div>
+                <button class="fullscreen-btn" id="fullscreen-toggle" aria-label="Toggle Fullscreen">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Dashboard Container -->
+    <main class="dashboard-main">
+        <!-- Top Metrics Row -->
+        <section class="metrics-section">
+            <div class="metrics-grid">
+                <div class="metric-card" data-metric="risk-index">
+                    <div class="metric-header">
+                        <img src="assets/img/climate-icons/risk.svg" alt="Risk" class="metric-icon">
+                        <span class="metric-label">Global Risk Index</span>
+                    </div>
+                    <div class="metric-body">
+                        <div class="metric-value" id="risk-index-value">73.2</div>
+                        <div class="metric-change positive">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M7 14l5-5 5 5"/>
+                            </svg>
+                            <span>2.1% improvement</span>
+                        </div>
+                    </div>
+                    <div class="metric-sparkline">
+                        <canvas id="risk-sparkline"></canvas>
+                    </div>
+                </div>
+
+                <div class="metric-card" data-metric="temperature">
+                    <div class="metric-header">
+                        <img src="assets/img/climate-icons/temperature.svg" alt="Temperature" class="metric-icon">
+                        <span class="metric-label">Temperature Anomaly</span>
+                    </div>
+                    <div class="metric-body">
+                        <div class="metric-value" id="temp-value">+1.8°C</div>
+                        <div class="metric-change negative">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17 10l-5 5-5-5"/>
+                            </svg>
+                            <span>0.3°C above average</span>
+                        </div>
+                    </div>
+                    <div class="metric-sparkline">
+                        <canvas id="temp-sparkline"></canvas>
+                    </div>
+                </div>
+
+                <div class="metric-card" data-metric="co2">
+                    <div class="metric-header">
+                        <img src="assets/img/climate-icons/co2.svg" alt="CO2" class="metric-icon">
+                        <span class="metric-label">CO₂ Concentration</span>
+                    </div>
+                    <div class="metric-body">
+                        <div class="metric-value" id="co2-value">421.5 ppm</div>
+                        <div class="metric-change negative">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17 10l-5 5-5-5"/>
+                            </svg>
+                            <span>Rising trend</span>
+                        </div>
+                    </div>
+                    <div class="metric-sparkline">
+                        <canvas id="co2-sparkline"></canvas>
+                    </div>
+                </div>
+
+                <div class="metric-card" data-metric="events">
+                    <div class="metric-header">
+                        <img src="assets/img/climate-icons/alert.svg" alt="Events" class="metric-icon">
+                        <span class="metric-label">Extreme Events</span>
+                    </div>
+                    <div class="metric-body">
+                        <div class="metric-value" id="events-value">156</div>
+                        <div class="metric-change negative">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17 10l-5 5-5-5"/>
+                            </svg>
+                            <span>18% this month</span>
+                        </div>
+                    </div>
+                    <div class="metric-sparkline">
+                        <canvas id="events-sparkline"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts Section -->
+        <section class="charts-section">
+            <div class="charts-grid">
+                <!-- Regional Risk Assessment -->
+                <div class="chart-card large">
+                    <div class="chart-header">
+                        <h2 class="chart-title">Regional Climate Risk Assessment</h2>
+                        <div class="chart-controls">
+                            <select id="region-timeframe" class="chart-select">
+                                <option value="24h">24 Hours</option>
+                                <option value="7d">7 Days</option>
+                                <option value="30d" selected>30 Days</option>
+                                <option value="1y">1 Year</option>
+                            </select>
+                            <button class="chart-download" aria-label="Download Data">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="regional-risk-chart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Global Heat Map -->
+                <div class="chart-card large">
+                    <div class="chart-header">
+                        <h2 class="chart-title">Global Climate Risk Heat Map</h2>
+                        <div class="chart-controls">
+                            <div class="layer-toggles">
+                                <label class="toggle-label">
+                                    <input type="checkbox" checked> Temperature
+                                </label>
+                                <label class="toggle-label">
+                                    <input type="checkbox" checked> Precipitation
+                                </label>
+                                <label class="toggle-label">
+                                    <input type="checkbox"> Wind
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-body">
+                        <div id="world-map" class="world-map-container"></div>
+                    </div>
+                </div>
+
+                <!-- Trend Analysis -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h2 class="chart-title">Climate Trend Analysis</h2>
+                        <div class="chart-controls">
+                            <button class="chart-btn active" data-period="1m">1M</button>
+                            <button class="chart-btn" data-period="3m">3M</button>
+                            <button class="chart-btn" data-period="6m">6M</button>
+                            <button class="chart-btn" data-period="1y">1Y</button>
+                        </div>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="trend-chart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Risk Distribution -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h2 class="chart-title">Risk Distribution by Sector</h2>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="risk-distribution-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Activity Feed & Predictions -->
+        <section class="feed-section">
+            <div class="feed-grid">
+                <!-- Live Activity Feed -->
+                <div class="feed-card">
+                    <div class="feed-header">
+                        <h2 class="feed-title">Climate Event Monitor</h2>
+                        <span class="feed-badge">
+                            <span class="pulse-dot"></span>
+                            Real-time
+                        </span>
+                    </div>
+                    <div class="feed-body" id="activity-feed">
+                        <!-- Activity items will be inserted here by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- AI Predictions -->
+                <div class="feed-card">
+                    <div class="feed-header">
+                        <h2 class="feed-title">AI Predictions</h2>
+                        <span class="feed-badge info">Next 72 Hours</span>
+                    </div>
+                    <div class="predictions-list" id="predictions-list">
+                        <div class="prediction-item high">
+                            <div class="prediction-icon">🌡️</div>
+                            <div class="prediction-content">
+                                <h4>Heat Wave Alert</h4>
+                                <p>Southern Europe - 85% probability</p>
+                                <span class="prediction-time">In 24-48 hours</span>
+                            </div>
+                        </div>
+                        <div class="prediction-item medium">
+                            <div class="prediction-icon">🌊</div>
+                            <div class="prediction-content">
+                                <h4>Coastal Flooding Risk</h4>
+                                <p>Southeast Asia - 65% probability</p>
+                                <span class="prediction-time">In 36-60 hours</span>
+                            </div>
+                        </div>
+                        <div class="prediction-item low">
+                            <div class="prediction-icon">🌪️</div>
+                            <div class="prediction-content">
+                                <h4>Storm System Development</h4>
+                                <p>North Atlantic - 45% probability</p>
+                                <span class="prediction-time">In 60-72 hours</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="feed-card">
+                    <div class="feed-header">
+                        <h2 class="feed-title">Quick Actions</h2>
+                    </div>
+                    <div class="actions-grid">
+                        <button class="action-btn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                            </svg>
+                            <span>Generate Report</span>
+                        </button>
+                        <button class="action-btn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                            </svg>
+                            <span>Export Data</span>
+                        </button>
+                        <button class="action-btn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="12" cy="12" r="3"/>
+                                <path d="M12 1v6m0 6v6m4.22-13.22l4.24 4.24M1.54 12h6m6 6l4.24 4.24"/>
+                            </svg>
+                            <span>Configure Alerts</span>
+                        </button>
+                        <button class="action-btn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                                <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                            </svg>
+                            <span>Notifications</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bottom Stats -->
+        <section class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-label">Assets Monitored</span>
+                    <span class="stat-value">2,847</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Data Points/Day</span>
+                    <span class="stat-value">15.2M</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Accuracy Rate</span>
+                    <span class="stat-value">97.3%</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Response Time</span>
+                    <span class="stat-value">< 2s</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Uptime</span>
+                    <span class="stat-value">99.99%</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="dashboard-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Finkele Climate Intelligence Platform | Data sources: Open-Meteo, NOAA, Climate TRACE</p>
+            <div class="footer-links">
+                <a href="#">API Docs</a>
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification Container -->
+    <div id="notification-container" class="notification-container"></div>
+
+    <!-- Scripts -->
+    <script src="assets/js/dashboard.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/api-service.js"></script>
+    
+    <script>
+        // Initialize Dashboard
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize all dashboard components
+            initializeDashboard();
+            
+            // Start real-time updates
+            startRealtimeUpdates();
+            
+            // Initialize charts
+            initializeCharts();
+            
+            // Setup event listeners
+            setupEventListeners();
+            
+            console.log('🌍 Finkele Dashboard Initialized');
+        });
+    </script>
+</body>
+</html>

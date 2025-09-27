@@ -1,0 +1,124 @@
+/ ============================================
+// FILE: public/data/regions.geojson
+// ============================================
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "North America",
+        "code": "NA",
+        "riskScore": 75,
+        "population": 579000000,
+        "resilience": 82,
+        "color": "#FFA500"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-95.7129, 37.0902]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Europe",
+        "code": "EU",
+        "riskScore": 68,
+        "population": 746000000,
+        "resilience": 88,
+        "color": "#4FBF7F"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [10.4515, 51.1657]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Asia",
+        "code": "AS",
+        "riskScore": 82,
+        "population": 4641000000,
+        "resilience": 71,
+        "color": "#FF4444"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [100.0, 30.0]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "South America",
+        "code": "SA",
+        "riskScore": 79,
+        "population": 430000000,
+        "resilience": 65,
+        "color": "#FF8800"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-60.0, -15.0]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Africa",
+        "code": "AF",
+        "riskScore": 86,
+        "population": 1340000000,
+        "resilience": 58,
+        "color": "#CC0000"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [20.0, 0.0]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Oceania",
+        "code": "OC",
+        "riskScore": 72,
+        "population": 45000000,
+        "resilience": 84,
+        "color": "#66AA00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [135.0, -25.0]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Antarctica",
+        "code": "AN",
+        "riskScore": 95,
+        "population": 5000,
+        "resilience": 10,
+        "color": "#0099FF"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.0, -80.0]
+      }
+    }
+  ],
+  "metadata": {
+    "description": "Climate risk regions with centroids",
+    "projection": "WGS84",
+    "lastUpdated": "2025-01-01",
+    "riskLevels": {
+      "low": "0-40",
+      "medium": "41-60",
+      "high": "61-80",
+      "critical": "81-100"
+    }
+  }
+}

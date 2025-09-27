@@ -1,0 +1,9 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="12" cy="12" r="2" fill="#038C50"/>
+  <path d="M12 2L14 10H10L12 2Z" fill="#4FBF7F" transform="rotate(0 12 12)"/>
+  <path d="M12 2L14 10H10L12 2Z" fill="#4FBF7F" transform="rotate(60 12 12)"/>
+  <path d="M12 2L14 10H10L12 2Z" fill="#4FBF7F" transform="rotate(120 12 12)"/>
+  <path d="M12 2L14 10H10L12 2Z" fill="#4FBF7F" transform="rotate(180 12 12)"/>
+  <path d="M12 2L14 10H10L12 2Z" fill="#4FBF7F" transform="rotate(240 12 12)"/>
+  <path d="M12 2L14 10H10L12 2Z" fill="#4FBF7F" transform="rotate(300 12 12)"/>
+</svg>

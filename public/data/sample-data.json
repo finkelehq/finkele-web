@@ -1,0 +1,215 @@
+// ============================================
+// FILE: public/data/sample-data.json
+// ============================================
+{
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2025-01-01T00:00:00Z",
+    "source": "Finkele Climate Intelligence Platform"
+  },
+  "globalMetrics": {
+    "riskIndex": {
+      "current": 73.2,
+      "previous": 75.3,
+      "trend": "improving",
+      "unit": "index"
+    },
+    "temperature": {
+      "current": 1.8,
+      "baseline": 1.5,
+      "unit": "celsius",
+      "anomaly": 0.3
+    },
+    "co2Concentration": {
+      "current": 421.5,
+      "yearAgo": 418.2,
+      "unit": "ppm",
+      "trend": "increasing"
+    },
+    "extremeEvents": {
+      "currentMonth": 156,
+      "previousMonth": 132,
+      "yearlyAverage": 1872
+    },
+    "assetsAtRisk": {
+      "value": 4200000000,
+      "currency": "USD",
+      "count": 2847,
+      "highRiskZones": 127
+    }
+  },
+  "regionalData": [
+    {
+      "region": "North America",
+      "code": "NA",
+      "riskScore": 75,
+      "population": 579000000,
+      "gdp": 24.42,
+      "climateFactors": {
+        "temperature": 2.1,
+        "precipitation": -12,
+        "extremeEvents": 42,
+        "seaLevelRise": 3.2
+      },
+      "topRisks": ["Wildfires", "Hurricanes", "Drought"],
+      "resilience": 82
+    },
+    {
+      "region": "Europe",
+      "code": "EU",
+      "riskScore": 68,
+      "population": 746000000,
+      "gdp": 17.9,
+      "climateFactors": {
+        "temperature": 1.9,
+        "precipitation": 8,
+        "extremeEvents": 38,
+        "seaLevelRise": 2.8
+      },
+      "topRisks": ["Heatwaves", "Flooding", "Storms"],
+      "resilience": 88
+    },
+    {
+      "region": "Asia",
+      "code": "AS",
+      "riskScore": 82,
+      "population": 4641000000,
+      "gdp": 36.8,
+      "climateFactors": {
+        "temperature": 2.3,
+        "precipitation": 15,
+        "extremeEvents": 67,
+        "seaLevelRise": 4.1
+      },
+      "topRisks": ["Typhoons", "Flooding", "Drought"],
+      "resilience": 71
+    },
+    {
+      "region": "South America",
+      "code": "SA",
+      "riskScore": 79,
+      "population": 430000000,
+      "gdp": 3.4,
+      "climateFactors": {
+        "temperature": 2.0,
+        "precipitation": -18,
+        "extremeEvents": 31,
+        "seaLevelRise": 3.5
+      },
+      "topRisks": ["Deforestation", "Drought", "Flooding"],
+      "resilience": 65
+    },
+    {
+      "region": "Africa",
+      "code": "AF",
+      "riskScore": 86,
+      "population": 1340000000,
+      "gdp": 2.9,
+      "climateFactors": {
+        "temperature": 2.4,
+        "precipitation": -22,
+        "extremeEvents": 48,
+        "seaLevelRise": 3.8
+      },
+      "topRisks": ["Drought", "Desertification", "Flooding"],
+      "resilience": 58
+    },
+    {
+      "region": "Oceania",
+      "code": "OC",
+      "riskScore": 72,
+      "population": 45000000,
+      "gdp": 1.8,
+      "climateFactors": {
+        "temperature": 1.7,
+        "precipitation": 5,
+        "extremeEvents": 28,
+        "seaLevelRise": 4.5
+      },
+      "topRisks": ["Bushfires", "Cyclones", "Sea Level Rise"],
+      "resilience": 84
+    }
+  ],
+  "historicalTrends": {
+    "monthly": [
+      {"month": "2024-01", "riskIndex": 71.5, "events": 142, "temperature": 1.65},
+      {"month": "2024-02", "riskIndex": 72.1, "events": 138, "temperature": 1.68},
+      {"month": "2024-03", "riskIndex": 72.8, "events": 145, "temperature": 1.71},
+      {"month": "2024-04", "riskIndex": 73.2, "events": 151, "temperature": 1.73},
+      {"month": "2024-05", "riskIndex": 73.5, "events": 149, "temperature": 1.75},
+      {"month": "2024-06", "riskIndex": 74.1, "events": 158, "temperature": 1.78},
+      {"month": "2024-07", "riskIndex": 74.8, "events": 162, "temperature": 1.82},
+      {"month": "2024-08", "riskIndex": 75.2, "events": 168, "temperature": 1.85},
+      {"month": "2024-09", "riskIndex": 74.9, "events": 165, "temperature": 1.84},
+      {"month": "2024-10", "riskIndex": 74.3, "events": 159, "temperature": 1.82},
+      {"month": "2024-11", "riskIndex": 73.8, "events": 154, "temperature": 1.80},
+      {"month": "2024-12", "riskIndex": 73.2, "events": 156, "temperature": 1.80}
+    ]
+  },
+  "sectorRisks": [
+    {
+      "sector": "Agriculture",
+      "riskLevel": "high",
+      "score": 82,
+      "mainThreats": ["Drought", "Extreme Weather", "Temperature Rise"],
+      "economicImpact": 450000000000
+    },
+    {
+      "sector": "Energy",
+      "riskLevel": "medium",
+      "score": 68,
+      "mainThreats": ["Grid Stress", "Supply Disruption", "Transition Risk"],
+      "economicImpact": 380000000000
+    },
+    {
+      "sector": "Real Estate",
+      "riskLevel": "high",
+      "score": 78,
+      "mainThreats": ["Sea Level Rise", "Flooding", "Extreme Weather"],
+      "economicImpact": 620000000000
+    },
+    {
+      "sector": "Transportation",
+      "riskLevel": "medium",
+      "score": 71,
+      "mainThreats": ["Infrastructure Damage", "Supply Chain", "Fuel Costs"],
+      "economicImpact": 290000000000
+    },
+    {
+      "sector": "Healthcare",
+      "riskLevel": "medium",
+      "score": 65,
+      "mainThreats": ["Heat Stress", "Disease Spread", "Infrastructure"],
+      "economicImpact": 180000000000
+    }
+  ],
+  "alerts": [
+    {
+      "id": "ALERT-2025-001",
+      "type": "heatwave",
+      "severity": "high",
+      "region": "Southern Europe",
+      "message": "Extreme heat wave expected in the next 48 hours",
+      "timestamp": "2025-01-15T10:30:00Z",
+      "probability": 0.85
+    },
+    {
+      "id": "ALERT-2025-002",
+      "type": "cyclone",
+      "severity": "medium",
+      "region": "Pacific Islands",
+      "message": "Tropical cyclone forming, expected landfall in 72 hours",
+      "timestamp": "2025-01-15T08:15:00Z",
+      "probability": 0.72
+    },
+    {
+      "id": "ALERT-2025-003",
+      "type": "flooding",
+      "severity": "high",
+      "region": "Southeast Asia",
+      "message": "Heavy monsoon rains, flood risk elevated",
+      "timestamp": "2025-01-15T06:45:00Z",
+      "probability": 0.91
+    }
+  ]
+}

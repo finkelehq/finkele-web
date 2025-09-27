@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Finkele - Building Climate Resilience through ESG Intelligence and Asset Management">
+    <meta name="keywords" content="climate risk, ESG, asset management, sustainability, climate resilience">
+    <meta name="author" content="Finkele">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Finkele - Climate Intelligence Platform">
+    <meta property="og:description" content="Advanced climate risk assessment and ESG solutions for sustainable asset management">
+    <meta property="og:image" content="assets/img/finkele-logo-rectangle.png">
+    <meta property="og:url" content="https://www.finkele.com">
+    
+    <title>Finkele - Climate Intelligence Platform</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    
+    <!-- Preload Critical Assets -->
+    <link rel="preload" href="assets/img/finkele-logo-square.png" as="image">
+    <link rel="preload" href="assets/css/style.css" as="style">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loader" class="loader">
+        <img src="assets/img/finkele-logo-round.png" alt="Loading" class="loader-logo">
+        <div class="loader-spinner"></div>
+    </div>
+    
+    <!-- Navigation -->
+    <nav id="navbar" class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">
+                <img src="assets/img/finkele-logo-square.png" alt="Finkele" class="logo-img">
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#dashboard" class="nav-link">Analytics</a></li>
+                <li><a href="#impact" class="nav-link">Impact</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+            <h1 class="hero-title">
+                Building <span class="gradient-text">Climate Resilience</span>
+            </h1>
+            <p class="hero-subtitle">
+                Transform your assets with AI-powered climate intelligence and ESG strategies
+            </p>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn btn-primary">Get Started</a>
+                <a href="#services" class="btn btn-secondary">Learn More</a>
+            </div>
+            </div>
+            <div class="hero-visual">
+            <div id="climate-globe" class="climate-globe"></div>
+            </div>
+        </div>
+        </section>
+
+        
+        <!-- Services Section -->
+        <section id="services" class="services">
+            <div class="container">
+                <h2 class="section-title">Comprehensive <span class="gradient-text">Climate Solutions</span></h2>
+                <div class="services-grid" id="services-grid">
+                    <!-- Services populated by JS -->
+                </div>
+            </div>
+        </section>
+        
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="dashboard-section">
+            <div class="container">
+                <h2 class="section-title">Real-Time <span class="gradient-text">Climate Analytics</span></h2>
+                <div id="dashboard-container" class="dashboard-container">
+                    <!-- Dashboard content loaded here -->
+                </div>
+                <!-- <a href="dashboard.html" class="btn btn-primary">View Full Dashboard</a> -->
+            </div>
+        </section>
+        
+        <!-- Impact Section -->
+        <section id="impact" class="impact">
+            <div class="container">
+                <h2 class="section-title">Measurable <span class="gradient-text">Impact</span></h2>
+                <div class="impact-grid" id="impact-metrics">
+                    <!-- Metrics populated by JS -->
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact Section -->
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2 class="section-title">Get in Touch</h2>
+                <form id="contact-form" class="contact-form">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <img src="assets/img/finkele-logo-square.png" alt="Finkele" class="footer-logo">
+                    <p>Building climate resilience through innovation</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#dashboard">Analytics</a></li>
+                        <li><a href="#impact">Impact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>info@finkele.com</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="LinkedIn">LinkedIn</a>
+                        <a href="#" aria-label="Twitter">Twitter</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Finkele. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+    <script src="assets/js/main.js"></script>
+    <!-- <script src="assets/js/animations.js"></script>
+    <script src="assets/js/api-service.js"></script> -->
+</body>
+</html>

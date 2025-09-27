@@ -1,0 +1,16 @@
+.climate-globe {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(3, 140, 80, 0.6), transparent 40%),
+              radial-gradient(circle at 70% 60%, rgba(79, 191, 127, 0.5), transparent 45%),
+              linear-gradient(135deg, var(--finkele-green), var(--finkele-accent));
+  animation: rotate-globe 30s linear infinite;
+  box-shadow: inset -25px -25px 50px rgba(0, 0, 0, 0.2),
+              0 0 60px rgba(3, 140, 80, 0.3);
+}
+
+@keyframes rotate-globe {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

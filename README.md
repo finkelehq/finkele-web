@@ -2,7 +2,7 @@
 
 Finkele website. www.finkele.com
 
-![Finkele Logo](assets/img/finkele-logo-square.png)
+![Finkele Logo](public/assets/img/finkele-logo-square.png)
 
 ## Overview
 

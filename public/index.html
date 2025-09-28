@@ -203,15 +203,28 @@
     </footer>
 
     <!-- Climate Charts External Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     
     <!-- Scripts -->
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/animations.js"></script>
     <script src="assets/js/api-service.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/globe.js"></script>
+     <script src="assets/js/main.js"></script>
 
     <!-- Climate Charts Scripts -->
+    <script>
+        // Wait for everything to load
+        window.addEventListener('load', function() {
+            // Initialize charts after a small delay to ensure no conflicts
+            setTimeout(function() {
+                if (typeof initializeClimateCharts === 'function') {
+                    initializeClimateCharts();
+                }
+            }, 100);
+        });
+    </script>
     <script src="assets/js/climate-charts.js"></script>
 </body>
 </html>

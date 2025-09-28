@@ -23,6 +23,7 @@ class AnimationController {
         this.initCounterAnimations();
         this.initScrollAnimations();
         this.initHoverEffects();
+        this.initClimateGlobe();
     }
 
     /**

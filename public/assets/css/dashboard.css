@@ -757,3 +757,178 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* Climate Analytics Charts Styling */
+.dashboard-container {
+    padding: 2rem 0;
+}
+
+.climate-charts-container {
+    margin: 3rem 0;
+    padding: 2rem 0;
+}
+
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.chart-box {
+    /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    min-height: 300px;
+}
+
+.chart-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.chart-box canvas {
+    max-height: 280px;
+}
+
+/* Live monitoring section styling */
+.live-monitoring {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 15px;
+    padding: 2rem;
+    margin-top: 2rem;
+}
+
+.live-monitoring h3 {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    color: #2d3748;
+}
+
+.live-indicator {
+    display: inline-block;
+    background: #48bb78;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(72, 187, 120, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(72, 187, 120, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(72, 187, 120, 0);
+    }
+}
+
+/* Climate stats styling */
+.climate-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.stat-card {
+    text-align: center;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.stat-card .stat-label {
+    font-size: 0.875rem;
+    color: #718096;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.stat-card .stat-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2d3748;
+}
+
+.stat-card .temp-value {
+    color: #e53e3e;
+}
+
+.stat-card .co2-value {
+    color: #3182ce;
+}
+
+.stat-card .risk-value {
+    color: #d69e2e;
+}
+
+/* Responsive design for charts */
+@media (max-width: 992px) {
+    .charts-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .climate-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .climate-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .chart-box {
+        padding: 1rem;
+        min-height: 250px;
+    }
+    
+    .stat-card {
+        padding: 1rem;
+    }
+    
+    .stat-card .stat-value {
+        font-size: 1.5rem;
+    }
+}
+
+/* Dark mode support (optional) */
+@media (prefers-color-scheme: dark) {
+    .chart-box {
+        background: #2d3748;
+        color: #e2e8f0;
+    }
+    
+    .live-monitoring {
+        background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+        color: #e2e8f0;
+    }
+    
+    .stat-card {
+        background: #2d3748;
+        color: #e2e8f0;
+    }
+    
+    .stat-card .stat-label {
+        color: #a0aec0;
+    }
+    
+    .stat-card .stat-value {
+        color: #e2e8f0;
+    }
+}

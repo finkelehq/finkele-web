@@ -102,7 +102,46 @@
             <div class="container">
                 <h2 class="section-title">Real-Time <span class="gradient-text">Climate Analytics</span></h2>
                 <div id="dashboard-container" class="dashboard-container">
-                    <!-- Dashboard content loaded here -->
+                    <!-- Climate Charts Grid -->
+                    <div class="climate-charts-container">
+                        <div class="charts-grid">
+                            <div class="chart-box">
+                                <canvas id="temperatureChart"></canvas>
+                            </div>
+                            <div class="chart-box">
+                                <canvas id="co2Chart"></canvas>
+                            </div>
+                            <div class="chart-box">
+                                <canvas id="precipitationChart"></canvas>
+                            </div>
+                            <div class="chart-box">
+                                <canvas id="riskChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Live Climate Monitoring Stats -->
+                    <div class="live-monitoring">
+                        <h3>Live Climate Monitoring <span class="live-indicator">LIVE</span></h3>
+                        <div class="climate-stats">
+                            <div class="stat-card">
+                                <div class="stat-label">ESG Score</div>
+                                <div class="stat-value stat-number">73.2</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-label">Temperature</div>
+                                <div class="stat-value temp-value">+1.8°C</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-label">CO₂ Level</div>
+                                <div class="stat-value co2-value">421 ppm</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-label">Assets Protected</div>
+                                <div class="stat-value risk-value">87%</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <a href="dashboard.html" class="btn btn-primary">View Full Dashboard</a>
             </div>
@@ -162,10 +201,17 @@
             </div>
         </div>
     </footer>
+
+    <!-- Climate Charts External Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
     
     <!-- Scripts -->
     <script src="assets/js/main.js"></script>
     <script src="assets/js/animations.js"></script>
     <script src="assets/js/api-service.js"></script>
+
+    <!-- Climate Charts Scripts -->
+    <script src="assets/js/climate-charts.js"></script>
 </body>
 </html>

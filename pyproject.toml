@@ -1,0 +1,23 @@
+[project]
+name = "fnkl"
+version = "0.1.0"
+description = "Finkele"
+requires-python = ">=3.11"
+
+dependencies = [
+    "rasterio",
+    "geopandas",
+    "imageio",
+    "folium",
+    "numpy",
+    "pandas",
+    "matplotlib",
+    "leafmap",
+    "pyyaml",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pylint",
+    "pytest",
+]

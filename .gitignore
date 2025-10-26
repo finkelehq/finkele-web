@@ -181,3 +181,11 @@ yarn-error.log*
 /dist
 *.min.css
 *.min.js
+
+# Ignore data files (TIFFs can be large)
+data/*.tif
+data/*.tiff
+
+# Keep the output folder structure but ignore contents except .gitkeep
+data/output/*
+!data/output/.gitkeep

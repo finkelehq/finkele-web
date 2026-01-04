@@ -91,10 +91,6 @@ ipython_config.py
 # UV
 #uv.lock
 
-# poetry
-#poetry.lock
-#poetry.toml
-
 # pdm
 #pdm.lock
 #pdm.toml

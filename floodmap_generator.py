@@ -43,6 +43,7 @@ ASSETS = [
 ]
 BUILDING_VALUE = 1_000_000  # £ commercial building replacement cost
 DAMAGE_CSV = "public/data/flood_damage_csv.txt"
+EXTRAPOLATED_RPS = [1, 2, 5]  # short return periods estimated via log-linear fit
 
 # RdYlGn (Reversed) - Most Intuitive
 RISK_COLORS = {
@@ -223,7 +224,40 @@ def sample_asset_depths(tiffs, assets, return_periods):
                         if prev is None or coverage > prev[1]:
                             result[label][rp] = (mean_depth, coverage)
     return result
+
+
+def extrapolate_short_rps(asset_depths, known_rps, extrap_rps):
+    """Fit depth = a + b*ln(RP) and coverage = a + b*ln(RP) on the known
+    return-period data and extrapolate to shorter return periods.
+
+    Returns dict: {label: {rp: (est_depth_m, est_coverage_pct), ...}, ...}
+    Only populates entries where >= 2 known data points exist.
+    Negative extrapolations are clamped to 0.
+    """
+    result = {}
+    for label, depths in asset_depths.items():
+        result[label] = {}
+        rps, ds, covs = [], [], []
+        for rp in known_rps:
+            entry = depths.get(rp)
+            if entry and entry[0] > 0:
+                rps.append(rp)
+                ds.append(entry[0])
+                covs.append(entry[1])
+        if len(rps) < 2:
+            continue
+        log_rps = np.log(rps)
+        # Fit depth
+        b_d, a_d = np.polyfit(log_rps, ds, 1)
+        # Fit coverage
+        b_c, a_c = np.polyfit(log_rps, covs, 1)
+        for rp in extrap_rps:
+            est_d = max(0.0, a_d + b_d * np.log(rp))
+            est_c = max(0.0, min(100.0, a_c + b_c * np.log(rp)))
+            if est_d > 0:
+                result[label][rp] = (est_d, est_c)
     return result
+
 
 def add_legend(map_obj, title, cmap_name=None, vmin=0, vmax=1):
     cmap = plt.get_cmap(cmap_name, 256)
@@ -426,11 +460,54 @@ def main():
     # --- Add asset markers with financial damage info ---
     damage_curve = load_damage_curve(DAMAGE_CSV)
     asset_depths = sample_asset_depths(tiffs, ASSETS, RETURN_PERIODS)
+    extrap_depths = extrapolate_short_rps(asset_depths, RETURN_PERIODS, EXTRAPOLATED_RPS)
 
     for lat, lon, label, address in ASSETS:
         depths = asset_depths.get(label, {})
-        # Build damage table rows
+        extrap = extrap_depths.get(label, {})
+        # Build damage table rows — extrapolated short RPs first, then measured
         rows_html = ""
+        # Style constants
+        EST = 'font-style:italic;color:#7b7b7b;'  # extrapolated rows
+        EST_D = 'font-style:italic;color:#5a9bd5;'  # extrapolated depth
+        EST_DMG = 'font-style:italic;color:#d4796b;'  # extrapolated £
+
+        # --- Extrapolated rows (RP 1, 2, 5) ---
+        for rp in EXTRAPOLATED_RPS:
+            entry = extrap.get(rp)
+            if entry and entry[0] > 0:
+                d, cov = entry
+                pct = depth_to_damage_pct(d, damage_curve)
+                adj_pct = pct * cov / 100.0
+                dmg = BUILDING_VALUE * adj_pct / 100.0
+                rows_html += (
+                    f'<tr style="{EST}">'
+                    f'<td style="padding:2px 6px;">{rp} yr *</td>'
+                    f'<td style="padding:2px 6px;text-align:right;{EST_D}">{d:.3f} m</td>'
+                    f'<td style="padding:2px 6px;text-align:right;">{pct:.1f}%</td>'
+                    f'<td style="padding:2px 6px;text-align:right;">{cov:.0f}%</td>'
+                    f'<td style="padding:2px 6px;text-align:right;{EST_DMG}">£{dmg:,.0f}</td>'
+                    f'</tr>'
+                )
+            else:
+                rows_html += (
+                    f'<tr style="{EST}">'
+                    f'<td style="padding:2px 6px;">{rp} yr *</td>'
+                    f'<td style="padding:2px 6px;text-align:right;">—</td>'
+                    f'<td style="padding:2px 6px;text-align:right;">—</td>'
+                    f'<td style="padding:2px 6px;text-align:right;">—</td>'
+                    f'<td style="padding:2px 6px;text-align:right;">—</td>'
+                    f'</tr>'
+                )
+
+        # --- Separator between extrapolated and measured ---
+        rows_html += (
+            '<tr><td colspan="5" style="padding:0;">'
+            '<hr style="border:none;border-top:1px dashed #ccc;margin:2px 0;">'
+            '</td></tr>'
+        )
+
+        # --- Measured rows (RP 10–500) ---
         for rp in RETURN_PERIODS:
             entry = depths.get(rp)  # (mean_depth_m, coverage_pct) or None
             if entry and entry[0] > 0:
@@ -475,6 +552,7 @@ def main():
             f'</tr>'
             f'{rows_html}'
             f'</table>'
+            f'<div style="font-size:9px;color:#aaa;margin-top:4px;">* Estimated via log-linear extrapolation</div>'
             f'</div>'
         )
 

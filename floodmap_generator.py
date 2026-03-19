@@ -31,6 +31,15 @@ RETURN_PERIODS = [10, 20, 50, 100, 200, 500]
 RISK_BAND = 8
 HOVER_DOWNSAMPLE = 6  # Downsample raster by this factor for hover data grids
 
+# Asset locations (lat, lon, label, address)
+ASSETS = [
+    (52.2979, -2.0745, "Asset A", "4 Woden Court, Saxon Business Park, Hanbury Road, Bromsgrove, B60 4AD"),
+    (53.2621, -1.3464, "Asset B", "Prospect House, Colliery Close, Chesterfield, S43 3QE"),
+    (54.2339, -2.7179, "Asset C", "Units 5-7, Moss End Business Village, Crooklands, Milnthorpe, LA7 7NU"),
+    (53.4314, -2.3190, "Asset D", "183 Cross Street, Sale, M33 7JG"),
+    (52.3792,  0.7358, "Asset E", "Station Road, Barnham, Thetford, IP24 2PD"),
+]
+
 # RdYlGn (Reversed) - Most Intuitive
 RISK_COLORS = {
     1:  "#1a9850",  # dark green
@@ -333,6 +342,30 @@ def main():
     control = GroupedLayerControl(groups=groups, collapsed=False, exclusive_groups=False)
     control.add_to(fmap)
 
+    # --- Add asset markers ---
+    for lat, lon, label, address in ASSETS:
+        folium.CircleMarker(
+            location=[lat, lon],
+            radius=8,
+            color="#c0392b",
+            weight=2,
+            fill=True,
+            fill_color="#e74c3c",
+            fill_opacity=0.9,
+            tooltip=f"<b>{label}</b><br>{address}",
+        ).add_to(fmap)
+
+    # --- Collect region bounds for fly-to-region ---
+    region_bounds = {}
+    for path in tiffs:
+        rid = clean_region_name(path)
+        with rasterio.open(path) as src:
+            region_bounds[f"Region {rid}"] = [
+                [src.bounds.bottom, src.bounds.left],
+                [src.bounds.top, src.bounds.right],
+            ]
+    region_bounds_json = json.dumps(region_bounds, separators=(',', ':'))
+
     # --- Build flat hover lookup: list of {bounds, rows, cols, grid, unit, label} ---
     # Flatten all regions' layers into a single list for simpler JS lookup
     flat_hover = []
@@ -612,6 +645,7 @@ def main():
 
     <script>
     var _riskColors = {risk_colors_json};
+    var _regionBounds = {region_bounds_json};
     </script>
 
     <script>
@@ -622,6 +656,12 @@ def main():
         function setupLayerControl() {{
             var control = document.querySelector('.leaflet-control-layers-list');
             if (!control) {{ setTimeout(setupLayerControl, 500); return; }}
+
+            // Find Leaflet map object for fly-to
+            var mapObj = null;
+            for (var key in window) {{
+                try {{ if (window[key] instanceof L.Map) {{ mapObj = window[key]; break; }} }} catch(e) {{}}
+            }}
 
             // Force the control to stay expanded
             var wrapper = document.querySelector('.leaflet-control-layers');
@@ -678,7 +718,7 @@ def main():
                     }}
                 }});
 
-                // Click to toggle
+                // Click to toggle + fly to region
                 groupLabel.addEventListener('click', function(e) {{
                     e.preventDefault();
                     e.stopPropagation();
@@ -689,6 +729,15 @@ def main():
                     }} else {{
                         wrap.classList.add('open');
                         groupLabel.classList.add('expanded');
+                        // Fly to region bounds
+                        if (mapObj && _regionBounds) {{
+                            var nameSpan = groupLabel.querySelector('.leaflet-control-layers-group-name');
+                            var regionName = nameSpan ? nameSpan.textContent.trim() : '';
+                            var bounds = _regionBounds[regionName];
+                            if (bounds) {{
+                                mapObj.flyToBounds(bounds, {{ padding: [30, 30], maxZoom: 12, duration: 0.8 }});
+                            }}
+                        }}
                     }}
                 }});
             }});

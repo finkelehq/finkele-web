@@ -29,11 +29,11 @@ OUTPUT_HTML = "public/combined_flood_risk_map.html"
 
 RETURN_PERIODS = [10, 20, 50, 100, 200, 500]
 RISK_BAND = 8
-HOVER_DOWNSAMPLE = 12  # Downsample raster by this factor for hover data grids
+HOVER_DOWNSAMPLE = 6  # Downsample raster by this factor for hover data grids
 
 # RdYlGn (Reversed) - Most Intuitive
 RISK_COLORS = {
-#    1:  "#1a9850",  # dark green
+    1:  "#1a9850",  # dark green
     2:  "#66bd63",  # green
     3:  "#a6d96a",  # light green
     4:  "#d9ef8b",  # yellow-green
@@ -173,13 +173,48 @@ def add_discrete_legend(map_obj, title, colors_dict, valid_values=None, top=10, 
     map_obj.get_root().html.add_child(folium.Element(html))
 
 
-def downsample_band(band, factor):
-    """Downsample a 2D array by taking every `factor`-th pixel.
-    Returns a 2D list of rounded values (None for NaN)."""
-    small = band[::factor, ::factor]
+def downsample_band_mean(band, factor):
+    """Downsample a 2D array by computing the mean of valid (finite & >0)
+    pixels within each block.  Best for continuous data like flood depth.
+    Returns a 2D list of rounded floats (None for empty blocks)."""
+    rows, cols = band.shape
+    out_rows = rows // factor
+    out_cols = cols // factor
     result = []
-    for row in small:
-        result.append([round(float(v), 3) if np.isfinite(v) else None for v in row])
+    for r in range(out_rows):
+        row_out = []
+        for c in range(out_cols):
+            block = band[r*factor:(r+1)*factor, c*factor:(c+1)*factor]
+            valid = block[np.isfinite(block) & (block > 0)]
+            if valid.size == 0:
+                row_out.append(None)
+            else:
+                row_out.append(round(float(np.mean(valid)), 3))
+        result.append(row_out)
+    return result
+
+
+def downsample_band_mode(band, factor):
+    """Downsample a 2D array by computing the mode (most frequent value)
+    within each block. Best for categorical / discrete data like risk scores.
+    Returns a 2D list of int values (None for NaN-only blocks)."""
+    rows, cols = band.shape
+    out_rows = rows // factor
+    out_cols = cols // factor
+    result = []
+    for r in range(out_rows):
+        row_out = []
+        for c in range(out_cols):
+            block = band[r*factor:(r+1)*factor, c*factor:(c+1)*factor]
+            valid = block[np.isfinite(block) & (block > 0)]
+            if valid.size == 0:
+                row_out.append(None)
+            else:
+                # Find mode: most frequent integer value
+                rounded = np.round(valid).astype(int)
+                vals, counts = np.unique(rounded, return_counts=True)
+                row_out.append(int(vals[np.argmax(counts)]))
+        result.append(row_out)
     return result
 
 
@@ -222,8 +257,8 @@ def build_layers_for_region(fmap, tiff_path):
             layer.add_to(fmap)
             overlays.append(layer)
 
-            # Build hover grid for this band
-            small = downsample_band(band, HOVER_DOWNSAMPLE)
+            # Build hover grid for this band (block-mean for accuracy)
+            small = downsample_band_mean(band, HOVER_DOWNSAMPLE)
             hover_data[layer_name] = {
                 "bounds": bbox,
                 "rows": len(small),
@@ -247,7 +282,7 @@ def build_layers_for_region(fmap, tiff_path):
                 b_c = int(hex_color[5:7], 16)
                 mask_score = (risk_rounded == score) & ~np.isnan(risk)
                 rgba_risk[mask_score] = [r_c, g_c, b_c, 255]
-            risk_layer_name = "Flood Risk \u2192 Score (2\u201310)"
+            risk_layer_name = "Flood Risk \u2192 Score (1\u201310)"
             layer = folium.raster_layers.ImageOverlay(
                 image=rgba_risk,
                 bounds=[[src.bounds.bottom, src.bounds.left], [src.bounds.top, src.bounds.right]],
@@ -258,10 +293,10 @@ def build_layers_for_region(fmap, tiff_path):
             layer.add_to(fmap)
             overlays.append(layer)
 
-            # Build hover grid for risk (integer values, no division)
+            # Build hover grid for risk (integer values, block-mode for accuracy)
             risk_for_hover = src.read(RISK_BAND).astype(float)
             risk_for_hover[risk_for_hover == 0] = np.nan
-            small_risk = downsample_band(risk_for_hover, HOVER_DOWNSAMPLE)
+            small_risk = downsample_band_mode(risk_for_hover, HOVER_DOWNSAMPLE)
             hover_data[risk_layer_name] = {
                 "bounds": bbox,
                 "rows": len(small_risk),
@@ -336,7 +371,6 @@ def main():
     #floodTooltip .tt-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
     #floodTooltip .tt-label { color: #555; font-size: 11px; white-space: nowrap; }
     #floodTooltip .tt-value { color: #2166ac; font-weight: 700; font-size: 14px; }
-    #floodTooltip .tt-risk { color: #d73027; }
     #floodTooltip .tt-coords { color: #999; font-size: 10px; margin-top: 4px; border-top: 1px solid #eee; padding-top: 3px; }
     </style>
     <div id="floodTooltip"></div>
@@ -398,12 +432,21 @@ def main():
                     return;
                 }
                 var html = '';
+                var rc = window._riskColors || {};
                 for (var i = 0; i < results.length; i++) {
                     var r = results[i];
-                    var valStr = r.unit ? r.value.toFixed(2) + ' ' + r.unit : Math.round(r.value).toString();
-                    var cls = r.unit ? 'tt-value' : 'tt-value tt-risk';
+                    var valStr, style;
+                    if (r.unit) {
+                        valStr = r.value.toFixed(2) + ' ' + r.unit;
+                        style = '';
+                    } else {
+                        var score = Math.round(r.value);
+                        valStr = score.toString();
+                        var c = rc[score] || rc[String(score)] || '#d73027';
+                        style = ' style="color:' + c + '"';
+                    }
                     html += '<div class="tt-row"><span class="tt-label">' + r.label + '</span>'
-                          + '<span class="' + cls + '">' + valStr + '</span></div>';
+                          + '<span class="tt-value"' + style + '>' + valStr + '</span></div>';
                 }
                 html += '<div class="tt-coords">' + e.latlng.lat.toFixed(5) + ', ' + e.latlng.lng.toFixed(5) + '</div>';
                 tooltip.innerHTML = html;

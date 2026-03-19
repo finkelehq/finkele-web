@@ -11,6 +11,7 @@ import os
 import re
 import csv
 import json
+import math
 import base64
 from io import BytesIO
 import numpy as np
@@ -178,26 +179,50 @@ def depth_to_damage_pct(depth_m, curve):
 
 
 def sample_asset_depths(tiffs, assets, return_periods):
-    """For each asset, sample flood depth (band/100) at its exact raster pixel
-    across all return periods and all tiffs.
-    Returns dict: {asset_label: {rp: depth_m, ...}, ...}"""
-    result = {a[2]: {} for a in assets}  # keyed by label
+    """For each asset, sample a ~50 m radius grid of raster pixels to compute:
+      - mean flood depth (of flooded pixels only)
+      - flood coverage % (fraction of footprint pixels that are wet)
+    Returns dict: {label: {rp: (mean_depth_m, coverage_pct), ...}, ...}
+    """
+    RADIUS_M = 50  # approximate building footprint radius
+    result = {a[2]: {} for a in assets}
     for path in tiffs:
         with rasterio.open(path) as src:
             max_bands = min(src.count, 6)
+            res_x, res_y = src.res  # degrees per pixel
             for lat, lon, label, _addr in assets:
-                # Check if asset falls within this tiff's bounds
                 if not (src.bounds.left <= lon <= src.bounds.right and
                         src.bounds.bottom <= lat <= src.bounds.top):
                     continue
-                # Convert lat/lon to pixel row/col
-                row, col = src.index(lon, lat)
-                row = max(0, min(row, src.height - 1))
-                col = max(0, min(col, src.width - 1))
+                # Convert radius to pixel offsets
+                m_per_deg_lon = 111320 * math.cos(math.radians(lat))
+                m_per_deg_lat = 111320
+                r_cols = max(1, int(round(RADIUS_M / (res_x * m_per_deg_lon))))
+                r_rows = max(1, int(round(RADIUS_M / (abs(res_y) * m_per_deg_lat))))
+
+                c_row, c_col = src.index(lon, lat)
+                c_row = max(0, min(c_row, src.height - 1))
+                c_col = max(0, min(c_col, src.width - 1))
+
+                row_lo = max(0, c_row - r_rows)
+                row_hi = min(src.height, c_row + r_rows + 1)
+                col_lo = max(0, c_col - r_cols)
+                col_hi = min(src.width, c_col + r_cols + 1)
+
                 for i, rp in enumerate(return_periods[:max_bands], start=1):
-                    val = float(src.read(i)[row, col]) / 100.0
-                    if val > 0:
-                        result[label][rp] = val
+                    patch = src.read(i, window=rasterio.windows.Window.from_slices(
+                        (row_lo, row_hi), (col_lo, col_hi)
+                    )).astype(float) / 100.0  # cm → m
+                    total_px = patch.size
+                    wet_px = int(np.count_nonzero(patch > 0))
+                    if wet_px > 0:
+                        mean_depth = float(patch[patch > 0].mean())
+                        coverage = wet_px / total_px * 100.0
+                        # Keep the higher coverage if asset spans multiple tiffs
+                        prev = result[label].get(rp)
+                        if prev is None or coverage > prev[1]:
+                            result[label][rp] = (mean_depth, coverage)
+    return result
     return result
 
 def add_legend(map_obj, title, cmap_name=None, vmin=0, vmax=1):
@@ -407,15 +432,19 @@ def main():
         # Build damage table rows
         rows_html = ""
         for rp in RETURN_PERIODS:
-            d = depths.get(rp, 0.0)
-            if d > 0:
+            entry = depths.get(rp)  # (mean_depth_m, coverage_pct) or None
+            if entry and entry[0] > 0:
+                d, cov = entry
                 pct = depth_to_damage_pct(d, damage_curve)
-                dmg = BUILDING_VALUE * pct / 100.0
+                # Adjust damage by flood coverage fraction
+                adj_pct = pct * cov / 100.0
+                dmg = BUILDING_VALUE * adj_pct / 100.0
                 rows_html += (
                     f'<tr>'
                     f'<td style="padding:2px 6px;">{rp} yr</td>'
                     f'<td style="padding:2px 6px;text-align:right;color:#2166ac;font-weight:600;">{d:.2f} m</td>'
-                    f'<td style="padding:2px 6px;text-align:right;">{pct:.1f}%</td>'
+                    f'<td style="padding:2px 6px;text-align:right;">{cov:.0f}%</td>'
+                    f'<td style="padding:2px 6px;text-align:right;">{adj_pct:.1f}%</td>'
                     f'<td style="padding:2px 6px;text-align:right;color:#c0392b;font-weight:700;">£{dmg:,.0f}</td>'
                     f'</tr>'
                 )
@@ -426,11 +455,12 @@ def main():
                     f'<td style="padding:2px 6px;text-align:right;color:#999;">—</td>'
                     f'<td style="padding:2px 6px;text-align:right;color:#999;">—</td>'
                     f'<td style="padding:2px 6px;text-align:right;color:#999;">—</td>'
+                    f'<td style="padding:2px 6px;text-align:right;color:#999;">—</td>'
                     f'</tr>'
                 )
 
         tooltip_html = (
-            f'<div style="font-family:Inter,-apple-system,sans-serif;font-size:12px;min-width:280px;">'
+            f'<div style="font-family:Inter,-apple-system,sans-serif;font-size:12px;min-width:320px;">'
             f'<div style="font-size:14px;font-weight:700;color:#1a3a5c;margin-bottom:4px;">{label}</div>'
             f'<div style="color:#555;margin-bottom:6px;">{address}</div>'
             f'<div style="font-size:11px;color:#888;margin-bottom:3px;">'
@@ -439,7 +469,8 @@ def main():
             f'<tr style="border-bottom:1px solid #ddd;font-weight:600;color:#333;">'
             f'<td style="padding:3px 6px;">Return Period</td>'
             f'<td style="padding:3px 6px;text-align:right;">Depth</td>'
-            f'<td style="padding:3px 6px;text-align:right;">Damage</td>'
+            f'<td style="padding:3px 6px;text-align:right;">Coverage</td>'
+            f'<td style="padding:3px 6px;text-align:right;">Adj. Damage</td>'
             f'<td style="padding:3px 6px;text-align:right;">£ Impact</td>'
             f'</tr>'
             f'{rows_html}'

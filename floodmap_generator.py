@@ -237,15 +237,16 @@ def build_layers_for_region(fmap, tiff_path):
             risk = src.read(RISK_BAND).astype(float)
             risk[risk == 0] = np.nan
 
-            # Use a continuous colormap for risk scores 2-10
-            risk_cmap = plt.get_cmap("RdYlGn_r")  # Green(low) → Yellow(mid) → Red(high)
-            risk_min, risk_max = 2.0, 10.0
-            mask_risk = (risk >= risk_min) & (risk <= risk_max) & ~np.isnan(risk)
-            normed = np.zeros_like(risk)
-            normed[mask_risk] = (risk[mask_risk] - risk_min) / (risk_max - risk_min)  # 0..1
-
+            # Use discrete RISK_COLORS for each integer score 2-10
+            # Round to nearest int so float raster values (e.g. 2.0, 3.0) match dict keys
+            risk_rounded = np.round(risk)
             rgba_risk = np.zeros((*risk.shape, 4), dtype=np.uint8)
-            rgba_risk[mask_risk] = (risk_cmap(normed[mask_risk]) * 255).astype(np.uint8)
+            for score, hex_color in RISK_COLORS.items():
+                r_c = int(hex_color[1:3], 16)
+                g_c = int(hex_color[3:5], 16)
+                b_c = int(hex_color[5:7], 16)
+                mask_score = (risk_rounded == score) & ~np.isnan(risk)
+                rgba_risk[mask_score] = [r_c, g_c, b_c, 255]
             risk_layer_name = "Flood Risk \u2192 Score (2\u201310)"
             layer = folium.raster_layers.ImageOverlay(
                 image=rgba_risk,
@@ -293,8 +294,6 @@ def main():
         region_id, layers, hover_data = build_layers_for_region(fmap, path)
         groups[f"Region {region_id}"] = layers
         all_hover_data[f"Region {region_id}"] = hover_data
-
-    add_legend(fmap, "Flood Depth (m, log scale)", cmap_name="Blues", vmin=0.01, vmax=5)
 
     control = GroupedLayerControl(groups=groups, collapsed=False, exclusive_groups=False)
     control.add_to(fmap)
@@ -434,6 +433,12 @@ def main():
 
     # --- Restyle the GroupedLayerControl + collapsible regions ---
     risk_colors_json = json.dumps(RISK_COLORS, separators=(',', ':'))
+
+    # Build discrete risk legend items HTML
+    risk_legend_items = "\n      ".join(
+        f'<div class="rl-item"><span class="rl-swatch" style="background:{color}"></span>{score}</div>'
+        for score, color in sorted(RISK_COLORS.items())
+    )
 
     js = f"""
     <style>
@@ -650,6 +655,59 @@ def main():
 
         if (document.readyState === 'complete') {{ setTimeout(setupLayerControl, 1500); }}
         else {{ window.addEventListener('load', function() {{ setTimeout(setupLayerControl, 1500); }}); }}
+    }})();
+    </script>
+
+    <!-- Discrete Risk Score Legend (top-left, hidden by default) -->
+    <style>
+    #riskLegend {{
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        z-index: 10000;
+        background: rgba(255,255,255,0.95);
+        border-radius: 10px;
+        padding: 10px 14px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+        font-family: 'Inter', -apple-system, sans-serif;
+        font-size: 12px;
+        display: none;
+        line-height: 1.6;
+    }}
+    #riskLegend b {{ color: #1a3a5c; font-size: 13px; }}
+    .rl-item {{ display: flex; align-items: center; gap: 8px; }}
+    .rl-swatch {{ width: 18px; height: 14px; border-radius: 3px; border: 1px solid rgba(0,0,0,0.1); }}
+    </style>
+    <div id="riskLegend">
+      <b>Flood Risk Score</b>
+      {risk_legend_items}
+    </div>
+
+    <script>
+    (function() {{
+        function setupRiskLegendToggle() {{
+            var legend = document.getElementById('riskLegend');
+            if (!legend) return;
+            var labels = document.querySelectorAll('.leaflet-control-layers-group label');
+            labels.forEach(function(label) {{
+                // Check ALL spans (the first may be a color swatch with no text)
+                var spans = label.querySelectorAll('span');
+                var hasRisk = false;
+                spans.forEach(function(s) {{
+                    if (s.textContent.trim().indexOf('Risk') !== -1) hasRisk = true;
+                }});
+                if (hasRisk) {{
+                    var cb = label.querySelector('input[type="checkbox"]');
+                    if (cb) {{
+                        cb.addEventListener('change', function() {{
+                            legend.style.display = cb.checked ? 'block' : 'none';
+                        }});
+                    }}
+                }}
+            }});
+        }}
+        if (document.readyState === 'complete') {{ setTimeout(setupRiskLegendToggle, 2000); }}
+        else {{ window.addEventListener('load', function() {{ setTimeout(setupRiskLegendToggle, 2000); }}); }}
     }})();
     </script>
     """

@@ -472,7 +472,8 @@ def main():
         EST_D = 'font-style:italic;color:#5a9bd5;'  # extrapolated depth
         EST_DMG = 'font-style:italic;color:#d4796b;'  # extrapolated £
 
-        # --- Extrapolated rows (RP 1, 2, 5) ---
+        # --- Extrapolated rows (RP 1, 2, 5) — only include rows with data ---
+        extrap_rows = ""
         for rp in EXTRAPOLATED_RPS:
             entry = extrap.get(rp)
             if entry and entry[0] > 0:
@@ -480,7 +481,7 @@ def main():
                 pct = depth_to_damage_pct(d, damage_curve)
                 adj_pct = pct * cov / 100.0
                 dmg = BUILDING_VALUE * adj_pct / 100.0
-                rows_html += (
+                extrap_rows += (
                     f'<tr style="{EST}">'
                     f'<td style="padding:2px 6px;">{rp} yr *</td>'
                     f'<td style="padding:2px 6px;text-align:right;{EST_D}">{d:.3f} m</td>'
@@ -489,23 +490,15 @@ def main():
                     f'<td style="padding:2px 6px;text-align:right;{EST_DMG}">£{dmg:,.0f}</td>'
                     f'</tr>'
                 )
-            else:
-                rows_html += (
-                    f'<tr style="{EST}">'
-                    f'<td style="padding:2px 6px;">{rp} yr *</td>'
-                    f'<td style="padding:2px 6px;text-align:right;">—</td>'
-                    f'<td style="padding:2px 6px;text-align:right;">—</td>'
-                    f'<td style="padding:2px 6px;text-align:right;">—</td>'
-                    f'<td style="padding:2px 6px;text-align:right;">—</td>'
-                    f'</tr>'
-                )
 
-        # --- Separator between extrapolated and measured ---
-        rows_html += (
-            '<tr><td colspan="5" style="padding:0;">'
-            '<hr style="border:none;border-top:1px dashed #ccc;margin:2px 0;">'
-            '</td></tr>'
-        )
+        # Add extrapolated rows + separator only if there are any
+        if extrap_rows:
+            rows_html += extrap_rows
+            rows_html += (
+                '<tr><td colspan="5" style="padding:0;">'
+                '<hr style="border:none;border-top:1px dashed #ccc;margin:2px 0;">'
+                '</td></tr>'
+            )
 
         # --- Measured rows (RP 10–500) ---
         for rp in RETURN_PERIODS:
@@ -756,17 +749,23 @@ def main():
                     var dy = e.containerPoint.y - pt.y;
                     if (dx*dx + dy*dy < 900) { nearAsset = true; break; }  // 30px radius
                 }
-                // Position: left of cursor near asset, right otherwise
+                // Position: above cursor near asset, right otherwise
                 var tw = tooltip.offsetWidth || 260;
-                var x, y = e.originalEvent.clientY + 16;
+                var th = tooltip.offsetHeight || 150;
+                var x, y;
                 if (nearAsset) {
-                    x = e.originalEvent.clientX - tw - 20;
-                    if (x < 0) x = e.originalEvent.clientX + 16;
+                    // Place above cursor, horizontally centred on cursor
+                    x = e.originalEvent.clientX - tw / 2;
+                    y = e.originalEvent.clientY - th - 20;
+                    if (x < 4) x = 4;
+                    if (x + tw + 4 > window.innerWidth) x = window.innerWidth - tw - 4;
+                    if (y < 4) y = e.originalEvent.clientY + 20;   // flip below if no room
                 } else {
                     x = e.originalEvent.clientX + 16;
+                    y = e.originalEvent.clientY + 16;
                     if (x + tw + 10 > window.innerWidth) x = e.originalEvent.clientX - tw - 16;
                 }
-                if (y + 150 > window.innerHeight) y = e.originalEvent.clientY - 150;
+                if (y + th + 10 > window.innerHeight) y = e.originalEvent.clientY - th - 16;
                 tooltip.style.left = x + 'px';
                 tooltip.style.top = y + 'px';
             });

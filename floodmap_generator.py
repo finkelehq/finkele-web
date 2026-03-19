@@ -552,7 +552,6 @@ def main():
             f'</tr>'
             f'{rows_html}'
             f'</table>'
-            f'<div style="font-size:9px;color:#aaa;margin-top:4px;">* Estimated via log-linear extrapolation</div>'
             f'</div>'
         )
 

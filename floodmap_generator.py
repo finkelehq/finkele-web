@@ -9,6 +9,7 @@ __version__ = "2.4.0"
 
 import os
 import re
+import csv
 import json
 import base64
 from io import BytesIO
@@ -39,6 +40,8 @@ ASSETS = [
     (53.4314, -2.3190, "Asset D", "183 Cross Street, Sale, M33 7JG"),
     (52.3792,  0.7358, "Asset E", "Station Road, Barnham, Thetford, IP24 2PD"),
 ]
+BUILDING_VALUE = 1_000_000  # £ commercial building replacement cost
+DAMAGE_CSV = "public/data/flood_damage_csv.txt"
 
 # RdYlGn (Reversed) - Most Intuitive
 RISK_COLORS = {
@@ -143,6 +146,59 @@ def clean_region_name(filename: str) -> str:
         return f"x{x}y{y}"
     return os.path.splitext(base)[0]
 
+def load_damage_curve(csv_path):
+    """Load the depth-to-damage-% curve from CSV.
+    Returns sorted list of (depth_m, commercial_pct) tuples."""
+    curve = []
+    with open(csv_path, newline="") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            depth = float(row["depth_m"])
+            pct = float(row["mcm_commercial_pct"])  # MCM commercial model
+            curve.append((depth, pct))
+    curve.sort(key=lambda x: x[0])
+    return curve
+
+
+def depth_to_damage_pct(depth_m, curve):
+    """Linearly interpolate damage % for a given depth using the damage curve."""
+    if depth_m <= 0 or np.isnan(depth_m):
+        return 0.0
+    if depth_m <= curve[0][0]:
+        return curve[0][1]
+    if depth_m >= curve[-1][0]:
+        return curve[-1][1]
+    for i in range(len(curve) - 1):
+        d0, p0 = curve[i]
+        d1, p1 = curve[i + 1]
+        if d0 <= depth_m <= d1:
+            t = (depth_m - d0) / (d1 - d0) if d1 != d0 else 0
+            return p0 + t * (p1 - p0)
+    return curve[-1][1]
+
+
+def sample_asset_depths(tiffs, assets, return_periods):
+    """For each asset, sample flood depth (band/100) at its exact raster pixel
+    across all return periods and all tiffs.
+    Returns dict: {asset_label: {rp: depth_m, ...}, ...}"""
+    result = {a[2]: {} for a in assets}  # keyed by label
+    for path in tiffs:
+        with rasterio.open(path) as src:
+            max_bands = min(src.count, 6)
+            for lat, lon, label, _addr in assets:
+                # Check if asset falls within this tiff's bounds
+                if not (src.bounds.left <= lon <= src.bounds.right and
+                        src.bounds.bottom <= lat <= src.bounds.top):
+                    continue
+                # Convert lat/lon to pixel row/col
+                row, col = src.index(lon, lat)
+                row = max(0, min(row, src.height - 1))
+                col = max(0, min(col, src.width - 1))
+                for i, rp in enumerate(return_periods[:max_bands], start=1):
+                    val = float(src.read(i)[row, col]) / 100.0
+                    if val > 0:
+                        result[label][rp] = val
+    return result
 
 def add_legend(map_obj, title, cmap_name=None, vmin=0, vmax=1):
     cmap = plt.get_cmap(cmap_name, 256)
@@ -342,8 +398,55 @@ def main():
     control = GroupedLayerControl(groups=groups, collapsed=False, exclusive_groups=False)
     control.add_to(fmap)
 
-    # --- Add asset markers ---
+    # --- Add asset markers with financial damage info ---
+    damage_curve = load_damage_curve(DAMAGE_CSV)
+    asset_depths = sample_asset_depths(tiffs, ASSETS, RETURN_PERIODS)
+
     for lat, lon, label, address in ASSETS:
+        depths = asset_depths.get(label, {})
+        # Build damage table rows
+        rows_html = ""
+        for rp in RETURN_PERIODS:
+            d = depths.get(rp, 0.0)
+            if d > 0:
+                pct = depth_to_damage_pct(d, damage_curve)
+                dmg = BUILDING_VALUE * pct / 100.0
+                rows_html += (
+                    f'<tr>'
+                    f'<td style="padding:2px 6px;">{rp} yr</td>'
+                    f'<td style="padding:2px 6px;text-align:right;color:#2166ac;font-weight:600;">{d:.2f} m</td>'
+                    f'<td style="padding:2px 6px;text-align:right;">{pct:.1f}%</td>'
+                    f'<td style="padding:2px 6px;text-align:right;color:#c0392b;font-weight:700;">£{dmg:,.0f}</td>'
+                    f'</tr>'
+                )
+            else:
+                rows_html += (
+                    f'<tr>'
+                    f'<td style="padding:2px 6px;">{rp} yr</td>'
+                    f'<td style="padding:2px 6px;text-align:right;color:#999;">—</td>'
+                    f'<td style="padding:2px 6px;text-align:right;color:#999;">—</td>'
+                    f'<td style="padding:2px 6px;text-align:right;color:#999;">—</td>'
+                    f'</tr>'
+                )
+
+        tooltip_html = (
+            f'<div style="font-family:Inter,-apple-system,sans-serif;font-size:12px;min-width:280px;">'
+            f'<div style="font-size:14px;font-weight:700;color:#1a3a5c;margin-bottom:4px;">{label}</div>'
+            f'<div style="color:#555;margin-bottom:6px;">{address}</div>'
+            f'<div style="font-size:11px;color:#888;margin-bottom:3px;">'
+            f'Building value: £{BUILDING_VALUE:,.0f} (MCM commercial)</div>'
+            f'<table style="border-collapse:collapse;width:100%;font-size:11px;">'
+            f'<tr style="border-bottom:1px solid #ddd;font-weight:600;color:#333;">'
+            f'<td style="padding:3px 6px;">Return Period</td>'
+            f'<td style="padding:3px 6px;text-align:right;">Depth</td>'
+            f'<td style="padding:3px 6px;text-align:right;">Damage</td>'
+            f'<td style="padding:3px 6px;text-align:right;">£ Impact</td>'
+            f'</tr>'
+            f'{rows_html}'
+            f'</table>'
+            f'</div>'
+        )
+
         folium.CircleMarker(
             location=[lat, lon],
             radius=8,
@@ -352,7 +455,7 @@ def main():
             fill=True,
             fill_color="#e74c3c",
             fill_opacity=0.9,
-            tooltip=f"<b>{label}</b><br>{address}",
+            tooltip=folium.Tooltip(tooltip_html, sticky=True),
         ).add_to(fmap)
 
     # --- Collect region bounds for fly-to-region ---
@@ -374,9 +477,13 @@ def main():
             flat_hover.append(ld)
 
     hover_json = json.dumps(flat_hover, separators=(',', ':'))
+    asset_coords_json = json.dumps(
+        [[lat, lon] for lat, lon, *_ in ASSETS], separators=(',', ':')
+    )
     hover_data_js = f"""
     <script>
     var _hoverGrids = {hover_json};
+    var _assetCoords = {asset_coords_json};
     </script>
     """
     fmap.get_root().html.add_child(folium.Element(hover_data_js))
@@ -423,6 +530,42 @@ def main():
             var tooltip = document.getElementById('floodTooltip');
             var grids = window._hoverGrids;
             if (!grids || grids.length === 0) { console.warn('No hover grids'); return; }
+
+            // --- Elevation lookup via Open-Meteo (free, no key) ---
+            var _elevCache = {};    // "lat,lng" → elevation (m)
+            var _elevPending = {};  // in-flight keys
+            var _lastElevKey = '';
+            var _elevTimer = null;
+
+            function fetchElevation(lat, lng) {
+                // Round to ~11 m precision to limit unique requests
+                var rlat = Math.round(lat * 10000) / 10000;
+                var rlng = Math.round(lng * 10000) / 10000;
+                var key = rlat + ',' + rlng;
+                _lastElevKey = key;
+                if (_elevCache.hasOwnProperty(key)) return;  // already cached
+                if (_elevPending[key]) return;                // request in-flight
+                _elevPending[key] = true;
+                if (_elevTimer) clearTimeout(_elevTimer);
+                _elevTimer = setTimeout(function() {
+                    var url = 'https://api.open-meteo.com/v1/elevation?latitude=' + rlat + '&longitude=' + rlng;
+                    fetch(url).then(function(r){ return r.json(); }).then(function(d){
+                        if (d && d.elevation && d.elevation.length) {
+                            _elevCache[key] = d.elevation[0];
+                        }
+                        delete _elevPending[key];
+                        // Update tooltip if cursor still near same spot
+                        if (_lastElevKey === key) { updateElevInTooltip(key); }
+                    }).catch(function(){ delete _elevPending[key]; });
+                }, 150);  // 150ms debounce
+            }
+
+            function updateElevInTooltip(key) {
+                var el = document.getElementById('ttElev');
+                if (el && _elevCache.hasOwnProperty(key)) {
+                    el.textContent = _elevCache[key].toFixed(1) + ' m';
+                }
+            }
 
             function lookupAll(lat, lng) {
                 var results = [];
@@ -481,13 +624,40 @@ def main():
                     html += '<div class="tt-row"><span class="tt-label">' + r.label + '</span>'
                           + '<span class="tt-value"' + style + '>' + valStr + '</span></div>';
                 }
-                html += '<div class="tt-coords">' + e.latlng.lat.toFixed(5) + ', ' + e.latlng.lng.toFixed(5) + '</div>';
+                html += '<div class="tt-coords">' + e.latlng.lat.toFixed(5) + ', ' + e.latlng.lng.toFixed(5)
+                      + '&nbsp;&nbsp;&#9650; <span id="ttElev">…</span>'
+                      + '</div>';
                 tooltip.innerHTML = html;
                 tooltip.style.display = 'block';
-                // Position near cursor but keep on screen
-                var x = e.originalEvent.clientX + 16;
-                var y = e.originalEvent.clientY + 16;
-                if (x + 270 > window.innerWidth) x = e.originalEvent.clientX - 270;
+                // Kick off elevation fetch (debounced + cached)
+                fetchElevation(e.latlng.lat, e.latlng.lng);
+                // Show cached elevation immediately if available
+                var rlat = Math.round(e.latlng.lat * 10000) / 10000;
+                var rlng = Math.round(e.latlng.lng * 10000) / 10000;
+                var ek = rlat + ',' + rlng;
+                if (_elevCache.hasOwnProperty(ek)) {
+                    var el = document.getElementById('ttElev');
+                    if (el) el.textContent = _elevCache[ek].toFixed(1) + ' m';
+                }
+                // Check proximity to any asset marker (pixel distance)
+                var nearAsset = false;
+                var assets = window._assetCoords || [];
+                for (var a = 0; a < assets.length; a++) {
+                    var pt = mapObj.latLngToContainerPoint(L.latLng(assets[a][0], assets[a][1]));
+                    var dx = e.containerPoint.x - pt.x;
+                    var dy = e.containerPoint.y - pt.y;
+                    if (dx*dx + dy*dy < 900) { nearAsset = true; break; }  // 30px radius
+                }
+                // Position: left of cursor near asset, right otherwise
+                var tw = tooltip.offsetWidth || 260;
+                var x, y = e.originalEvent.clientY + 16;
+                if (nearAsset) {
+                    x = e.originalEvent.clientX - tw - 20;
+                    if (x < 0) x = e.originalEvent.clientX + 16;
+                } else {
+                    x = e.originalEvent.clientX + 16;
+                    if (x + tw + 10 > window.innerWidth) x = e.originalEvent.clientX - tw - 16;
+                }
                 if (y + 150 > window.innerHeight) y = e.originalEvent.clientY - 150;
                 tooltip.style.left = x + 'px';
                 tooltip.style.top = y + 'px';

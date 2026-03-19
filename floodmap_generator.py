@@ -606,7 +606,7 @@ def main():
         font-family: 'Inter', -apple-system, sans-serif;
         box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         display: none;
-        max-width: 260px;
+        max-width: 340px;
         line-height: 1.5;
     }
     #floodTooltip .tt-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
@@ -750,7 +750,7 @@ def main():
                     if (dx*dx + dy*dy < 900) { nearAsset = true; break; }  // 30px radius
                 }
                 // Position: above cursor near asset, right otherwise
-                var tw = tooltip.offsetWidth || 260;
+                var tw = tooltip.offsetWidth || 340;
                 var th = tooltip.offsetHeight || 150;
                 var x, y;
                 if (nearAsset) {

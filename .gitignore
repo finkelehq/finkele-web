@@ -168,6 +168,9 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 
+# StatiCrypt
+.staticrypt.json
+
 # Build and dependencies
 node_modules
 npm-debug.log*

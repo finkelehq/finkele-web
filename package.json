@@ -11,7 +11,8 @@
     "watch": "npm-run-all --parallel watch:*",
     "watch:css": "postcss assets/css/style.css -o assets/css/style.min.css --watch",
     "watch:js": "terser assets/js/main.js -o assets/js/main.min.js --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "encrypt": "staticrypt public/floodmap.html public/combined_flood_risk_map.html -d public --remember 30 --short --template-title 'Finkele Flood Map' --template-button 'Access Map' --template-instructions 'Enter the password to view the flood risk map.' --template-color-primary '#2166ac' --template-color-secondary '#1a3a5c' --template-placeholder 'Password'"
   },
   "keywords": [
     "climate",
@@ -32,7 +33,8 @@
     "terser": "^5.24.0"
   },
   "dependencies": {
-    "chart.js": "^4.4.0"
+    "chart.js": "^4.4.0",
+    "staticrypt": "^3.5.4"
   },
   "repository": {
     "type": "git",

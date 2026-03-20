@@ -740,7 +740,7 @@ def main():
                     var el = document.getElementById('ttElev');
                     if (el) el.textContent = _elevCache[ek].toFixed(1) + ' m';
                 }
-                // Check proximity to any asset marker (pixel distance)
+                // Hide flood tooltip near asset markers (asset tooltip already shows depth/damage)
                 var nearAsset = false;
                 var assets = window._assetCoords || [];
                 for (var a = 0; a < assets.length; a++) {
@@ -749,22 +749,16 @@ def main():
                     var dy = e.containerPoint.y - pt.y;
                     if (dx*dx + dy*dy < 900) { nearAsset = true; break; }  // 30px radius
                 }
-                // Position: above cursor near asset, right otherwise
+                if (nearAsset) {
+                    tooltip.style.display = 'none';
+                    return;
+                }
+                // Position to the right of cursor, flip left if near edge
                 var tw = tooltip.offsetWidth || 340;
                 var th = tooltip.offsetHeight || 150;
-                var x, y;
-                if (nearAsset) {
-                    // Place above cursor, horizontally centred on cursor
-                    x = e.originalEvent.clientX - tw / 2;
-                    y = e.originalEvent.clientY - th - 20;
-                    if (x < 4) x = 4;
-                    if (x + tw + 4 > window.innerWidth) x = window.innerWidth - tw - 4;
-                    if (y < 4) y = e.originalEvent.clientY + 20;   // flip below if no room
-                } else {
-                    x = e.originalEvent.clientX + 16;
-                    y = e.originalEvent.clientY + 16;
-                    if (x + tw + 10 > window.innerWidth) x = e.originalEvent.clientX - tw - 16;
-                }
+                var x = e.originalEvent.clientX + 16;
+                var y = e.originalEvent.clientY + 16;
+                if (x + tw + 10 > window.innerWidth) x = e.originalEvent.clientX - tw - 16;
                 if (y + th + 10 > window.innerHeight) y = e.originalEvent.clientY - th - 16;
                 tooltip.style.left = x + 'px';
                 tooltip.style.top = y + 'px';

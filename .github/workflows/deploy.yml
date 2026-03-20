@@ -28,6 +28,29 @@ jobs:
           npm install -g markdown-link-check
           markdown-link-check README.md --config .github/link-check-config.json || echo "Link check completed with warnings"
 
+      # Encrypt flood map pages with StatiCrypt (client-side AES-256)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Encrypt protected pages
+        run: |
+          npx staticrypt public/floodmap.html public/combined_flood_risk_map.html \
+            -p "${{ secrets.STATICRYPT_PASSWORD }}" \
+            -d public \
+            --remember 30 \
+            --short \
+            --template-title "Finkele Flood Map" \
+            --template-button "Access Map" \
+            --template-instructions "Enter the password to view the flood risk map." \
+            --template-color-primary "#2166ac" \
+            --template-color-secondary "#1a3a5c" \
+            --template-placeholder "Password"
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:

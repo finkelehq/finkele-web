@@ -581,6 +581,24 @@ def main():
     ).add_to(fmap)
 
     folium.TileLayer(
+        tiles="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+        attr='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        name="_basemap_dark",
+        max_zoom=20,
+        subdomains="abcd",
+    ).add_to(fmap)
+
+    # Hybrid labels overlay (paired with satellite imagery layer for hybrid mode)
+    # CartoDB Voyager Only Labels — roads, places, water, POIs
+    folium.TileLayer(
+        tiles="https://{s}.basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}{r}.png",
+        attr='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+        name="_basemap_hybrid_labels",
+        max_zoom=21,
+        subdomains="abcd",
+    ).add_to(fmap)
+
+    folium.TileLayer(
         tiles="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
         attr='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         name="_basemap_osm",
@@ -1269,14 +1287,19 @@ def main():
 
         // Map URL fragments to basemap keys (order matters — more specific first)
         var _urlToKey = [
+            ['voyager_only_labels', 'hybrid_labels'],
             ['rastertiles/voyager', 'street'],
             ['World_Topo_Map', 'topo'],
             ['World_Imagery', 'satellite'],
             ['opentopomap.org', 'terrain'],
             ['World_Hillshade', 'hillshade'],
+            ['dark_all', 'dark'],
             ['api.mapbox.com', 'mapbox'],
             ['tile.openstreetmap.org', 'osm']
         ];
+
+        // Hybrid uses two layers: satellite base + labels overlay
+        var _hybridKeys = ['satellite', 'hybrid_labels'];
 
         function initBasemaps() {
             // Find the Leaflet map object
@@ -1316,13 +1339,28 @@ def main():
         }
 
         window.switchBasemap = function(name) {
-            if (!_mapObj || !_basemapLayers[name]) return;
-            if (_activeBasemap && _basemapLayers[_activeBasemap]) {
+            if (!_mapObj) return;
+            // Remove current basemap layer(s)
+            if (_activeBasemap === 'hybrid') {
+                // Hybrid = satellite + labels
+                for (var h = 0; h < _hybridKeys.length; h++) {
+                    if (_basemapLayers[_hybridKeys[h]]) _mapObj.removeLayer(_basemapLayers[_hybridKeys[h]]);
+                }
+            } else if (_activeBasemap && _basemapLayers[_activeBasemap]) {
                 _mapObj.removeLayer(_basemapLayers[_activeBasemap]);
             }
-            _basemapLayers[name].addTo(_mapObj);
-            // Ensure basemap is below overlays
-            _basemapLayers[name].bringToBack();
+            // Add new basemap layer(s)
+            if (name === 'hybrid') {
+                for (var h = 0; h < _hybridKeys.length; h++) {
+                    if (_basemapLayers[_hybridKeys[h]]) {
+                        _basemapLayers[_hybridKeys[h]].addTo(_mapObj);
+                        _basemapLayers[_hybridKeys[h]].bringToBack();
+                    }
+                }
+            } else if (_basemapLayers[name]) {
+                _basemapLayers[name].addTo(_mapObj);
+                _basemapLayers[name].bringToBack();
+            }
             _activeBasemap = name;
         };
 

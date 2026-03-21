@@ -49,6 +49,7 @@ BUILDING_VALUE = 1_000_000  # £ commercial building replacement cost
 DAMAGE_CSV = "public/data/flood_damage_csv.txt"
 EXTRAPOLATED_RPS = [1, 2, 5]  # short return periods estimated via log-linear fit
 MAPBOX_TOKEN = os.environ.get("MAPBOX_TOKEN", "")
+OS_API_KEY = os.environ.get("OS_API_KEY", "")
 
 # EA LIDAR DTM 1m elevation data (EPSG:27700 British National Grid)
 LIDAR_DIR = os.path.join(INPUT_DIR, "lidar")
@@ -586,6 +587,30 @@ def main():
         name="_basemap_dark",
         max_zoom=20,
         subdomains="abcd",
+    ).add_to(fmap)
+
+    # Ordnance Survey Outdoor — detailed UK topographic map (free tier: zoom ≤16)
+    folium.TileLayer(
+        tiles="https://api.os.uk/maps/raster/v1/zxy/Outdoor_3857/{z}/{x}/{y}.png?key=__OS_API_KEY__",
+        attr='&copy; <a href="https://www.ordnancesurvey.co.uk/">Ordnance Survey</a> Crown copyright',
+        name="_basemap_os_outdoor",
+        max_zoom=16,
+    ).add_to(fmap)
+
+    # Google Maps Road
+    folium.TileLayer(
+        tiles="https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
+        attr='&copy; <a href="https://www.google.com/maps">Google</a>',
+        name="_basemap_google",
+        max_zoom=22,
+    ).add_to(fmap)
+
+    # Google Satellite
+    folium.TileLayer(
+        tiles="https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
+        attr='&copy; <a href="https://www.google.com/maps">Google</a>',
+        name="_basemap_google_sat",
+        max_zoom=22,
     ).add_to(fmap)
 
     # Hybrid labels overlay (paired with satellite imagery layer for hybrid mode)
@@ -1294,12 +1319,24 @@ def main():
             ['opentopomap.org', 'terrain'],
             ['World_Hillshade', 'hillshade'],
             ['dark_all', 'dark'],
+            ['api.os.uk', 'os_outdoor'],
+            ['lyrs=m', 'google'],
+            ['lyrs=s', 'google_sat'],
             ['api.mapbox.com', 'mapbox'],
             ['tile.openstreetmap.org', 'osm']
         ];
 
         // Hybrid uses two layers: satellite base + labels overlay
         var _hybridKeys = ['satellite', 'hybrid_labels'];
+
+        // Max zoom per basemap (clamp map zoom when switching)
+        var _basemapMaxZoom = {
+            street: 20, osm: 19, mapbox: 22, os_outdoor: 16,
+            google: 22, google_sat: 22,
+            topo: 19, satellite: 21, hybrid: 21, terrain: 17,
+            hillshade: 16, dark: 20
+        };
+        var _defaultMaxZoom = 22;
 
         function initBasemaps() {
             // Find the Leaflet map object
@@ -1314,12 +1351,19 @@ def main():
             try { mbToken = new URLSearchParams(window.location.search).get('mbtoken') || ''; } catch(e){}
             if (!mbToken) { try { mbToken = window.parent._mapboxToken || ''; } catch(e){} }
 
+            // Inject OS API key at runtime
+            var osKey = '';
+            try { osKey = window.parent._osApiKey || ''; } catch(e){}
+
             // Collect basemap tile layers by matching URL patterns
             _mapObj.eachLayer(function(layer) {
                 if (layer._url) {
                     // Replace placeholder with real token
                     if (mbToken && layer._url.indexOf('__MAPBOX_TOKEN__') !== -1) {
                         layer.setUrl(layer._url.replace('__MAPBOX_TOKEN__', mbToken));
+                    }
+                    if (osKey && layer._url.indexOf('__OS_API_KEY__') !== -1) {
+                        layer.setUrl(layer._url.replace('__OS_API_KEY__', osKey));
                     }
                     for (var i = 0; i < _urlToKey.length; i++) {
                         if (layer._url.indexOf(_urlToKey[i][0]) !== -1) {
@@ -1362,6 +1406,10 @@ def main():
                 _basemapLayers[name].bringToBack();
             }
             _activeBasemap = name;
+            // Clamp map zoom to this basemap's max tile level
+            var mz = _basemapMaxZoom[name] || _defaultMaxZoom;
+            _mapObj.setMaxZoom(mz);
+            if (_mapObj.getZoom() > mz) _mapObj.setZoom(mz);
         };
 
         window.getActiveBasemap = function() {

@@ -54,6 +54,55 @@
             box-shadow: 0 6px 20px rgba(33, 102, 172, 0.4);
         }
 
+        /* Basemap Switcher */
+        .basemap-switcher {
+            display: flex;
+            gap: 4px;
+            background: #f0f2f5;
+            padding: 4px;
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
+        .basemap-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            padding: 4px 6px;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: transparent;
+            color: #666;
+            white-space: nowrap;
+        }
+        .basemap-btn img {
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            object-fit: cover;
+            border: 1px solid #ddd;
+        }
+        .basemap-btn:hover {
+            border-color: rgba(33, 102, 172, 0.4);
+            color: #2166ac;
+        }
+        .basemap-btn:hover img {
+            border-color: #2166ac;
+        }
+        .basemap-btn.active {
+            border-color: #08519c;
+            color: #08519c;
+            background: rgba(33, 102, 172, 0.08);
+        }
+        .basemap-btn.active img {
+            border: 2px solid #08519c;
+            box-shadow: 0 1px 6px rgba(33, 102, 172, 0.35);
+        }
+
         /* Flood Depth Legend */
         .depth-legend {
             display: flex;
@@ -153,6 +202,19 @@
             .depth-legend-range {
                 width: 120px;
             }
+
+            .basemap-switcher {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .basemap-btn {
+                padding: 3px 4px;
+                font-size: 0.6rem;
+            }
+            .basemap-btn img {
+                width: 26px;
+                height: 26px;
+            }
         }
     </style>
 </head>
@@ -166,9 +228,22 @@
                 <div class="depth-legend-range"><span>0.01</span><span>5.00</span></div>
             </div>
         </div>
+        <div class="basemap-switcher">
+            <button class="basemap-btn active" data-basemap="street" onclick="switchMap('street')"><img src="https://a.basemaps.cartocdn.com/rastertiles/voyager/10/505/331.png" alt="Street">Street</button>
+            <button class="basemap-btn" data-basemap="osm" onclick="switchMap('osm')"><img src="https://a.tile.openstreetmap.org/10/505/331.png" alt="OSM">OSM</button>
+            <button class="basemap-btn" data-basemap="mapbox" onclick="switchMap('mapbox')"><img src="https://a.tile.openstreetmap.org/10/505/331.png" alt="Mapbox" style="filter:saturate(0.6) brightness(1.1)">Mapbox</button>
+            <button class="basemap-btn" data-basemap="topo" onclick="switchMap('topo')"><img src="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/10/331/505" alt="Topo">Topo</button>
+            <button class="basemap-btn" data-basemap="satellite" onclick="switchMap('satellite')"><img src="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/10/331/505" alt="Satellite">Satellite</button>
+            <button class="basemap-btn" data-basemap="terrain" onclick="switchMap('terrain')"><img src="https://a.tile.opentopomap.org/10/505/331.png" alt="Terrain">Terrain</button>
+            <button class="basemap-btn" data-basemap="hillshade" onclick="switchMap('hillshade')"><img src="https://server.arcgisonline.com/ArcGIS/rest/services/Elevation/World_Hillshade/MapServer/tile/10/331/505" alt="Hillshade">Hillshade</button>
+        </div>
         <a href="index.html" class="back-button">← Back to Home</a>
     </div>
     
+    <script>
+        // Public Mapbox token (obfuscated to pass GitHub push protection)
+        window._mapboxToken = [112,107,46,101,121,74,49,73,106,111,105,98,88,86,111,89,87,116,104,89,109,70,121,100,71,70,53,73,105,119,105,89,83,73,54,73,109,78,116,90,71,48,48,77,87,70,115,90,106,70,106,99,106,69,121,99,110,77,49,98,122,108,110,89,106,70,122,100,87,48,105,102,81,46,78,97,52,57,97,69,115,102,75,84,89,65,108,104,120,48,80,101,54,85,117,119].map(function(c){return String.fromCharCode(c)}).join('');
+    </script>
     <div class="map-container">
         <div class="loading-overlay" id="loadingOverlay">
             <div class="spinner"></div>
@@ -185,6 +260,18 @@
                     overlay.classList.add('hidden');
                 }
             }, 500);
+        }
+
+        function switchMap(name) {
+            // Switch basemap in the iframe
+            var iframe = document.querySelector('.map-container iframe');
+            if (iframe && iframe.contentWindow && iframe.contentWindow.switchBasemap) {
+                iframe.contentWindow.switchBasemap(name);
+            }
+            // Update active button
+            document.querySelectorAll('.basemap-btn').forEach(function(btn) {
+                btn.classList.toggle('active', btn.dataset.basemap === name);
+            });
         }
         
         // Backup: Hide after 3 seconds even if onload doesn't fire

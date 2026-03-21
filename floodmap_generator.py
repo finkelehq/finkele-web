@@ -12,11 +12,15 @@ import re
 import csv
 import json
 import math
+import glob
 import base64
+import requests as _requests
 from io import BytesIO
 import numpy as np
 import folium
 import rasterio
+from rasterio.transform import rowcol
+from pyproj import Transformer
 from folium.plugins import GroupedLayerControl
 import matplotlib.pyplot as plt
 from matplotlib import cm, colors
@@ -44,6 +48,10 @@ ASSETS = [
 BUILDING_VALUE = 1_000_000  # £ commercial building replacement cost
 DAMAGE_CSV = "public/data/flood_damage_csv.txt"
 EXTRAPOLATED_RPS = [1, 2, 5]  # short return periods estimated via log-linear fit
+MAPBOX_TOKEN = os.environ.get("MAPBOX_TOKEN", "")
+
+# EA LIDAR DTM 1m elevation data (EPSG:27700 British National Grid)
+LIDAR_DIR = os.path.join(INPUT_DIR, "lidar")
 
 # RdYlGn (Reversed) - Most Intuitive
 RISK_COLORS = {
@@ -342,6 +350,82 @@ def downsample_band_mode(band, factor):
     return result
 
 
+# === LIDAR ELEVATION ===
+class LidarElevation:
+    """Load EA LIDAR DTM 1m tiles and provide fast elevation lookup at WGS84 coords."""
+
+    def __init__(self, lidar_dir):
+        self.tiles = []  # list of (bounds_bng, rasterio DatasetReader)
+        self.to_bng = Transformer.from_crs("EPSG:4326", "EPSG:27700", always_xy=True)
+        tif_paths = sorted(glob.glob(os.path.join(lidar_dir, "*_DTM_1m.tif")))
+        for p in tif_paths:
+            ds = rasterio.open(p)
+            self.tiles.append((ds.bounds, ds))
+        print(f"  📐 Loaded {len(self.tiles)} LIDAR DTM tiles from {lidar_dir}")
+
+    def close(self):
+        for _, ds in self.tiles:
+            ds.close()
+
+    def get_elevation(self, lat, lon):
+        """Return ground elevation (m AOD) at WGS84 lat/lon, or None if outside coverage."""
+        x, y = self.to_bng.transform(lon, lat)  # always_xy: (lon,lat) → (easting,northing)
+        for bounds, ds in self.tiles:
+            if bounds.left <= x <= bounds.right and bounds.bottom <= y <= bounds.top:
+                r, c = rowcol(ds.transform, x, y)
+                r = max(0, min(r, ds.height - 1))
+                c = max(0, min(c, ds.width - 1))
+                val = float(ds.read(1, window=rasterio.windows.Window(c, r, 1, 1))[0, 0])
+                if val > -1e30:  # not nodata
+                    return round(val, 2)
+        return None
+
+    def build_elevation_grid(self, south, west, north, east, rows, cols):
+        """Build a 2D elevation grid (list of lists) matching hover grid dimensions.
+        Uses vectorised sampling for speed."""
+        lats = np.linspace(north, south, rows)   # top→bottom
+        lons = np.linspace(west, east, cols)      # left→right
+        lon_grid, lat_grid = np.meshgrid(lons, lats)
+        xs, ys = self.to_bng.transform(lon_grid.ravel(), lat_grid.ravel())
+        xs = np.array(xs)
+        ys = np.array(ys)
+        elev = np.full(rows * cols, np.nan)
+
+        for bounds, ds in self.tiles:
+            mask = (xs >= bounds.left) & (xs <= bounds.right) & \
+                   (ys >= bounds.bottom) & (ys <= bounds.top)
+            if not mask.any():
+                continue
+            rs, cs = rowcol(ds.transform, xs[mask], ys[mask])
+            rs = np.clip(np.array(rs), 0, ds.height - 1)
+            cs = np.clip(np.array(cs), 0, ds.width - 1)
+            # Read a window covering all needed pixels in this tile
+            r_min, r_max = int(rs.min()), int(rs.max())
+            c_min, c_max = int(cs.min()), int(cs.max())
+            window = rasterio.windows.Window(c_min, r_min, c_max - c_min + 1, r_max - r_min + 1)
+            data = ds.read(1, window=window)
+            local_r = rs - r_min
+            local_c = cs - c_min
+            vals = data[local_r.astype(int), local_c.astype(int)]
+            valid = vals > -1e30
+            idx = np.where(mask)[0]
+            elev[idx[valid]] = vals[valid]
+
+        # Convert to 2D list, rounding to 1 decimal
+        elev_2d = elev.reshape(rows, cols)
+        result = []
+        for r in range(rows):
+            row_out = []
+            for c in range(cols):
+                v = elev_2d[r, c]
+                if np.isfinite(v):
+                    row_out.append(round(float(v), 1))
+                else:
+                    row_out.append(None)
+            result.append(row_out)
+        return result
+
+
 # === CORE ===
 def build_layers_for_region(fmap, tiff_path):
     region_id = clean_region_name(tiff_path)
@@ -445,7 +529,63 @@ def main():
         center_lat = (src.bounds.top + src.bounds.bottom) / 2
         center_lon = (src.bounds.left + src.bounds.right) / 2
 
-    fmap = folium.Map(location=[center_lat, center_lon], zoom_start=7, tiles="CartoDB Voyager")
+    fmap = folium.Map(location=[center_lat, center_lon], zoom_start=7, tiles=None)
+
+    # --- Basemap tile layers ---
+    folium.TileLayer(
+        tiles="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
+        attr='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        name="_basemap_street",
+        max_zoom=20,
+        subdomains="abcd",
+    ).add_to(fmap)
+
+    folium.TileLayer(
+        tiles="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
+        attr='&copy; Esri, HERE, Garmin, OpenStreetMap contributors',
+        name="_basemap_topo",
+        max_zoom=19,
+    ).add_to(fmap)
+
+    folium.TileLayer(
+        tiles="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        attr='&copy; Esri, Maxar, Earthstar Geographics',
+        name="_basemap_satellite",
+        max_zoom=21,
+        max_native_zoom=18,
+    ).add_to(fmap)
+
+    folium.TileLayer(
+        tiles="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
+        attr='&copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
+        name="_basemap_terrain",
+        max_zoom=20,
+        max_native_zoom=17,
+    ).add_to(fmap)
+
+    folium.TileLayer(
+        tiles="https://server.arcgisonline.com/ArcGIS/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}",
+        attr='&copy; Esri, USGS',
+        name="_basemap_hillshade",
+        max_zoom=23,
+        max_native_zoom=16,
+    ).add_to(fmap)
+
+    folium.TileLayer(
+        tiles="https://api.mapbox.com/styles/v1/mapbox/outdoors-v12/tiles/{z}/{x}/{y}?access_token=__MAPBOX_TOKEN__",
+        attr='&copy; <a href="https://www.mapbox.com/">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        name="_basemap_mapbox",
+        max_zoom=22,
+        tile_size=512,
+        zoom_offset=-1,
+    ).add_to(fmap)
+
+    folium.TileLayer(
+        tiles="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        attr='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        name="_basemap_osm",
+        max_zoom=19,
+    ).add_to(fmap)
 
     groups = {}
     all_hover_data = {}  # region -> layer_name -> grid data
@@ -457,6 +597,33 @@ def main():
     control = GroupedLayerControl(groups=groups, collapsed=False, exclusive_groups=False)
     control.add_to(fmap)
 
+    # --- Load LIDAR DTM for 1m elevation data ---
+    lidar = None
+    if os.path.isdir(LIDAR_DIR):
+        lidar = LidarElevation(LIDAR_DIR)
+
+    # --- Build elevation hover grids from LIDAR (independent 20 m resolution) ---
+    ELEV_CELL_M = 20  # elevation hover grid cell size in metres
+    elev_hover_grids = []
+    if lidar and lidar.tiles:
+        for region_name, layers_dict in all_hover_data.items():
+            ref = next(iter(layers_dict.values()))
+            south, west = ref["bounds"][0]
+            north, east = ref["bounds"][1]
+            # Compute rows/cols from geographic extent at 20 m spacing
+            lat_m = (north - south) * 111320
+            lon_m = (east - west) * 111320 * math.cos(math.radians((north + south) / 2))
+            elev_rows = max(1, int(lat_m / ELEV_CELL_M))
+            elev_cols = max(1, int(lon_m / ELEV_CELL_M))
+            print(f"  🏔️  Building elevation grid for {region_name} ({elev_rows}x{elev_cols} @ {ELEV_CELL_M}m)...")
+            elev_grid = lidar.build_elevation_grid(south, west, north, east, elev_rows, elev_cols)
+            elev_hover_grids.append({
+                "bounds": ref["bounds"],
+                "rows": elev_rows,
+                "cols": elev_cols,
+                "grid": elev_grid,
+            })
+
     # --- Add asset markers with financial damage info ---
     damage_curve = load_damage_curve(DAMAGE_CSV)
     asset_depths = sample_asset_depths(tiffs, ASSETS, RETURN_PERIODS)
@@ -465,6 +632,17 @@ def main():
     for lat, lon, label, address in ASSETS:
         depths = asset_depths.get(label, {})
         extrap = extrap_depths.get(label, {})
+        # Lookup LIDAR elevation for this asset, fallback to Open-Meteo API
+        asset_elev = lidar.get_elevation(lat, lon) if lidar else None
+        if asset_elev is None:
+            try:
+                url = f"https://api.open-meteo.com/v1/elevation?latitude={lat}&longitude={lon}"
+                data = _requests.get(url, timeout=5).json()
+                asset_elev = data["elevation"][0]
+                print(f"    ↳ {label}: Open-Meteo elevation = {asset_elev:.1f} m")
+            except Exception as exc:
+                print(f"    ↳ {label}: Open-Meteo elevation failed: {exc}")
+        asset_elev_str = f"{asset_elev:.1f} m AOD" if asset_elev is not None else "N/A"
         # Build damage table rows — extrapolated short RPs first, then measured
         rows_html = ""
         # Style constants
@@ -532,8 +710,9 @@ def main():
         tooltip_html = (
             f'<div style="font-family:Inter,-apple-system,sans-serif;font-size:12px;min-width:320px;">'
             f'<div style="font-size:14px;font-weight:700;color:#1a3a5c;margin-bottom:4px;">{label}</div>'
-            f'<div style="color:#555;margin-bottom:6px;">{address}</div>'
-            f'<div style="font-size:11px;color:#888;margin-bottom:3px;">'
+            f'<div style="color:#555;margin-bottom:4px;">{address}</div>'
+            f'<div style="font-size:11px;color:#666;margin-bottom:4px;">'
+            f'&#9650; Elevation: <b>{asset_elev_str}</b>&nbsp;&nbsp;|&nbsp;&nbsp;'
             f'Building value: £{BUILDING_VALUE:,.0f} (MCM commercial)</div>'
             f'<table style="border-collapse:collapse;width:100%;font-size:11px;">'
             f'<tr style="border-bottom:1px solid #ddd;font-weight:600;color:#333;">'
@@ -578,12 +757,14 @@ def main():
             flat_hover.append(ld)
 
     hover_json = json.dumps(flat_hover, separators=(',', ':'))
+    elev_grids_json = json.dumps(elev_hover_grids, separators=(',', ':'))
     asset_coords_json = json.dumps(
         [[lat, lon] for lat, lon, *_ in ASSETS], separators=(',', ':')
     )
     hover_data_js = f"""
     <script>
     var _hoverGrids = {hover_json};
+    var _elevGrids = {elev_grids_json};
     var _assetCoords = {asset_coords_json};
     </script>
     """
@@ -606,7 +787,7 @@ def main():
         font-family: 'Inter', -apple-system, sans-serif;
         box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         display: none;
-        max-width: 340px;
+        max-width: 400px;
         line-height: 1.5;
     }
     #floodTooltip .tt-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
@@ -632,40 +813,23 @@ def main():
             var grids = window._hoverGrids;
             if (!grids || grids.length === 0) { console.warn('No hover grids'); return; }
 
-            // --- Elevation lookup via Open-Meteo (free, no key) ---
-            var _elevCache = {};    // "lat,lng" → elevation (m)
-            var _elevPending = {};  // in-flight keys
-            var _lastElevKey = '';
-            var _elevTimer = null;
+            // --- Elevation lookup from pre-computed LIDAR DTM 1m grids ---
+            var _elevGrids = window._elevGrids || [];
 
-            function fetchElevation(lat, lng) {
-                // Round to ~11 m precision to limit unique requests
-                var rlat = Math.round(lat * 10000) / 10000;
-                var rlng = Math.round(lng * 10000) / 10000;
-                var key = rlat + ',' + rlng;
-                _lastElevKey = key;
-                if (_elevCache.hasOwnProperty(key)) return;  // already cached
-                if (_elevPending[key]) return;                // request in-flight
-                _elevPending[key] = true;
-                if (_elevTimer) clearTimeout(_elevTimer);
-                _elevTimer = setTimeout(function() {
-                    var url = 'https://api.open-meteo.com/v1/elevation?latitude=' + rlat + '&longitude=' + rlng;
-                    fetch(url).then(function(r){ return r.json(); }).then(function(d){
-                        if (d && d.elevation && d.elevation.length) {
-                            _elevCache[key] = d.elevation[0];
-                        }
-                        delete _elevPending[key];
-                        // Update tooltip if cursor still near same spot
-                        if (_lastElevKey === key) { updateElevInTooltip(key); }
-                    }).catch(function(){ delete _elevPending[key]; });
-                }, 150);  // 150ms debounce
-            }
-
-            function updateElevInTooltip(key) {
-                var el = document.getElementById('ttElev');
-                if (el && _elevCache.hasOwnProperty(key)) {
-                    el.textContent = _elevCache[key].toFixed(1) + ' m';
+            function lookupElevation(lat, lng) {
+                for (var i = 0; i < _elevGrids.length; i++) {
+                    var g = _elevGrids[i];
+                    var south = g.bounds[0][0], west = g.bounds[0][1];
+                    var north = g.bounds[1][0], east = g.bounds[1][1];
+                    if (lat < south || lat > north || lng < west || lng > east) continue;
+                    var row = Math.floor((north - lat) / (north - south) * g.rows);
+                    var col = Math.floor((lng - west) / (east - west) * g.cols);
+                    row = Math.max(0, Math.min(row, g.rows - 1));
+                    col = Math.max(0, Math.min(col, g.cols - 1));
+                    var val = g.grid[row][col];
+                    if (val !== null) return val;
                 }
+                return null;
             }
 
             function lookupAll(lat, lng) {
@@ -730,15 +894,33 @@ def main():
                       + '</div>';
                 tooltip.innerHTML = html;
                 tooltip.style.display = 'block';
-                // Kick off elevation fetch (debounced + cached)
-                fetchElevation(e.latlng.lat, e.latlng.lng);
-                // Show cached elevation immediately if available
-                var rlat = Math.round(e.latlng.lat * 10000) / 10000;
-                var rlng = Math.round(e.latlng.lng * 10000) / 10000;
-                var ek = rlat + ',' + rlng;
-                if (_elevCache.hasOwnProperty(ek)) {
-                    var el = document.getElementById('ttElev');
-                    if (el) el.textContent = _elevCache[ek].toFixed(1) + ' m';
+                // Instant elevation from pre-computed LIDAR grid
+                var elev = lookupElevation(e.latlng.lat, e.latlng.lng);
+                var el = document.getElementById('ttElev');
+                if (el) {
+                    if (elev !== null) {
+                        el.textContent = elev.toFixed(1) + ' m';
+                    } else {
+                        el.textContent = '…';
+                        // Fallback: Open-Meteo API for areas without LIDAR
+                        var _elevCache = window._elevCache || (window._elevCache = {});
+                        var cacheKey = e.latlng.lat.toFixed(3) + ',' + e.latlng.lng.toFixed(3);
+                        if (_elevCache[cacheKey] !== undefined) {
+                            el.textContent = (_elevCache[cacheKey] !== null) ? _elevCache[cacheKey].toFixed(1) + ' m' : '—';
+                        } else {
+                            _elevCache[cacheKey] = null;
+                            fetch('https://api.open-meteo.com/v1/elevation?latitude='
+                                + e.latlng.lat.toFixed(4) + '&longitude=' + e.latlng.lng.toFixed(4))
+                                .then(function(r){ return r.json(); })
+                                .then(function(d){
+                                    if (d && d.elevation && d.elevation[0] != null) {
+                                        _elevCache[cacheKey] = d.elevation[0];
+                                        var cur = document.getElementById('ttElev');
+                                        if (cur) cur.textContent = d.elevation[0].toFixed(1) + ' m';
+                                    }
+                                }).catch(function(){});
+                        }
+                    }
                 }
                 // Hide flood tooltip near asset markers (asset tooltip already shows depth/damage)
                 var nearAsset = false;
@@ -754,7 +936,7 @@ def main():
                     return;
                 }
                 // Position to the right of cursor, flip left if near edge
-                var tw = tooltip.offsetWidth || 340;
+                var tw = tooltip.offsetWidth || 400;
                 var th = tooltip.offsetHeight || 150;
                 var x = e.originalEvent.clientX + 16;
                 var y = e.originalEvent.clientY + 16;
@@ -1077,7 +1259,87 @@ def main():
 
     fmap.get_root().html.add_child(folium.Element(js))
 
+    # --- Basemap switcher JS (called from parent frame) ---
+    basemap_js = """
+    <script>
+    (function() {
+        var _basemapLayers = {};
+        var _activeBasemap = null;
+        var _mapObj = null;
+
+        // Map URL fragments to basemap keys (order matters — more specific first)
+        var _urlToKey = [
+            ['rastertiles/voyager', 'street'],
+            ['World_Topo_Map', 'topo'],
+            ['World_Imagery', 'satellite'],
+            ['opentopomap.org', 'terrain'],
+            ['World_Hillshade', 'hillshade'],
+            ['api.mapbox.com', 'mapbox'],
+            ['tile.openstreetmap.org', 'osm']
+        ];
+
+        function initBasemaps() {
+            // Find the Leaflet map object
+            var mapDivs = document.querySelectorAll('.folium-map');
+            if (!mapDivs.length) return;
+            var mapId = mapDivs[0].id;
+            _mapObj = window[mapId];
+            if (!_mapObj) return;
+
+            // Inject Mapbox token at runtime (passed from parent or URL param)
+            var mbToken = '';
+            try { mbToken = new URLSearchParams(window.location.search).get('mbtoken') || ''; } catch(e){}
+            if (!mbToken) { try { mbToken = window.parent._mapboxToken || ''; } catch(e){} }
+
+            // Collect basemap tile layers by matching URL patterns
+            _mapObj.eachLayer(function(layer) {
+                if (layer._url) {
+                    // Replace placeholder with real token
+                    if (mbToken && layer._url.indexOf('__MAPBOX_TOKEN__') !== -1) {
+                        layer.setUrl(layer._url.replace('__MAPBOX_TOKEN__', mbToken));
+                    }
+                    for (var i = 0; i < _urlToKey.length; i++) {
+                        if (layer._url.indexOf(_urlToKey[i][0]) !== -1) {
+                            var key = _urlToKey[i][1];
+                            _basemapLayers[key] = layer;
+                            // Remove all except 'street' (default)
+                            if (key !== 'street') {
+                                _mapObj.removeLayer(layer);
+                            } else {
+                                _activeBasemap = key;
+                            }
+                            break;
+                        }
+                    }
+                }
+            });
+        }
+
+        window.switchBasemap = function(name) {
+            if (!_mapObj || !_basemapLayers[name]) return;
+            if (_activeBasemap && _basemapLayers[_activeBasemap]) {
+                _mapObj.removeLayer(_basemapLayers[_activeBasemap]);
+            }
+            _basemapLayers[name].addTo(_mapObj);
+            // Ensure basemap is below overlays
+            _basemapLayers[name].bringToBack();
+            _activeBasemap = name;
+        };
+
+        window.getActiveBasemap = function() {
+            return _activeBasemap;
+        };
+
+        if (document.readyState === 'complete') { setTimeout(initBasemaps, 500); }
+        else { window.addEventListener('load', function() { setTimeout(initBasemaps, 500); }); }
+    })();
+    </script>
+    """
+    fmap.get_root().html.add_child(folium.Element(basemap_js))
+
     fmap.save(OUTPUT_HTML)
+    if lidar:
+        lidar.close()
     print(f"Map saved at: {OUTPUT_HTML}")
 
     print("Open in browser — regions expanded by default; click names to collapse.")

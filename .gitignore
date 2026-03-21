@@ -3,6 +3,9 @@ __pycache__/
 *.py[codz]
 *$py.class
 
+# Environment
+.env
+
 # C extensions
 *.so
 
@@ -184,6 +187,7 @@ yarn-error.log*
 # Ignore data files (TIFFs can be large)
 data/*.tif
 data/*.tiff
+data/lidar/
 
 # Keep the output folder structure but ignore contents except .gitkeep
 data/output/*

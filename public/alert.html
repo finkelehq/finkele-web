@@ -225,13 +225,14 @@
   .leaflet-control-geocoder { background: var(--panel) !important; border: 1px solid var(--border) !important; border-radius: 8px !important; box-shadow: 0 4px 20px rgba(0,0,0,0.5) !important; }
   .leaflet-control-geocoder-form input { background: var(--panel) !important; color: var(--text) !important; border: none !important; font-size: 14px; }
   .leaflet-control-geocoder-form input::placeholder { color: var(--muted); }
-  .leaflet-control-geocoder-icon { background-color: var(--panel) !important; filter: invert(0.85); }
+  .leaflet-control-geocoder-icon { background-color: var(--panel) !important; filter: invert(0.85); width: 36px !important; height: 36px !important; background-size: 20px !important; border-radius: 8px !important; transition: background-color 0.15s; }
+  .leaflet-control-geocoder-icon:hover { background-color: var(--bg) !important; }
   .leaflet-control-geocoder-alternatives { background: var(--panel) !important; border: 1px solid var(--border) !important; border-top: none !important; }
   .leaflet-control-geocoder-alternatives li { color: var(--text) !important; border-bottom: 1px solid var(--border) !important; }
   .leaflet-control-geocoder-alternatives li:hover, .leaflet-control-geocoder-alternatives .leaflet-control-geocoder-selected { background: var(--bg) !important; }
 
   /* ── Basemap control ────────────────────────────────── */
-  .basemap-control { position: absolute; bottom: 30px; right: 10px; z-index: 1000; display: flex; gap: 4px; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+  .basemap-control { position: absolute; top: 10px; right: 10px; z-index: 1000; display: flex; gap: 4px; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
   .basemap-control button { background: var(--bg); color: var(--muted); border: 1px solid var(--border); border-radius: 6px; padding: 6px 10px; font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
   .basemap-control button:hover { color: var(--text); border-color: var(--alert); }
   .basemap-control button.active { background: var(--alert); color: #fff; border-color: var(--alert); }
@@ -288,7 +289,7 @@
 
 <script>
 // ── API base — update after Cloud Run deploy ────────────────────────────
-const API = 'https://finkele-flood-XXXXXXXX-nw.a.run.app';  // ← replace after deploy
+const API = 'https://finkele-alert-f2zqdzq74a-od.a.run.app';  // Cloud Run (europe-west9)
 
 const REFRESH_MS   = 30_000;
 let   CATCHMENT    = [[51.30, -3.35], [56.00, 0.30]];
@@ -323,8 +324,8 @@ document.querySelectorAll('.basemap-control button').forEach(btn => {
   });
 });
 L.Control.geocoder({
-  position: 'topright',
-  placeholder: 'Search city or address…',
+  position: 'bottomleft',
+  placeholder: '🔍  Search city or address…',
   errorMessage: 'Nothing found.',
   geocoder: L.Control.Geocoder.nominatim({ geocodingQueryParams: { countrycodes: 'gb', limit: 8 } }),
 }).addTo(map);

@@ -39,7 +39,7 @@ jobs:
 
       - name: Encrypt protected pages
         run: |
-          npx staticrypt public/floodmap.html public/combined_flood_risk_map.html \
+          npx staticrypt public/floodmap.html public/combined_flood_risk_map.html public/alert.html \
             -p "${{ secrets.STATICRYPT_PASSWORD }}" \
             -d public \
             --remember 30 \

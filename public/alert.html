@@ -8,6 +8,8 @@
 <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@2.4.0/dist/Control.Geocoder.css" />
+<script src="https://unpkg.com/leaflet-control-geocoder@2.4.0/dist/Control.Geocoder.min.js"></script>
 <style>
   :root {
     --bg: #0f1117;
@@ -219,6 +221,21 @@
   .warning-pulse { animation: warningPulse 2s ease-in-out infinite; }
   @keyframes warningPulse { 0%,100%{opacity:0.15} 50%{opacity:0.5} }
 
+  /* ── Geocoder dark-theme overrides ─────────────────── */
+  .leaflet-control-geocoder { background: var(--panel) !important; border: 1px solid var(--border) !important; border-radius: 8px !important; box-shadow: 0 4px 20px rgba(0,0,0,0.5) !important; }
+  .leaflet-control-geocoder-form input { background: var(--panel) !important; color: var(--text) !important; border: none !important; font-size: 14px; }
+  .leaflet-control-geocoder-form input::placeholder { color: var(--muted); }
+  .leaflet-control-geocoder-icon { background-color: var(--panel) !important; filter: invert(0.85); }
+  .leaflet-control-geocoder-alternatives { background: var(--panel) !important; border: 1px solid var(--border) !important; border-top: none !important; }
+  .leaflet-control-geocoder-alternatives li { color: var(--text) !important; border-bottom: 1px solid var(--border) !important; }
+  .leaflet-control-geocoder-alternatives li:hover, .leaflet-control-geocoder-alternatives .leaflet-control-geocoder-selected { background: var(--bg) !important; }
+
+  /* ── Basemap control ────────────────────────────────── */
+  .basemap-control { position: absolute; bottom: 30px; right: 10px; z-index: 1000; display: flex; gap: 4px; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+  .basemap-control button { background: var(--bg); color: var(--muted); border: 1px solid var(--border); border-radius: 6px; padding: 6px 10px; font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+  .basemap-control button:hover { color: var(--text); border-color: var(--alert); }
+  .basemap-control button.active { background: var(--alert); color: #fff; border-color: var(--alert); }
+
   /* ── Responsive ────────────────────────────────────── */
   @media (max-width: 900px) {
     .main-wrap { flex-direction: column-reverse; }
@@ -260,7 +277,13 @@
       <div id="tab-alerts" class="tab-panel"></div>
     </div>
   </div>
-  <div id="map"></div>
+  <div id="map">
+    <div class="basemap-control">
+      <button class="active" data-base="dark">Dark</button>
+      <button data-base="streets">Streets</button>
+      <button data-base="satellite">Satellite</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -275,9 +298,35 @@ const SEV_CLR = { severe:'#dc2626', warning:'#f59e0b', alert:'#3b82f6', normal:'
 
 // ── Map ─────────────────────────────────────────────────────────────────
 const map = L.map('map', { zoomControl: true }).fitBounds(CATCHMENT);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-  attribution: '&copy; CARTO &copy; OSM', subdomains: 'abcd', maxZoom: 20,
-  keepBuffer: 6, detectRetina: true,
+const baseLayers = {
+  dark: L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; CARTO &copy; OSM', subdomains: 'abcd', maxZoom: 20, keepBuffer: 6, detectRetina: true,
+  }),
+  streets: L.tileLayer('https://mt{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+    attribution: '&copy; Google', subdomains: '0123', maxZoom: 21, keepBuffer: 6,
+  }),
+  satellite: L.tileLayer('https://mt{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
+    attribution: '&copy; Google', subdomains: '0123', maxZoom: 21, keepBuffer: 6,
+  }),
+};
+let activeBase = 'dark';
+baseLayers.dark.addTo(map);
+document.querySelectorAll('.basemap-control button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const key = btn.dataset.base;
+    if (key === activeBase) return;
+    map.removeLayer(baseLayers[activeBase]);
+    baseLayers[key].addTo(map);
+    activeBase = key;
+    document.querySelectorAll('.basemap-control button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+L.Control.geocoder({
+  position: 'topright',
+  placeholder: 'Search city or address…',
+  errorMessage: 'Nothing found.',
+  geocoder: L.Control.Geocoder.nominatim({ geocodingQueryParams: { countrycodes: 'gb', limit: 8 } }),
 }).addTo(map);
 const canvasRenderer = L.canvas({ padding: 0.5 });
 const warningLayer = L.layerGroup().addTo(map);

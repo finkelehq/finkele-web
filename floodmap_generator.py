@@ -1208,8 +1208,8 @@ def main():
 
                 // Create collapsible wrap, insert after groupLabel
                 var wrap = document.createElement('div');
-                wrap.className = 'group-layers-wrap open'; // start expanded
-                groupLabel.classList.add('expanded');
+                wrap.className = 'group-layers-wrap'; // start collapsed
+                groupLabel.classList.remove('expanded');
                 if (groupLabel.nextSibling) {{
                     group.insertBefore(wrap, groupLabel.nextSibling);
                 }} else {{

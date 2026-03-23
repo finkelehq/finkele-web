@@ -1077,11 +1077,15 @@ def main():
         padding: 8px 4px;
     }}
 
-    .leaflet-control-layers-overlays {{
-        display: block !important;
+    /* Collapsible layer list per region */
+    .group-layers-wrap {{
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.25s ease;
+        padding-left: 6px;
     }}
-    .leaflet-control-layers-group {{
-        display: block !important;
+    .group-layers-wrap.open {{
+        max-height: 600px;
     }}
 
     .leaflet-control-layers-group-label {{
@@ -1112,6 +1116,10 @@ def main():
         color: #6b8db5;
         margin-left: 8px;
         display: inline-block;
+        transition: transform 0.2s;
+    }}
+    .leaflet-control-layers-group-label.expanded .group-chevron {{
+        transform: rotate(90deg);
     }}
 
     /* Individual layer labels */
@@ -1188,17 +1196,33 @@ def main():
                 if (!groupLabel || groupLabel.dataset.enhanced) return;
                 groupLabel.dataset.enhanced = 'true';
 
-                // Add color swatches directly into each layer label — no DOM moving
-                var layerLabels = Array.from(group.querySelectorAll('label')).filter(function(l) {{
-                    return l !== groupLabel;
-                }});
+                // Add chevron
+                var chevron = document.createElement('span');
+                chevron.className = 'group-chevron';
+                chevron.textContent = '\u25B6';
+                groupLabel.appendChild(chevron);
 
+                // Collect layer labels
+                var allLabels = Array.from(group.querySelectorAll('label'));
+                var layerLabels = allLabels.filter(function(l) {{ return l !== groupLabel; }});
+
+                // Create collapsible wrap, insert after groupLabel
+                var wrap = document.createElement('div');
+                wrap.className = 'group-layers-wrap open'; // start expanded
+                groupLabel.classList.add('expanded');
+                if (groupLabel.nextSibling) {{
+                    group.insertBefore(wrap, groupLabel.nextSibling);
+                }} else {{
+                    group.appendChild(wrap);
+                }}
+
+                // Move labels into wrap and add color swatches
                 layerLabels.forEach(function(label, idx) {{
+                    wrap.appendChild(label);
                     var span = label.querySelector('span');
                     var text = span ? span.textContent.trim() : '';
                     var swatch = document.createElement('span');
                     swatch.className = 'layer-swatch';
-
                     if (text.indexOf('Depth') !== -1) {{
                         swatch.style.background = rpSwatches[Math.min(idx, rpSwatches.length - 1)];
                     }} else if (text.indexOf('Risk') !== -1) {{
@@ -1207,30 +1231,36 @@ def main():
                             swatch.style.background = 'linear-gradient(90deg, ' + cols[0] + ', ' + cols[Math.floor(cols.length/2)] + ', ' + cols[cols.length-1] + ')';
                         }}
                     }}
-
                     var input = label.querySelector('input');
                     if (input && input.nextSibling) {{
                         label.insertBefore(swatch, input.nextSibling);
-                    }} else if (input) {{
-                        label.appendChild(swatch);
                     }}
                 }});
 
-                // Clicking region header flies to its bounds
+                // Click header: toggle open/close + fly to region
                 groupLabel.addEventListener('click', function(e) {{
+                    e.preventDefault();
                     e.stopPropagation();
-                    if (mapObj && _regionBounds) {{
-                        var nameSpan = groupLabel.querySelector('.leaflet-control-layers-group-name');
-                        var regionName = nameSpan ? nameSpan.textContent.trim() : '';
-                        var bounds = _regionBounds[regionName];
-                        if (bounds) {{
-                            mapObj.flyToBounds(bounds, {{ padding: [30, 30], maxZoom: 12, duration: 0.8 }});
+                    var isOpen = wrap.classList.contains('open');
+                    if (isOpen) {{
+                        wrap.classList.remove('open');
+                        groupLabel.classList.remove('expanded');
+                    }} else {{
+                        wrap.classList.add('open');
+                        groupLabel.classList.add('expanded');
+                        if (mapObj && _regionBounds) {{
+                            var nameSpan = groupLabel.querySelector('.leaflet-control-layers-group-name');
+                            var regionName = nameSpan ? nameSpan.textContent.trim() : '';
+                            var bounds = _regionBounds[regionName];
+                            if (bounds) {{
+                                mapObj.flyToBounds(bounds, {{ padding: [30, 30], maxZoom: 12, duration: 0.8 }});
+                            }}
                         }}
                     }}
                 }});
             }});
 
-            console.log('Layer control enhanced: ' + groups.length + ' groups');
+            console.log('Layer control: ' + groups.length + ' collapsible groups, all open');
         }}
 
         if (document.readyState === 'complete') {{ setTimeout(setupLayerControl, 300); }}

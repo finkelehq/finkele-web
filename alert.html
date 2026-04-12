@@ -4,10 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Finkele Alert</title>
+  <title>Finkele Flood Alert</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-    #alert-container { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    html, body { height: 100%; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; min-height: 100vh; margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; background: #fff; }
+    #alert-container { width: 100vw; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
     .loader { border: 4px solid #f3f3f3; border-top: 4px solid #2166ac; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 40px auto; }
     @keyframes spin { 100% { transform: rotate(360deg); } }
     .error { color: #b00; text-align: center; margin-top: 40px; }
@@ -23,7 +24,13 @@
       .then(async response => {
         if (!response.ok) throw new Error('Failed to load alert page.');
         const html = await response.text();
-        container.innerHTML = html;
+        // Try to extract the <body> content if present
+        const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+        if (bodyMatch) {
+          document.body.innerHTML = bodyMatch[1];
+        } else {
+          container.innerHTML = html;
+        }
       })
       .catch(err => {
         container.innerHTML = `<div class="error">Could not load alert page.<br>${err.message}</div>`;

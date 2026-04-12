@@ -1,32 +1,38 @@
+<!-- Updated: Embed Cloud Run alert app directly via iframe for full fidelity -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Finkele Alert</title>
+  <title>Finkele Flood Alert</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-    #alert-container { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
-    .loader { border: 4px solid #f3f3f3; border-top: 4px solid #2166ac; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 40px auto; }
-    @keyframes spin { 100% { transform: rotate(360deg); } }
-    .error { color: #b00; text-align: center; margin-top: 40px; }
+    html, body { height: 100%; margin: 0; padding: 0; }
+    body { height: 100vh; width: 100vw; margin: 0; padding: 0; overflow: hidden; }
+    .iframe-container {
+      width: 100vw;
+      height: 100vh;
+      min-height: 100vh;
+      min-width: 100vw;
+      margin: 0;
+      padding: 0;
+      border: none;
+      overflow: hidden;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+    iframe {
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      display: block;
+    }
   </style>
 </head>
 <body>
-  <div id="alert-container">
-    <div class="loader"></div>
+  <div class="iframe-container">
+    <iframe src="https://finkele-alert-2zzizltsla-od.a.run.app" title="Finkele Flood Alert" allowfullscreen></iframe>
   </div>
-  <script>
-    const container = document.getElementById('alert-container');
-    fetch('https://finkele-alert-2zzizltsla-od.a.run.app')
-      .then(async response => {
-        if (!response.ok) throw new Error('Failed to load alert page.');
-        const html = await response.text();
-        container.innerHTML = html;
-      })
-      .catch(err => {
-        container.innerHTML = `<div class="error">Could not load alert page.<br>${err.message}</div>`;
-      });
-  </script>
 </body>
 </html>

@@ -404,6 +404,38 @@ section {
     background: linear-gradient(135deg, var(--bg-white), var(--bg-light));
 }
 
+/* Charts grid – 2×2 on desktop, 1-col on mobile */
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+.chart-box {
+    background: white;
+    border-radius: var(--radius-lg, 12px);
+    padding: var(--spacing-md, 1.25rem);
+    box-shadow: var(--shadow-md, 0 2px 8px rgba(0,0,0,.08));
+    position: relative;
+    height: 340px;
+    display: flex;
+    flex-direction: column;
+}
+.chart-box .chart-title {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+.chart-box canvas {
+    flex: 1;
+    min-height: 0;          /* allow flex child to shrink */
+}
+@media (max-width: 768px) {
+    .charts-grid { grid-template-columns: 1fr; }
+    .chart-box   { height: 280px; }
+}
+
 .dashboard-container {
     background: white;
     border-radius: var(--radius-xl);

@@ -19,21 +19,21 @@
     <div class="loader"></div>
   </div>
   <script>
-    const container = document.getElementById('alert-container');
     fetch('https://finkele-alert-2zzizltsla-od.a.run.app')
       .then(async response => {
         if (!response.ok) throw new Error('Failed to load alert page.');
         const html = await response.text();
-        // Try to extract the <body> content if present
-        const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
-        if (bodyMatch) {
-          document.body.innerHTML = bodyMatch[1];
-        } else {
-          container.innerHTML = html;
-        }
+        document.open();
+        document.write(html);
+        document.close();
       })
       .catch(err => {
-        container.innerHTML = `<div class="error">Could not load alert page.<br>${err.message}</div>`;
+        const container = document.getElementById('alert-container');
+        if (container) {
+          container.innerHTML = `<div class=\"error\">Could not load alert page.<br>${err.message}</div>`;
+        } else {
+          document.body.innerHTML = `<div class=\"error\">Could not load alert page.<br>${err.message}</div>`;
+        }
       });
   </script>
 </body>

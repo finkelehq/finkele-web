@@ -275,7 +275,7 @@ a { text-decoration: none; color: inherit; }
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1.25rem;
-  max-width: 80%;
+  max-width: 1000px;
   margin: 0 auto;
 }
 .chart-box {
@@ -284,7 +284,7 @@ a { text-decoration: none; color: inherit; }
   border-radius: var(--radius);
   padding: 1.25rem;
   box-shadow: var(--shadow-sm);
-  height: 320px;
+  aspect-ratio: 1 / 1;
   display: flex; flex-direction: column;
 }
 .chart-title {

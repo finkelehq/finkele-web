@@ -16,7 +16,8 @@
   "author": "Finkele Team",
   "license": "GPLv3",
   "devDependencies": {
-    "live-server": "^1.2.2"
+    "live-server": "^1.2.2",
+    "staticrypt": "^3.5.4"
   },
   "repository": {
     "type": "git",

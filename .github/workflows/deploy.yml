@@ -17,6 +17,28 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Encrypt protected pages
+        run: |
+          npx staticrypt public/floodmap.html \
+            -p "${{ secrets.STATICRYPT_PASSWORD }}" \
+            -d public \
+            --remember 30 \
+            --short \
+            --template-title "Finkele Flood Map" \
+            --template-button "Access Map" \
+            --template-instructions "Enter the password to view the flood risk map." \
+            --template-color-primary "#2166ac" \
+            --template-color-secondary "#1a3a5c" \
+            --template-placeholder "Password"
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:

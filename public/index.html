@@ -3,39 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Finkele - Building Climate Resilience through ESG Intelligence and Asset Management">
-    <meta name="keywords" content="climate risk, ESG, asset management, sustainability, climate resilience">
+    <meta name="description" content="Finkele – Climate Risk Intelligence. Real-time flood monitoring, ESG analytics, and interactive risk mapping.">
+    <meta name="keywords" content="climate risk, ESG, flood monitoring, asset management, sustainability">
     <meta name="author" content="Finkele">
-    
-    <!-- Open Graph / Social Media -->
-    <meta property="og:title" content="Finkele - Climate Intelligence Platform">
-    <meta property="og:description" content="Advanced climate risk assessment and ESG solutions for sustainable asset management">
+    <meta property="og:title" content="Finkele – Climate Intelligence Platform">
+    <meta property="og:description" content="Real-time climate risk assessment and flood monitoring for resilient asset management">
     <meta property="og:image" content="assets/img/finkele-logo-rectangle.png">
     <meta property="og:url" content="https://www.finkele.com">
-    
-    <title>Finkele - Climate Intelligence Platform</title>
-    
-    <!-- Favicon -->
+    <title>Finkele – Climate Intelligence Platform</title>
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
-    
-    <!-- CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
-    
-    <!-- Preload Critical Assets -->
     <link rel="preload" href="assets/img/finkele-logo-square.png" as="image">
-    <link rel="preload" href="assets/css/style.css" as="style">
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div id="loader" class="loader">
-    <div class="loader-ring">
-        <img src="assets/img/finkele-logo-round.png" alt="Finkele" class="loader-logo">
-    </div>
-    </div>
 
-    
-    <!-- Navigation -->
+    <!-- Nav -->
     <nav id="navbar" class="navbar">
         <div class="nav-container">
             <a href="#home" class="logo">
@@ -43,258 +25,132 @@
             </a>
             <ul class="nav-links">
                 <li><a href="#home" class="nav-link active">Home</a></li>
-                <li><a href="#services" class="nav-link">Services</a></li>
-                <li><a href="#dashboard" class="nav-link">Analytics</a></li>
-                <li><a href="#alerts" class="nav-link">Alerts</a></li>
-                <li><a href="#floodmap" class="nav-link">FloodMap</a></li>
-                <li><a href="#impact" class="nav-link">Impact</a></li>
+                <li><a href="#products" class="nav-link">Products</a></li>
+                <li><a href="#analytics" class="nav-link">Analytics</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </div>
         </div>
     </nav>
-    
-    <!-- Main Content -->
+
     <main>
-        <!-- Hero Section -->
+
+        <!-- Hero -->
         <section id="home" class="hero">
-        <div class="hero-content">
-            <div class="hero-text">
-            <h1 class="hero-title">
-                Building <span class="gradient-text">Climate Resilience</span>
-            </h1>
-            <p class="hero-subtitle">
-                Transform your assets with AI-powered climate intelligence and ESG strategies
-            </p>
-            <div class="cta-buttons">
-                <a href="#contact" class="btn btn-primary">Get Started</a>
-                <a href="#services" class="btn btn-secondary">Learn More</a>
-            </div>
-            </div>
-            <div class="hero-visual">
-            <div id="climate-globe" class="climate-globe"></div>
-            </div>
-            <!-- <div class="hero-visual">
-            <div class="spinning-circle-container">
-                <div class="spinning-circle"></div>
-                <img src="assets/img/finkele-logo-round.png" alt="Finkele Logo" class="spinning-logo">
-            </div>
-            </div> -->
-        </div>
-        </section>
-
-        
-        <!-- Services Section -->
-        <section id="services" class="services">
-            <div class="container">
-                <h2 class="section-title">Comprehensive <span class="gradient-text">Climate Solutions</span></h2>
-                <div class="services-grid" id="services-grid">
-                    <!-- Services populated by JS -->
-                </div>
-            </div>
-        </section>
-        
-        <!-- Dashboard Section -->
-        <section id="dashboard" class="dashboard-section">
-        <div class="container">
-            <h2 class="section-title">Real-Time <span class="gradient-text">Climate Analytics</span></h2>
-
-            <!-- Charts Grid -->
-            <div class="charts-grid">
-
-            <div class="chart-box">
-                <h3 class="chart-title">Temperature Trends</h3>
-                <canvas id="temperatureChart"></canvas>
-            </div>
-
-            <div class="chart-box">
-                <h3 class="chart-title">CO₂ Concentration</h3>
-                <canvas id="co2Chart"></canvas>
-            </div>
-
-            <div class="chart-box">
-                <h3 class="chart-title">Regional Climate Risk</h3>
-                <canvas id="precipitationChart"></canvas>
-            </div>
-
-            <div class="chart-box">
-                <h3 class="chart-title">Global Risk Distribution</h3>
-                <canvas id="riskChart"></canvas>
-            </div>
-
-            </div>
-
-            <!-- Live Climate Stats -->
-            <div class="live-monitoring">
-            <h3>Live Climate Monitoring <span class="live-indicator">LIVE</span></h3>
-            <div class="climate-stats">
-                <div class="stat-card">
-                <div class="stat-label">ESG Score</div>
-                <div class="stat-value stat-number">73.2</div>
-                </div>
-                <div class="stat-card">
-                <div class="stat-label">Temperature</div>
-                <div class="stat-value temp-value">+1.8°C</div>
-                </div>
-                <div class="stat-card">
-                <div class="stat-label">CO₂ Level</div>
-                <div class="stat-value co2-value">421 ppm</div>
-                </div>
-                <div class="stat-card">
-                <div class="stat-label">Assets Protected</div>
-                <div class="stat-value risk-value">87%</div>
-                </div>
-            </div>
-            </div>
-
-            <a href="climate.html" class="btn btn-primary">View Full Dashboard</a>
-        </div>
-        </section>
-
-        <!-- Alert System Section -->
-        <section id="alerts" class="dashboard-section" style="background: linear-gradient(135deg, rgba(230, 126, 34, 0.05) 0%, rgba(211, 84, 0, 0.05) 100%);">
-            <div class="container">
-                <h2 class="section-title">Real-Time <span class="gradient-text">Flood Alert System</span></h2>
-
-                <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem; color: #666; font-size: 1.1rem;">
-                    Live flood warnings, river gauge levels, and rainfall forecasts across England &amp; Scotland.
-                    Continuously updated from the Environment Agency and SEPA monitoring networks.
+            <div class="hero-inner">
+                <h1 class="hero-title">
+                    Climate <span class="gradient-text">Intelligence</span><br>
+                    for Resilient Assets
+                </h1>
+                <p class="hero-subtitle">
+                    Real-time flood alerts, ESG analytics, and interactive risk mapping &mdash;
+                    powered by Environment Agency, SEPA &amp; Open-Meteo data.
                 </p>
-
-                <!-- Alert Stats -->
-                <div class="live-monitoring">
-                    <h3>Monitoring Network <span class="live-indicator" style="background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);">LIVE</span></h3>
-                    <div class="climate-stats">
-                        <div class="stat-card">
-                            <div class="stat-label">Gauge Stations</div>
-                            <div class="stat-value stat-number">~3,400</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-label">Warning Refresh</div>
-                            <div class="stat-value temp-value">5 min</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-label">Coverage</div>
-                            <div class="stat-value co2-value">EN &amp; SC</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-label">Data Sources</div>
-                            <div class="stat-value risk-value">EA + SEPA</div>
-                        </div>
-                    </div>
+                <div class="cta-row">
+                    <a href="#products" class="btn btn-primary">Explore Products</a>
+                    <a href="#contact" class="btn btn-ghost">Get in Touch</a>
                 </div>
-
-                <a href="alert.html" class="btn btn-primary" style="background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);">Open Flood Alert Dashboard</a>
             </div>
-        </section>
-        
-        <!-- Flood Map Section -->
-        <section id="floodmap" class="dashboard-section" style="background: linear-gradient(135deg, rgba(33, 102, 172, 0.05) 0%, rgba(8, 81, 156, 0.05) 100%);">
-            <div class="container">
-                <h2 class="section-title">Interactive <span class="gradient-text">Flood Risk Map</span></h2>
-                
-                <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem; color: #666; font-size: 1.1rem;">
-                    Explore multi-region flood depth analysis with return periods from 10 to 500 years. 
-                    Visualize risk scores across regions with collapsible layer controls.
-                </p>
-
-                <!-- Flood Stats -->
-                <div class="live-monitoring">
-                    <h3>Flood Risk Coverage <span class="live-indicator" style="background: linear-gradient(135deg, #2166ac 0%, #08519c 100%);">INTERACTIVE</span></h3>
-                    <div class="climate-stats">
-                        <div class="stat-card">
-                            <div class="stat-label">Regions Analyzed</div>
-                            <div class="stat-value stat-number">5</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-label">Return Periods</div>
-                            <div class="stat-value temp-value">10-500 yr</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-label">Risk Levels</div>
-                            <div class="stat-value co2-value">2-10</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-label">Layer Control</div>
-                            <div class="stat-value risk-value">Collapsible</div>
-                        </div>
-                    </div>
-                </div>
-
-                <a href="floodmap.html" class="btn btn-primary" style="background: linear-gradient(135deg, #2166ac 0%, #08519c 100%);">Explore Flood Map Demo</a>
+            <div class="trust-bar">
+                <div class="trust-item"><span class="trust-value">$3.2B</span><span class="trust-label">Assets Protected</span></div>
+                <div class="trust-divider"></div>
+                <div class="trust-item"><span class="trust-value">3,400+</span><span class="trust-label">Gauge Stations</span></div>
+                <div class="trust-divider"></div>
+                <div class="trust-item"><span class="trust-value">5 min</span><span class="trust-label">Refresh Cycle</span></div>
+                <div class="trust-divider"></div>
+                <div class="trust-item"><span class="trust-value">97.3%</span><span class="trust-label">Accuracy</span></div>
             </div>
         </section>
 
-        <!-- Impact Section -->
-        <section id="impact" class="impact">
+        <!-- Products bento -->
+        <section id="products" class="products">
             <div class="container">
-                <h2 class="section-title">Measurable <span class="gradient-text">Impact</span></h2>
-                <div class="impact-grid" id="impact-metrics">
-                    <!-- Metrics populated by JS -->
+                <h2 class="section-heading">Three tools, one platform</h2>
+
+                <div class="bento-grid">
+                    <a href="alert.html" class="bento-card bento-featured card-alert">
+                        <div class="bento-badge badge-alert">LIVE</div>
+                        <div class="bento-icon">&#x1F6A8;</div>
+                        <h3>Flood Alert Dashboard</h3>
+                        <p>Live warnings, river gauge levels &amp; rainfall forecasts across England &amp; Scotland. 3,400 stations, 5-min refresh.</p>
+                        <div class="bento-stats">
+                            <span><strong>EA + SEPA</strong> data</span>
+                            <span><strong>EN &amp; SC</strong> coverage</span>
+                        </div>
+                        <span class="bento-arrow">Open Dashboard &rarr;</span>
+                    </a>
+
+                    <a href="climate.html" class="bento-card card-climate">
+                        <div class="bento-badge badge-climate">LIVE</div>
+                        <div class="bento-icon">&#x1F321;&#xFE0F;</div>
+                        <h3>Climate Analytics</h3>
+                        <p>ESG risk index, temperature anomalies, CO&#x2082; trends &amp; AI-driven predictions.</p>
+                        <div class="bento-stats">
+                            <span><strong>73.2</strong> ESG Score</span>
+                            <span><strong>+1.8&deg;C</strong> anomaly</span>
+                        </div>
+                        <span class="bento-arrow">View Dashboard &rarr;</span>
+                    </a>
+
+                    <a href="floodmap.html" class="bento-card card-floodmap">
+                        <div class="bento-badge badge-floodmap">INTERACTIVE</div>
+                        <div class="bento-icon">&#x1F5FA;&#xFE0F;</div>
+                        <h3>Flood Risk Map</h3>
+                        <p>Multi-region flood depth analysis with 10&ndash;500 year return periods &amp; collapsible layers.</p>
+                        <div class="bento-stats">
+                            <span><strong>5</strong> regions</span>
+                            <span><strong>10&ndash;500 yr</strong> periods</span>
+                        </div>
+                        <span class="bento-arrow">Explore Map &rarr;</span>
+                    </a>
                 </div>
             </div>
         </section>
-        
-        <!-- Contact Section -->
-        <section id="contact" class="contact">
+
+        <!-- Analytics preview -->
+        <section id="analytics" class="analytics">
             <div class="container">
-                <h2 class="section-title">Get in Touch</h2>
-                <form id="contact-form" class="contact-form">
-                    <input type="text" name="name" placeholder="Your Name" required>
-                    <input type="email" name="email" placeholder="Your Email" required>
-                    <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-                    <button type="submit" class="btn btn-primary">Send Message</button>
-                </form>
+                <h2 class="section-heading">Real-time climate data</h2>
+                <div class="charts-grid">
+                    <div class="chart-box"><h3 class="chart-title">Temperature Trends</h3><canvas id="temperatureChart"></canvas></div>
+                    <div class="chart-box"><h3 class="chart-title">CO&#x2082; Concentration</h3><canvas id="co2Chart"></canvas></div>
+                    <div class="chart-box"><h3 class="chart-title">Regional Climate Risk</h3><canvas id="precipitationChart"></canvas></div>
+                    <div class="chart-box"><h3 class="chart-title">Global Risk Distribution</h3><canvas id="riskChart"></canvas></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="contact-strip">
+            <div class="container contact-inner">
+                <div>
+                    <h2 class="section-heading" style="text-align:left;margin-bottom:.5rem">Get in touch</h2>
+                    <p class="contact-sub">Interested in climate intelligence for your organisation?</p>
+                </div>
+                <a href="mailto:info@finkele.com" class="btn btn-primary">info@finkele.com</a>
             </div>
         </section>
     </main>
-    
+
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-section">
-                    <img src="assets/img/finkele-logo-square.png" alt="Finkele" class="footer-logo">
-                    <p>Building climate resilience through innovation</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#dashboard">Analytics</a></li>
-                        <li><a href="#impact">Impact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Contact</h3>
-                    <p>info@finkele.com</p>
-                    <div class="social-links">
-                        <a href="#" aria-label="LinkedIn">LinkedIn</a>
-                        <a href="#" aria-label="Twitter">Twitter</a>
-                    </div>
-                </div>
+        <div class="container footer-inner">
+            <div class="footer-left">
+                <img src="assets/img/finkele-logo-square.png" alt="Finkele" class="footer-logo">
+                <span class="footer-copy">&copy; 2025 Finkele. All rights reserved.</span>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Finkele. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#products">Products</a>
+                <a href="#analytics">Analytics</a>
+                <a href="mailto:info@finkele.com">Contact</a>
             </div>
         </div>
     </footer>
 
-    <!-- Climate Charts External Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    
-    <!-- Scripts -->
-    <script src="assets/js/animations.js"></script>
-    <script src="assets/js/globe.js"></script>
-     <script src="assets/js/main.js"></script>
-
-    <!-- Climate Charts Scripts -->
+    <script src="assets/js/main.js"></script>
     <script src="assets/js/climate-charts.js"></script>
 </body>
 </html>

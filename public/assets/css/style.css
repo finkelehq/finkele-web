@@ -158,8 +158,9 @@ a { text-decoration: none; color: inherit; }
 
 .bento-card {
   position: relative;
-  display: flex; flex-direction: column;
-  padding: 2rem 2.2rem;
+  display: flex; flex-direction: row; align-items: center;
+  gap: 1.5rem;
+  padding: 1.2rem 1.8rem;
   border-radius: var(--radius-lg);
   background: var(--bg);
   border: 1px solid rgba(0,0,0,.06);
@@ -168,6 +169,7 @@ a { text-decoration: none; color: inherit; }
   overflow: hidden;
   cursor: pointer;
 }
+.bento-card-body { flex: 1; min-width: 0; }
 .bento-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
 .bento-card::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0;
@@ -181,15 +183,15 @@ a { text-decoration: none; color: inherit; }
   display: inline-block; width: fit-content;
   font-size: .6rem; font-weight: 700; letter-spacing: 1px;
   padding: 3px 10px; border-radius: 20px; color: #fff;
-  margin-bottom: .8rem;
+  margin-bottom: .4rem;
 }
 .badge-alert   { background: linear-gradient(135deg, #e67e22, #d35400); }
 .badge-climate { background: linear-gradient(135deg, var(--green), var(--green-dark)); }
 .badge-floodmap { background: linear-gradient(135deg, #2166ac, #08519c); }
 
-.bento-icon { font-size: 2rem; margin-bottom: .6rem; }
-.bento-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: .4rem; }
-.bento-card p { font-size: .92rem; color: var(--muted); line-height: 1.55; margin-bottom: 1rem; }
+.bento-icon { font-size: 2.2rem; flex-shrink: 0; }
+.bento-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: .2rem; }
+.bento-card p { font-size: .85rem; color: var(--muted); line-height: 1.5; margin-bottom: .5rem; }
 .bento-stats {
   display: flex; gap: 1.5rem; font-size: .82rem; color: var(--muted);
   margin-bottom: .5rem;
@@ -285,8 +287,8 @@ a { text-decoration: none; color: inherit; }
   .trust-item { flex: 1 1 40%; }
 
   .bento-grid { grid-template-columns: 1fr; }
-  .bento-featured { flex-direction: column; gap: 0; }
-  .bento-featured .bento-icon { font-size: 2rem; }
+  .bento-card { flex-direction: column; gap: .5rem; }
+  .bento-card .bento-icon { font-size: 1.8rem; }
 
   .charts-grid { grid-template-columns: 1fr; }
   .chart-box { height: 260px; }

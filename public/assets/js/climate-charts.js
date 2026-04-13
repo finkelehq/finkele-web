@@ -31,7 +31,8 @@ function initializeClimateCharts() {
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: false,
+                maintainAspectRatio: true,
+                aspectRatio: 1,
                 plugins: {
                     title: {
                         display: true,
@@ -89,11 +90,12 @@ function initializeClimateCharts() {
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: false,
+                maintainAspectRatio: true,
+                aspectRatio: 1,
                 plugins: {
                     title: {
                         display: true,
-                        text: 'CO₂ Concentration Levels',
+                        text: 'CO₂ Concentration',
                         font: { size: 16, weight: 'bold' }
                     },
                     legend: { display: false }
@@ -141,7 +143,8 @@ function initializeClimateCharts() {
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: false,
+                maintainAspectRatio: true,
+                aspectRatio: 1,
                 plugins: {
                     title: {
                         display: true,
@@ -193,7 +196,8 @@ function initializeClimateCharts() {
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: false,
+                maintainAspectRatio: true,
+                aspectRatio: 1,
                 plugins: {
                     title: {
                         display: true,

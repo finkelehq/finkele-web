@@ -152,11 +152,9 @@ a { text-decoration: none; color: inherit; }
 
 .bento-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
+  grid-template-columns: 1fr;
   gap: 1.25rem;
 }
-.bento-featured { grid-column: 1 / -1; } /* full-width top card */
 
 .bento-card {
   position: relative;
@@ -206,11 +204,7 @@ a { text-decoration: none; color: inherit; }
 .card-floodmap .bento-arrow { color: #2166ac; }
 .bento-card:hover .bento-arrow { text-decoration: underline; }
 
-/* Featured card: horizontal layout */
-.bento-featured {
-  flex-direction: row; align-items: center; gap: 3rem;
-}
-.bento-featured .bento-icon { font-size: 3rem; flex-shrink: 0; }
+
 
 /* ═══════════════════════════════════════════
    ANALYTICS — 2×2 chart grid

@@ -153,18 +153,63 @@ a { text-decoration: none; color: inherit; }
 
 /* Trust bar */
 .trust-bar {
-  display: flex; align-items: center; justify-content: center;
-  gap: 2rem; margin-top: 3.5rem;
-  padding: 1.4rem 2rem; border-radius: var(--radius-lg);
+  display: flex; align-items: stretch; justify-content: center;
+  gap: 2.5rem; margin-top: 3.5rem;
+  padding: 1.8rem 2.5rem; border-radius: var(--radius-lg);
   background: rgba(255,255,255,.7);
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   box-shadow: var(--shadow-sm); border: 1px solid rgba(3,140,80,.08);
   animation: fadeUp .8s var(--ease) .5s both;
+  text-align: left;
 }
 .trust-item { text-align: center; }
 .trust-value { display: block; font-size: 1.35rem; font-weight: 800; color: var(--green); letter-spacing: -.02em; }
 .trust-label { display: block; font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; font-weight: 600; margin-top: .15rem; }
 .trust-divider { width: 1px; height: 32px; background: rgba(3,140,80,.15); }
+
+/* ═══════════════════════════════════════════
+   PROBLEM → SOLUTION strip
+   ═══════════════════════════════════════════ */
+.problem-strip {
+  padding: 4rem 0;
+  background: var(--bg);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+.problem-inner {
+  display: flex; align-items: center; justify-content: center;
+  gap: 2rem; flex-wrap: wrap;
+}
+.problem-col {
+  flex: 1; min-width: 220px; max-width: 340px;
+  display: flex; flex-direction: column; gap: .6rem;
+}
+.problem-tag {
+  display: inline-block;
+  font-size: .68rem; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; padding: 3px 10px;
+  border-radius: 20px; width: fit-content;
+  background: rgba(220,50,50,.1); color: #c0392b;
+}
+.problem-tag--solution {
+  background: rgba(3,140,80,.1); color: var(--green-dark);
+}
+.problem-stat {
+  font-size: clamp(1.6rem, 3.2vw, 2.24rem);
+  font-weight: 800; letter-spacing: -.03em;
+  color: var(--black); line-height: 1;
+}
+.problem-col--solution .problem-stat { color: var(--green); }
+.problem-desc {
+  font-size: .98rem; color: var(--muted); line-height: 1.65;
+}
+.problem-divider {
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.problem-arrow-icon {
+  font-size: 2rem; color: var(--green); opacity: .4;
+  font-weight: 300;
+}
 
 /* ═══════════════════════════════════════════
    PRODUCTS — Bento grid

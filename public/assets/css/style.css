@@ -341,6 +341,66 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ═══════════════════════════════════════════
+   CTA — Book a Demo
+   ═══════════════════════════════════════════ */
+@keyframes ctaGradient {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes pulseRing {
+  0%   { transform: scale(.7); opacity: .6; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+.cta-demo {
+  padding: 5rem 1.5rem;
+  background: linear-gradient(-45deg, #024f2f, #026B3C, #038C50, #04a85f, #026B3C);
+  background-size: 400% 400%;
+  animation: ctaGradient 12s ease infinite;
+  text-align: center;
+}
+.cta-demo-inner {
+  max-width: 640px; margin: 0 auto;
+  display: flex; flex-direction: column; align-items: center; gap: 2rem;
+}
+.cta-demo-pulse {
+  position: relative; width: 64px; height: 64px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.pulse-ring {
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.5);
+  animation: pulseRing 2s ease-out infinite;
+}
+.pulse-ring--2 { animation-delay: 1s; }
+.pulse-dot {
+  font-size: 2rem; line-height: 1; position: relative; z-index: 1;
+}
+.cta-demo-text { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+.cta-demo-heading {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 800; letter-spacing: -.03em;
+  color: #fff; line-height: 1.1;
+}
+.cta-demo-sub {
+  font-size: 1.05rem; color: rgba(255,255,255,.8);
+  line-height: 1.65; max-width: 520px;
+}
+.cta-demo-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-top: .5rem; }
+.btn-demo {
+  background: #fff; color: var(--green-dark);
+  box-shadow: 0 4px 18px rgba(0,0,0,.18);
+  font-size: 1rem; padding: .8rem 2rem;
+}
+.btn-demo:hover { background: #f0fdf6; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.22); }
+.btn-demo-ghost {
+  border-color: rgba(255,255,255,.6); color: #fff;
+  font-size: 1rem; padding: .8rem 2rem;
+}
+.btn-demo-ghost:hover { background: rgba(255,255,255,.15); color: #fff; transform: translateY(-2px); }
+
+/* ═══════════════════════════════════════════
    CONTACT — inline strip
    ═══════════════════════════════════════════ */
 .contact-strip { padding: 4rem 0; background: var(--bg-alt); }

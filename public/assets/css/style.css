@@ -525,6 +525,7 @@ a { text-decoration: none; color: inherit; }
 
 /* Mobile nav */
 @media (max-width: 768px) {
+  /* ── Nav ── */
   .nav-links {
     position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
     background: var(--bg); flex-direction: column;
@@ -535,30 +536,64 @@ a { text-decoration: none; color: inherit; }
   .nav-links.mobile-active { right: 0; }
   .hamburger { display: flex; }
 
+  /* ── Hero ── */
   .hero { min-height: auto; padding: 6rem 1.25rem 2.5rem; }
-  .hero-title { font-size: 2rem; }
+  .hero-title { font-size: clamp(1.9rem, 8vw, 2.4rem); }
   .hero-subtitle { font-size: 1rem; }
+  .cta-row { gap: .75rem; }
+  .cta-row .btn { width: 100%; max-width: 320px; }
 
-  .trust-bar { flex-wrap: wrap; gap: 1rem .5rem; padding: 1rem; margin-top: 2rem; }
+  /* ── Problem → Solution trust-bar ── */
+  .trust-bar {
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1.4rem 1.25rem;
+    margin-top: 2rem;
+    text-align: left;
+  }
   .trust-divider { display: none; }
-  .trust-item { flex: 1 1 40%; }
+  .problem-col { max-width: 100%; min-width: 0; }
+  .problem-stat { font-size: clamp(1.5rem, 6vw, 2rem); }
 
-  .bento-grid { grid-template-columns: 1fr; }
-  .bento-header { flex-wrap: wrap; }
-  .bento-footer { flex-wrap: wrap; }
+  /* ── Products bento ── */
+  .bento-grid { grid-template-columns: 1fr; max-width: 100%; }
+  .bento-card { aspect-ratio: unset; padding: 1.6rem 1.5rem; min-height: 220px; }
+  .bento-header { flex-wrap: wrap; gap: .4rem; }
+  .bento-footer { flex-wrap: wrap; gap: .5rem; }
+  .bento-stats { gap: 1.5rem; }
 
+  /* ── Charts ── */
   .charts-grid { grid-template-columns: 1fr; }
-  .chart-box { height: 260px; }
+  .chart-box { height: 260px; aspect-ratio: unset; }
 
-  .contact-inner { flex-direction: column; text-align: center; }
-  .contact-inner .section-heading { text-align: center !important; }
+  /* ── Marquee ── */
+  .marquee-item img { height: 32px; }
+  .marquee-item { padding: .4rem 1rem; }
 
-  .footer-inner { flex-direction: column; text-align: center; }
-  .footer-left { flex-direction: column; }
+  /* ── CTA Demo ── */
+  .cta-demo { padding: 3.5rem 1.25rem; }
+  .cta-demo-inner { gap: 1.5rem; }
+  .cta-demo-btns .btn { width: 100%; max-width: 320px; }
+
+  /* ── Contact ── */
+  .contact-strip { padding: 3rem 0; }
+  .contact-inner { flex-direction: column; align-items: stretch; gap: 2rem; }
+  .contact-col { max-width: 100%; min-width: 0; }
+  .contact-divider { display: none; }
+  .signup-form .signup-name-row { flex-direction: column; }
+  .signup-form .signup-name-row input { width: 100%; }
+
+  /* ── Footer ── */
+  .footer-inner { flex-direction: column; text-align: center; gap: .75rem; }
+  .footer-left { flex-direction: column; gap: .4rem; }
+  .footer-links { justify-content: center; }
 }
 
 @media (max-width: 480px) {
-  .hero-title { font-size: 1.7rem; }
-  .trust-item { flex: 1 1 100%; }
-  .bento-card { padding: 1.5rem; }
+  .hero-title { font-size: 1.75rem; }
+  .bento-card { padding: 1.25rem; }
+  .section-heading { font-size: 1.5rem; margin-bottom: 1.75rem; }
+  .cta-demo-heading { font-size: 1.7rem; }
+  .problem-stat { font-size: 1.5rem; }
+  .marquee-item img { height: 28px; }
 }

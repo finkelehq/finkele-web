@@ -83,6 +83,16 @@ a { text-decoration: none; color: inherit; }
 .hamburger { display: none; flex-direction: column; gap: 4px; cursor: pointer; }
 .hamburger span { width: 22px; height: 2.5px; background: var(--green); border-radius: 2px; transition: all .25s; }
 
+.nav-demo-btn {
+  display: inline-flex; align-items: center;
+  padding: .45rem 1.1rem;
+  background: var(--green); color: #fff;
+  border-radius: 7px; font-size: .88rem; font-weight: 600;
+  transition: background .2s, transform .2s;
+  white-space: nowrap;
+}
+.nav-demo-btn:hover { background: var(--green-dark); transform: translateY(-1px); }
+
 /* ═══════════════════════════════════════════
    HERO — compact, ~70vh
    ═══════════════════════════════════════════ */
@@ -587,6 +597,7 @@ a { text-decoration: none; color: inherit; }
 /* Mobile nav */
 @media (max-width: 768px) {
   /* ── Nav ── */
+  .nav-demo-btn { display: none; }
   .nav-links {
     position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
     background: var(--bg); flex-direction: column;

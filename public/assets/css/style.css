@@ -520,6 +520,58 @@ a { text-decoration: none; color: inherit; }
 .footer-links a:hover { color: var(--green-light); }
 
 /* ═══════════════════════════════════════════
+   AWARDS
+   ═══════════════════════════════════════════ */
+.awards-section {
+  padding: 4rem 0;
+  background: var(--bg-alt);
+  border-top: 1px solid rgba(0,0,0,.06);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+.awards-label {
+  text-align: center;
+  font-size: .72rem; font-weight: 700; letter-spacing: .8px;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 2rem;
+}
+.awards-grid {
+  display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap;
+}
+.award-card {
+  display: flex; flex-direction: column;
+  background: var(--bg);
+  border: 1px solid rgba(0,0,0,.07);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  width: 320px;
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease);
+  text-decoration: none; color: inherit;
+}
+.award-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.award-card img {
+  width: 100%; height: 180px; object-fit: cover; object-position: center;
+  display: block;
+}
+.award-card-body {
+  padding: 1.25rem 1.4rem 1.5rem;
+  display: flex; flex-direction: column; gap: .4rem;
+}
+.award-badge {
+  display: inline-block; width: fit-content;
+  font-size: .62rem; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; padding: 3px 10px;
+  border-radius: 20px;
+  background: rgba(3,140,80,.1); color: var(--green-dark);
+}
+.award-name {
+  font-size: .98rem; font-weight: 700; color: var(--black); line-height: 1.35;
+}
+.award-category {
+  font-size: .88rem; color: var(--muted);
+}
+
+/* ═══════════════════════════════════════════
    RESPONSIVE
    ═══════════════════════════════════════════ */
 
@@ -565,6 +617,10 @@ a { text-decoration: none; color: inherit; }
   /* ── Charts ── */
   .charts-grid { grid-template-columns: 1fr; }
   .chart-box { height: 260px; aspect-ratio: unset; }
+
+  /* ── Awards ── */
+  .awards-grid { flex-direction: column; align-items: center; }
+  .award-card { width: 100%; max-width: 480px; }
 
   /* ── Marquee ── */
   .marquee-item img { height: 32px; }

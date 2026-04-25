@@ -570,6 +570,15 @@ a { text-decoration: none; color: inherit; }
 .award-category {
   font-size: .88rem; color: var(--muted);
 }
+.award-card--text .award-card-logo-wrap {
+  display: flex; align-items: center; justify-content: center;
+  height: 180px; background: #fff;
+  padding: .75rem;
+  overflow: hidden;
+}
+.award-logo-img {
+  height: 100%; width: auto; max-width: 100%; object-fit: contain; display: block;
+}
 
 /* ═══════════════════════════════════════════
    RESPONSIVE

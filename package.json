@@ -14,17 +14,18 @@
     "risk-management"
   ],
   "author": "Finkele Team",
-  "license": "GPLv3",
+  "license": "UNLICENSED",
+  "private": true,
   "devDependencies": {
     "live-server": "^1.2.2",
     "staticrypt": "^3.5.4"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kabartay/finkele.git"
+    "url": "git+https://github.com/finkelehq/finkele-web.git"
   },
   "bugs": {
-    "url": "https://github.com/kabartay/finkele/issues"
+    "url": "https://github.com/finkelehq/finkele-web/issues"
   },
-  "homepage": "https://github.com/kabartay/finkele#readme"
+  "homepage": "https://www.finkele.com"
 }

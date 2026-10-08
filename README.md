@@ -92,4 +92,5 @@ Each service repo has its own `.github/workflows/deploy.yml`:
 
 ## License
 
-See [LICENSE](LICENSE) for details.
+Proprietary. Copyright (c) 2026 Finkele Ltd. All rights reserved; see [LICENSE](LICENSE).
+The repository is public only so GitHub Pages can serve the site.

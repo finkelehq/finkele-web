@@ -846,3 +846,17 @@ html.motion .reveal.is-in { opacity: 1; transform: none; }
 .rp-text li::before { content: ""; position: absolute; left: 0; top: .68em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
 .rp-end { padding: clamp(2.5rem, 5vw, 3.5rem) 0 clamp(3rem, 6vw, 4.5rem); }
 .rp-end .cta-row { margin-top: 0; }
+
+/* Section heads with a lede span the card grid on wide screens: eyebrow and title on the left,
+   the lede on the right, so the head lines up with the cards while the lede keeps a readable
+   measure (about 70 characters) instead of running the full 1180 px. */
+@media (min-width: 1000px) {
+  .section-head:has(.section-lede) {
+    max-width: none;
+    display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); column-gap: clamp(2.5rem, 5vw, 5rem);
+    align-items: end;
+  }
+  .section-head:has(.section-lede) > .eyebrow,
+  .section-head:has(.section-lede) > .section-title { grid-column: 1; }
+  .section-head:has(.section-lede) > .section-lede { grid-column: 2; grid-row: 1 / span 2; margin-top: 0; max-width: none; }
+}

@@ -16,7 +16,7 @@
 
 /* Laptop: a lid with an even bezel, a 16:10 screen, and a thin base slab. */
 /* The base is 112% of the lid and centred under it, so the lid is inset to keep the base inside the stage. */
-.laptop { width: 80%; margin-left: 5%; position: relative; }
+.laptop { width: 74%; margin-left: 4.5%; position: relative; }
 .laptop-lid {
   position: relative;
   padding: 2.2cqw 2.2cqw 2.6cqw;
@@ -52,12 +52,12 @@
   border-radius: 0 0 .3cqw .3cqw;
 }
 
-/* Phone: overlaps the laptop's lower right corner. */
+/* Phone: beside the laptop with a clear gap (laptop base ends at about 83%, phone starts at 85%). */
 .phone {
   position: absolute;
   right: 0;
   bottom: 0;
-  width: 16%;
+  width: 15%;
   padding: .8cqw;
   border-radius: 3cqw;
   background: linear-gradient(160deg, #2b323c, #161a20);

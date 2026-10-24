@@ -946,7 +946,22 @@ html.motion .reveal.is-in { opacity: 1; transform: none; }
 @media (min-width: 820px) { .acc-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: clamp(2.5rem, 6vw, 5rem); } }
 .acc-logo { display: block; width: 100%; max-width: 280px; justify-self: center; border-radius: var(--radius); overflow: hidden; box-shadow: 0 18px 40px -24px rgba(20, 36, 58, .45); }
 .acc-logo img { display: block; width: 100%; height: auto; }
-@media (min-width: 820px) { .acc-logo { justify-self: end; } }
+/* From 1200 px the square is exactly as tall as the text beside it, eyebrow to link: the text
+   sets the row's height, and the logo, taken out of flow, fills that height as a square. */
+@media (min-width: 1200px) {
+  .acc-grid { align-items: stretch; }
+  .acc-logo { position: relative; max-width: none; justify-self: stretch; overflow: visible; box-shadow: none; border-radius: 0; }
+  .acc-logo img {
+    position: absolute; top: 0; right: 0; height: 100%; width: auto; aspect-ratio: 1;
+    border-radius: var(--radius); box-shadow: 0 18px 40px -24px rgba(20, 36, 58, .45);
+  }
+  .acc-logo:focus-visible { outline: none; }
+  .acc-logo:focus-visible img { outline: 2px solid var(--green); outline-offset: 4px; }
+}
 .acc-logo:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
 .acc-text .section-lede { max-width: 40rem; text-wrap: pretty; }
 .acc-text .product-more { margin-top: 1.1rem; }
+
+/* A head that stacks at every width, title then lede, each free to run the full width. */
+.section-head.section-head--stack { display: block; max-width: none; }
+.section-head.section-head--stack > .section-lede { max-width: none; margin-top: .9rem; }

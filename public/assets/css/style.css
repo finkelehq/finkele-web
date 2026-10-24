@@ -495,7 +495,21 @@ section { background: var(--bg); color: var(--fg); }
   text-align: center; font-family: var(--font-mono); font-size: .75rem; font-weight: 500;
   letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem;
 }
-.logo-row { list-style: none; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 1.25rem 2.75rem; }
+.logo-marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+.logo-track { display: flex; width: max-content; animation: logo-scroll 36s linear infinite; }
+.logo-marquee:hover .logo-track, .logo-marquee:focus-within .logo-track { animation-play-state: paused; }
+.logo-row { list-style: none; display: flex; flex-wrap: nowrap; align-items: center; gap: 3.5rem; padding-right: 3.5rem; }
+@keyframes logo-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .logo-marquee { -webkit-mask-image: none; mask-image: none; }
+  .logo-track { animation: none; width: auto; justify-content: center; }
+  .logo-row { flex-wrap: wrap; justify-content: center; gap: 1.25rem 2.75rem; padding-right: 0; }
+  .logo-row--copy { display: none; }
+}
 .logo-item { display: flex; align-items: center; height: 56px; filter: grayscale(1); opacity: .85; transition: filter 200ms ease, opacity 200ms ease; }
 .logo-item img { width: auto; height: var(--h, 40px); }
 /* Optical sizes: wide wordmarks shorter, compact marks taller, so the row reads evenly. */
@@ -508,7 +522,7 @@ section { background: var(--bg); color: var(--fg); }
 .logo-name { font-size: 1.35rem; font-weight: 600; letter-spacing: -.01em; color: #5f6b6b; }
 @media (hover: hover) and (pointer: fine) { .logo-item:hover { filter: none; opacity: 1; } }
 @media (max-width: 600px) {
-  .logo-row { gap: 1rem 1.75rem; }
+  .logo-row { gap: 2.25rem; padding-right: 2.25rem; }
   .logo-item { height: 44px; }
   .logo-item img { height: calc(var(--h, 40px) * .78); }
   .logo-item--named img { height: 24px; width: 24px; }
@@ -557,8 +571,10 @@ section { background: var(--bg); color: var(--fg); }
 .contact-sub { color: var(--muted); }
 .contact-name { margin-top: 1.25rem; font-size: 1.1rem; font-weight: 600; }
 .contact-role { color: var(--muted); margin-bottom: 1.25rem; }
-.contact-card > .btn-block { margin-top: .25rem; }
-.signup-form { display: grid; gap: .85rem; margin-top: 1.1rem; }
+.contact-card > .btn-block { margin-top: auto; }
+.signup-form { flex: 1; }
+.signup-form > .btn-block { margin-top: auto; }
+.signup-form { display: flex; flex-direction: column; gap: .85rem; margin-top: 1.1rem; }
 .field-row { display: grid; gap: .85rem; }
 @media (min-width: 480px) { .field-row { grid-template-columns: 1fr 1fr; } }
 .field { display: grid; gap: .3rem; min-width: 0; }
@@ -574,8 +590,8 @@ section { background: var(--bg); color: var(--fg); }
 }
 .field input:focus-visible { outline: 2px solid var(--green); outline-offset: 1px; border-color: var(--green); }
 .linkedin {
-  display: inline-flex; align-items: center; gap: .55rem; margin-top: 1.1rem; align-self: flex-start;
-  color: var(--ink); font-weight: 500; text-decoration: none; padding: .25rem 0;
+  display: inline-flex; align-items: center; gap: .55rem; margin-top: -.5rem; align-self: flex-start;
+  color: var(--ink); font-weight: 500; text-decoration: none; padding: .25rem 0; margin-bottom: 1.25rem;
 }
 .linkedin svg { color: #0a66c2; }
 @media (hover: hover) and (pointer: fine) { .linkedin:hover { text-decoration: underline; } }
@@ -583,25 +599,7 @@ section { background: var(--bg); color: var(--fg); }
 /* Footer */
 .footer { background: var(--navy); color: var(--on-navy-muted); padding: 3rem 0 2rem; }
 .footer a { color: var(--green-on-navy); }
-.footer-credits { padding-bottom: 2rem; margin-bottom: 2rem; border-bottom: 1px solid var(--line); }
 .footer-heading { font-family: var(--font-mono); font-size: .75rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--on-navy); margin-bottom: 1rem; }
-.credits { list-style: none; display: grid; gap: .6rem 2.5rem; font-size: .85rem; line-height: 1.55; }
-.credits li { overflow-wrap: anywhere; }
-.credits strong { color: var(--on-navy); font-weight: 600; }
-@media (min-width: 820px) { .credits { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (min-width: 1100px) { .credits { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-.footer .axiom { margin-top: 1.75rem; font-size: .9rem; color: var(--on-navy-muted); max-width: 46rem; }
-.footer-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.25rem; }
-.footer-left { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
-.footer-left img { width: 78px; height: 36px; }
-.footer-copy { font-size: .9rem; }
-.footer-links { display: flex; flex-wrap: wrap; gap: 1.5rem; }
-.footer .footer-links a { color: var(--on-navy-muted); text-decoration: none; font-size: .95rem; }
-@media (hover: hover) and (pointer: fine) { .footer-links a:hover { color: var(--on-navy); text-decoration: underline; } }
-.footer-legal {
-  margin-top: 1.75rem; padding-top: 1.25rem; border-top: 1px solid var(--line);
-  font-size: .8rem; line-height: 1.55; color: var(--on-navy-faint);
-}
 
 /* How it works: the exploded layer graphic. The labels are HTML, not baked into the image,
    so they stay readable on a phone: beside the stack on wide screens, a list under it below 900 px. */
@@ -642,10 +640,6 @@ section { background: var(--bg); color: var(--fg); }
 .layers-caption .layers-credit { font-size: .8rem; }
 
 /* Footer: product links */
-.footer-products { display: flex; flex-wrap: wrap; gap: .4rem 1.5rem; margin-top: 1.5rem; font-size: .9rem; }
-.footer-products a { color: var(--on-navy-muted); text-decoration: none; }
-.footer-products-label { font-family: var(--font-mono); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: var(--on-navy); }
-@media (hover: hover) and (pointer: fine) { .footer-products a:hover { color: var(--on-navy); text-decoration: underline; } }
 
 /* Product pages */
 .breadcrumb { margin-bottom: 1.5rem; font-size: .875rem; }
@@ -719,3 +713,21 @@ html.motion .reveal.is-in { opacity: 1; transform: none; }
   *, *::before, *::after { transition-duration: 0s !important; animation-duration: 0s !important; }
   .btn:active, .film-toggle:active { transform: none; }
 }
+
+/* Footer: brand and two link columns, then the data credits, then the company line. */
+.footer-top { display: grid; gap: 2rem; padding-bottom: 2.25rem; border-bottom: 1px solid var(--line); }
+@media (min-width: 820px) { .footer-top { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, .8fr); gap: 3rem; } }
+.footer-brand { display: grid; gap: .9rem; align-content: start; max-width: 26rem; font-size: .92rem; line-height: 1.55; }
+.footer-brand img { width: 78px; height: 36px; }
+.footer-brand .axiom { color: var(--on-navy-faint); font-size: .85rem; }
+.footer-col ul { list-style: none; display: grid; gap: .55rem; font-size: .92rem; }
+.footer .footer-col a { color: var(--on-navy-muted); text-decoration: none; }
+@media (hover: hover) and (pointer: fine) { .footer .footer-col a:hover { color: var(--on-navy); text-decoration: underline; } }
+.footer-credits { padding: 2rem 0 2.25rem; border-bottom: 1px solid var(--line); }
+.credits { display: grid; gap: 1rem 2.5rem; font-size: .8rem; line-height: 1.55; }
+@media (min-width: 820px) { .credits { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .credits { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.credits dt { color: var(--on-navy); font-weight: 600; margin-bottom: .15rem; }
+.credits dd { margin: 0; overflow-wrap: anywhere; }
+.footer-bottom { display: grid; gap: .5rem; padding-top: 1.5rem; font-size: .8rem; line-height: 1.55; color: var(--on-navy-faint); }
+.footer-copy { color: var(--on-navy-muted); }

@@ -15,7 +15,6 @@ public website.
 ```
 public/
 ├── index.html      landing page
-├── climate.html    embeds the climate dashboard (finkelehq/finkele-climate)
 ├── alert.html      legacy page, to be removed: its service was retired on 2026-10-24
 ├── floodmap.html   legacy page, to be removed: its service was deleted on 2026-10-23
 ├── assets/         CSS, JavaScript and images

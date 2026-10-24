@@ -6,17 +6,18 @@
 <title>Page not found · Finkele</title>
 <meta name="robots" content="noindex">
 <link rel="icon" href="/assets/img/favicon.ico">
+<link rel="preload" href="/assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/style.css">
 <style>
   .nf { min-height: 70vh; display: grid; place-items: center; text-align: center; padding: 4rem 1.25rem; background: var(--bg); }
-  .nf h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin: .5rem 0 1rem; color: #141f20; }
+  .nf h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin: .5rem 0 1rem; color: var(--ink); }
   .nf p { color: var(--muted); max-width: 32rem; margin: 0 auto 1.75rem; line-height: 1.6; }
   .nf .row { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; }
-  .nf .code { font-size: .8rem; font-weight: 700; letter-spacing: .08em; color: #027a46; }
+  .nf .code { font-size: .8rem; font-weight: 700; letter-spacing: .08em; color: var(--green); }
 </style>
 </head>
 <body>
-<main class="nf">
+<main class="nf light">
   <div>
     <p class="code">404</p>
     <h1>We cannot find that page</h1>

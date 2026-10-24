@@ -15,7 +15,10 @@ public website.
 ```
 public/
 ├── index.html      landing page
-├── assets/         CSS, JavaScript and images
+├── product/        one page per product (product/<name>/index.html), sharing the stylesheet
+├── 404.html        the not-found page
+├── sitemap.xml     the pages, for search engines
+├── assets/         CSS, JavaScript and images (assets/img/visuals: product art; assets/img/og: social images)
 └── CNAME           the custom domain, finkele.com
 ```
 

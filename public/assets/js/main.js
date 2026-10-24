@@ -1,5 +1,6 @@
 /**
- * Finkele home page: menu, hero film control, section highlight and entrances.
+ * Finkele site: menu, hero film control, section highlight and entrances.
+ * Shared by the home page and the product pages.
  * Vanilla JS, no dependencies. Everything here is an enhancement: the page reads
  * and works without it.
  */
@@ -93,7 +94,8 @@
   }
 
   /* Highlight the nav link of the section in view. */
-  var links = Array.prototype.slice.call(document.querySelectorAll('.nav-link'));
+  // Only in-page links (href="#id") take part; on a product page the nav points elsewhere.
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav-link[href^="#"]'));
   var byId = {};
   links.forEach(function (l) { byId[l.getAttribute('href').slice(1)] = l; });
   if ('IntersectionObserver' in window) {

@@ -75,8 +75,9 @@
                             <img class="film-poster" src="assets/media/hero-poster.jpg" width="1280" height="720" alt="A 3D view of Exeter city centre with surface water shown in blue along the river and between buildings." fetchpriority="high" decoding="async">
                         </picture>
                         <video class="film-video" id="hero-film" autoplay muted loop playsinline preload="metadata" poster="assets/media/hero-poster.avif" width="1280" height="720" aria-describedby="film-caption">
-                            <source src="assets/media/hero.webm" type="video/webm" media="(prefers-reduced-motion: no-preference)">
+                            <!-- Phones first: browsers take the first matching source, so the 540 px film must precede the full-size webm. -->
                             <source src="assets/media/hero-540.mp4" type="video/mp4" media="(max-width: 700px) and (prefers-reduced-motion: no-preference)">
+                            <source src="assets/media/hero.webm" type="video/webm" media="(prefers-reduced-motion: no-preference)">
                             <source src="assets/media/hero.mp4" type="video/mp4" media="(prefers-reduced-motion: no-preference)">
                         </video>
                         <button class="film-toggle" id="film-toggle" type="button" aria-pressed="false" aria-controls="hero-film">
@@ -99,20 +100,51 @@
                 <div class="problem-card reveal">
                     <span class="tag">The Problem</span>
                     <p class="problem-stat num">£3.3bn</p>
-                    <p class="problem-desc">in annual flood damage across the UK, projected to rise to £4.5bn by 2050. Many asset owners lack the information they need to see flood risk at their sites before damage occurs.</p>
+                    <p class="problem-desc">in annual flood damage across the UK, projected to rise to £4.5bn by 2050. Many asset owners still lack the information they need to see flood risk at their sites and act before damage occurs.</p>
                     <p class="problem-note">Source: Climate Change Committee, <a href="https://www.theccc.org.uk/publication/a-well-adapted-uk/" target="_blank" rel="noopener">A Well-Adapted UK</a>; 2025 prices, 2050 under 2°C of global warming.</p>
                 </div>
                 <div class="problem-card problem-card--solution reveal">
                     <span class="tag tag--green">The Solution</span>
                     <p class="problem-stat">In seconds</p>
-                    <p class="problem-desc">Finkele's flood model maps water depth in metres across a catchment from a storm's rainfall, so owners can see which streets and buildings it reaches. It works from the rainfall forecast and the location, so it is as early as that forecast.</p>
+                    <p class="problem-desc">Our model maps water depth in metres across a catchment from a storm's rainfall, so owners can see which streets and buildings it reaches. It works from the rainfall forecast and your location, so it is as early as that forecast.</p>
                     <p class="problem-note">Measured inference time on our deployed service: <span class="num">8.5&nbsp;s</span> for a <span class="num">1&nbsp;km</span> square.</p>
                 </div>
             </div>
         </section>
 
+        <!-- Technology: AI trained on physics simulations (text as on the live page, 2026-10-24) -->
+        <section id="technology" class="tech dark" aria-labelledby="tech-title">
+            <div class="container">
+                <div class="section-head">
+                    <p class="eyebrow">Our technology</p>
+                    <h2 class="section-title" id="tech-title">AI trained on physics simulations</h2>
+                    <p class="section-lede">TERRA is our machine-learning flood model. We run the LISFLOOD-FP hydraulic solver through many storms over Environment Agency LiDAR terrain, and TERRA learns from those runs. Give it a storm's rainfall and it returns water depth in metres, with an uncertainty band, in seconds.</p>
+                </div>
+                <ul class="tech-grid" role="list">
+                    <li class="tech-card reveal">
+                        <span class="product-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="13" r="7.5"/><path d="M13 9v4l2.5 1.5M2.5 8h4M2 12h3M2.5 16h4"/></svg></span>
+                        <h3>Fast</h3>
+                        <p class="tech-stat">Seconds for a <span class="num">1&nbsp;km</span> square</p>
+                        <p><span class="num">8.5&nbsp;s</span> of measured inference on our deployed service, so each new rainfall forecast becomes a depth map while it is still current.</p>
+                    </li>
+                    <li class="tech-card reveal">
+                        <span class="product-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="1.5"/><path d="M4 9.3h16M4 14.6h16M9.3 4v16M14.6 4v16"/></svg></span>
+                        <h3>Detailed</h3>
+                        <p class="tech-stat"><span class="num">1&nbsp;m</span> grid</p>
+                        <p>Depth on a <span class="num">1&nbsp;m</span> grid over Environment Agency LiDAR, resolving water street by street, with an uncertainty band on every cell.</p>
+                    </li>
+                    <li class="tech-card reveal">
+                        <span class="product-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-7 7M10 20H4v-6M4 20l7-7"/></svg></span>
+                        <h3>Across England</h3>
+                        <p class="tech-stat">Over <span class="num">750</span> areas registered</p>
+                        <p>Registered on Environment Agency LiDAR across England, with more being added and new areas set up when you ask for them.</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
         <!-- Products -->
-        <section id="products" class="products dark" aria-labelledby="products-title">
+        <section id="products" class="products light" aria-labelledby="products-title">
             <div class="container">
                 <div class="section-head">
                     <p class="eyebrow">Products</p>
@@ -122,56 +154,128 @@
 
                 <ul class="product-grid" role="list">
                     <li class="product-card reveal">
-                        <div class="product-head">
-                            <span class="product-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="m3 13 9 5 9-5"/><path d="m3 17.5 9 5 9-5" opacity=".55"/></svg></span>
-                            <span class="chip chip--preview">Private preview</span>
+                        <div class="product-art">
+                            <!-- Spot: assets/img/visuals/spot-depth-maps.svg -->
+                            <svg class="spot" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><defs><radialGradient id="depthmapsg"><stop offset="0" stop-color="#5cd08f" stop-opacity=".34"/><stop offset=".7" stop-color="#5cd08f" stop-opacity=".12"/><stop offset="1" stop-color="#5cd08f" stop-opacity="0"/></radialGradient><radialGradient id="depthmapsd" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#22395a"/><stop offset="1" stop-color="#14243a"/></radialGradient></defs><circle cx="160" cy="160" r="159" fill="url(#depthmapsg)"/><circle cx="160" cy="160" r="118" fill="url(#depthmapsd)"/><circle cx="160" cy="160" r="118" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><g transform="rotate(-8 160 160)"><rect x="90.0" y="90.0" width="140.0" height="140.0" fill="#2a4366"/><path fill="#4ebbf3" d="M160 90h21v7h-21zM139 97h7v7h-7zM160 97h14v7h-14zM181 97h35v7h-35zM160 104h7v7h-7zM188 104h14v7h-14zM216 104h14v7h-14zM97 111h7v7h-7zM195 111h7v7h-7zM223 111h7v7h-7zM160 118h7v7h-7zM195 118h7v7h-7zM223 118h7v7h-7zM195 125h7v7h-7zM90 132h14v7h-14zM160 132h7v7h-7zM195 132h7v7h-7zM97 139h7v7h-7zM139 139h7v7h-7zM160 139h7v7h-7zM195 139h7v7h-7zM97 146h14v7h-14zM160 146h7v7h-7zM195 146h7v7h-7zM104 153h7v7h-7zM125 153h7v7h-7zM160 153h7v7h-7zM195 153h7v7h-7zM97 160h14v7h-14zM160 160h7v7h-7zM195 160h7v7h-7zM97 167h14v7h-14zM160 167h7v7h-7zM181 167h7v7h-7zM195 167h7v7h-7zM209 167h7v7h-7zM132 174h14v7h-14zM160 174h7v7h-7zM181 174h7v7h-7zM209 174h7v7h-7zM132 181h14v7h-14zM153 181h14v7h-14zM181 181h7v7h-7zM209 181h7v7h-7zM104 188h7v7h-7zM139 188h28v7h-28zM181 188h7v7h-7zM209 188h7v7h-7zM104 195h14v7h-14zM153 195h14v7h-14zM181 195h7v7h-7zM209 195h7v7h-7zM111 202h7v7h-7zM153 202h14v7h-14zM181 202h7v7h-7zM118 209h7v7h-7zM146 209h21v7h-21zM181 209h7v7h-7zM209 209h7v7h-7zM97 216h7v7h-7zM111 216h14v7h-14zM146 216h21v7h-21zM181 216h14v7h-14zM209 216h7v7h-7zM97 223h7v7h-7zM118 223h7v7h-7zM146 223h21v7h-21zM181 223h14v7h-14z"/><path fill="#389eda" d="M132 90h7v7h-7zM181 90h49v7h-49zM216 97h14v7h-14zM118 104h7v7h-7zM132 104h7v7h-7zM118 111h7v7h-7zM132 111h7v7h-7zM188 111h7v7h-7zM216 111h7v7h-7zM118 118h7v7h-7zM153 118h7v7h-7zM188 118h7v7h-7zM216 118h7v7h-7zM160 125h7v7h-7zM188 125h7v7h-7zM216 125h14v7h-14zM188 132h7v7h-7zM216 132h14v7h-14zM90 139h7v7h-7zM125 139h7v7h-7zM188 139h7v7h-7zM216 139h14v7h-14zM90 146h7v7h-7zM125 146h7v7h-7zM153 146h7v7h-7zM188 146h7v7h-7zM216 146h14v7h-14zM90 153h7v7h-7zM132 153h7v7h-7zM188 153h7v7h-7zM216 153h14v7h-14zM90 160h7v7h-7zM132 160h14v7h-14zM188 160h7v7h-7zM216 160h14v7h-14zM90 167h7v7h-7zM132 167h14v7h-14zM188 167h7v7h-7zM216 167h14v7h-14zM90 174h14v7h-14zM188 174h7v7h-7zM216 174h14v7h-14zM90 181h14v7h-14zM188 181h7v7h-7zM216 181h14v7h-14zM90 188h14v7h-14zM188 188h7v7h-7zM216 188h14v7h-14zM90 195h14v7h-14zM188 195h7v7h-7zM216 195h14v7h-14zM90 202h21v7h-21zM188 202h7v7h-7zM209 202h21v7h-21zM90 209h28v7h-28zM188 209h7v7h-7zM216 209h14v7h-14zM90 216h7v7h-7zM104 216h7v7h-7zM216 216h14v7h-14zM90 223h7v7h-7zM104 223h14v7h-14z"/><path fill="#2d83bd" d="M118 90h14v7h-14zM118 97h21v7h-21zM125 104h7v7h-7zM125 111h7v7h-7zM125 118h14v7h-14zM146 118h7v7h-7zM125 125h14v7h-14zM125 132h14v7h-14zM132 139h7v7h-7zM132 146h7v7h-7z"/><path fill="#2672ac" d="M139 118h7v7h-7zM139 125h7v7h-7zM139 132h7v7h-7zM146 139h7v7h-7z"/><path fill="#1f5f9b" d="M153 125h7v7h-7zM153 139h7v7h-7z"/><path fill="#184f8a" d="M146 125h7v7h-7zM146 132h14v7h-14z"/><rect x="90.0" y="90.0" width="140.0" height="140.0" fill="none" stroke="#eef2f6" stroke-opacity=".5"/></g></svg>
                         </div>
-                        <h3 class="product-title">Flood depth maps for each area</h3>
-                        <p>Peak water depth in metres on a <span class="num">1&nbsp;m</span> grid across a <span class="num">5&nbsp;km</span> area, for a stated rainfall and with an uncertainty band. Download the grid to check it in your own GIS.</p>
-                        <ul class="product-specs" role="list"><li>1 m grid</li><li>5 km areas</li><li>GeoTIFF</li></ul>
+                        <div class="product-body">
+                            <span class="chip chip--preview">Private preview</span>
+                            <h3 class="product-title"><a class="product-link" href="product/flood-depth-maps/">Flood depth maps for each area</a></h3>
+                            <p>Peak water depth in metres on a <span class="num">1&nbsp;m</span> grid across a <span class="num">5&nbsp;km</span> area, for a stated rainfall and with an uncertainty band. Download the grid to check it in your own GIS.</p>
+                            <ul class="product-specs" role="list"><li>1 m grid</li><li>5 km areas</li><li>GeoTIFF</li></ul>
+                            <span class="product-more" aria-hidden="true">See the product <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                        </div>
                     </li>
                     <li class="product-card reveal">
-                        <div class="product-head">
-                            <span class="product-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8v8l9 5 9-5V8Z"/><path d="m10 9.5 4.5 2.5L10 14.5v-5Z" fill="currentColor" stroke="none"/></svg></span>
-                            <span class="chip chip--preview">Private preview</span>
+                        <div class="product-art">
+                            <!-- Spot: assets/img/visuals/spot-rainfall-scenarios.svg -->
+                            <svg class="spot" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><defs><radialGradient id="rainfallscenariosg"><stop offset="0" stop-color="#5cd08f" stop-opacity=".34"/><stop offset=".7" stop-color="#5cd08f" stop-opacity=".12"/><stop offset="1" stop-color="#5cd08f" stop-opacity="0"/></radialGradient><radialGradient id="rainfallscenariosd" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#22395a"/><stop offset="1" stop-color="#14243a"/></radialGradient></defs><circle cx="160" cy="160" r="159" fill="url(#rainfallscenariosg)"/><circle cx="160" cy="160" r="118" fill="url(#rainfallscenariosd)"/><circle cx="160" cy="160" r="118" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><path d="M96 102V214H250" fill="none" stroke="#9fb0c2" stroke-opacity=".6"/><path d="M101.1 208.9 L102.8 203.6 L104.2 203.0 L105.7 198.5 L107.9 197.3 L109.6 193.9 L111.1 192.4 L111.7 192.0 L113.2 183.9 L115.0 184.7 L116.5 186.0 L117.0 178.6 L118.9 182.6 L120.4 180.9 L122.0 179.7 L124.0 170.5 L124.4 175.8 L125.8 168.2 L128.4 166.1 L129.4 172.7 L130.9 162.9 L132.8 161.2 L133.3 163.5 L135.1 158.5 L136.0 159.5 L137.4 164.4 L139.4 163.8 L140.4 154.2 L141.8 159.9 L143.9 161.2 L144.6 157.6 L146.5 150.0 L148.6 157.8 L149.9 156.5 L150.6 147.4 L152.2 145.3 L154.2 151.2 L155.6 151.7 L157.5 149.1 L158.2 149.6 L159.6 147.9 L161.8 146.8 L162.1 148.7 L164.2 146.6 L166.2 137.7 L166.6 144.3 L168.4 143.0 L169.2 143.2 L170.9 141.7 L172.3 142.1 L173.7 141.1 L176.2 140.9 L176.7 138.5 L178.5 139.4 L180.1 137.3 L180.9 130.3 L182.5 136.0 L184.1 136.8 L186.4 135.1 L187.8 133.0 L188.2 133.4 L190.8 133.4 L191.8 132.2 L193.0 126.2 L194.0 130.3 L196.1 129.6 L197.1 129.2 L199.3 128.4 L200.0 129.6 L201.7 123.9 L202.8 123.9 L204.4 125.2 L205.7 123.3 L207.3 126.4 L209.7 125.6 L209.9 125.6 L211.5 121.8 L214.0 121.6 L214.1 121.4 L216.3 120.9 L217.7 120.7 L219.2 124.5 L220.3 120.1 L222.2 123.9 L223.8 123.3 L225.5 123.1 L226.3 122.8 L228.3 119.0 L229.6 122.0 L231.4 121.6 L232.9 121.4 L233.8 122.0 L235.0 121.1 L236.4 117.5 L238.2 117.1 L239.2 120.3 L241.5 116.7 L242.4 119.7 L244.0 116.3 L245.2 119.7" fill="none" stroke="#5cd08f" stroke-width="1.4" stroke-linejoin="round" stroke-opacity=".85"/><g fill="#4ebbf3"><circle cx="101.1" cy="208.9" r="2.3"/><circle cx="102.8" cy="203.6" r="2.3"/><circle cx="104.2" cy="203.0" r="2.3"/><circle cx="105.7" cy="198.5" r="2.3"/><circle cx="107.9" cy="197.3" r="2.3"/><circle cx="109.6" cy="193.9" r="2.3"/><circle cx="111.1" cy="192.4" r="2.3"/><circle cx="111.7" cy="192.0" r="2.3"/><circle cx="113.2" cy="183.9" r="2.3"/><circle cx="115.0" cy="184.7" r="2.3"/><circle cx="116.5" cy="186.0" r="2.3"/><circle cx="117.0" cy="178.6" r="2.3"/><circle cx="118.9" cy="182.6" r="2.3"/><circle cx="120.4" cy="180.9" r="2.3"/><circle cx="122.0" cy="179.7" r="2.3"/><circle cx="124.0" cy="170.5" r="2.3"/><circle cx="124.4" cy="175.8" r="2.3"/><circle cx="125.8" cy="168.2" r="2.3"/><circle cx="128.4" cy="166.1" r="2.3"/><circle cx="129.4" cy="172.7" r="2.3"/><circle cx="130.9" cy="162.9" r="2.3"/><circle cx="132.8" cy="161.2" r="2.3"/><circle cx="133.3" cy="163.5" r="2.3"/><circle cx="135.1" cy="158.5" r="2.3"/><circle cx="136.0" cy="159.5" r="2.3"/><circle cx="137.4" cy="164.4" r="2.3"/><circle cx="139.4" cy="163.8" r="2.3"/><circle cx="140.4" cy="154.2" r="2.3"/><circle cx="141.8" cy="159.9" r="2.3"/><circle cx="143.9" cy="161.2" r="2.3"/><circle cx="144.6" cy="157.6" r="2.3"/><circle cx="146.5" cy="150.0" r="2.3"/><circle cx="148.6" cy="157.8" r="2.3"/><circle cx="149.9" cy="156.5" r="2.3"/><circle cx="150.6" cy="147.4" r="2.3"/><circle cx="152.2" cy="145.3" r="2.3"/><circle cx="154.2" cy="151.2" r="2.3"/><circle cx="155.6" cy="151.7" r="2.3"/><circle cx="157.5" cy="149.1" r="2.3"/><circle cx="158.2" cy="149.6" r="2.3"/><circle cx="159.6" cy="147.9" r="2.3"/><circle cx="161.8" cy="146.8" r="2.3"/><circle cx="162.1" cy="148.7" r="2.3"/><circle cx="164.2" cy="146.6" r="2.3"/><circle cx="166.2" cy="137.7" r="2.3"/><circle cx="166.6" cy="144.3" r="2.3"/><circle cx="168.4" cy="143.0" r="2.3"/><circle cx="169.2" cy="143.2" r="2.3"/><circle cx="170.9" cy="141.7" r="2.3"/><circle cx="172.3" cy="142.1" r="2.3"/><circle cx="173.7" cy="141.1" r="2.3"/><circle cx="176.2" cy="140.9" r="2.3"/><circle cx="176.7" cy="138.5" r="2.3"/><circle cx="178.5" cy="139.4" r="2.3"/><circle cx="180.1" cy="137.3" r="2.3"/><circle cx="180.9" cy="130.3" r="2.3"/><circle cx="182.5" cy="136.0" r="2.3"/><circle cx="184.1" cy="136.8" r="2.3"/><circle cx="186.4" cy="135.1" r="2.3"/><circle cx="187.8" cy="133.0" r="2.3"/><circle cx="188.2" cy="133.4" r="2.3"/><circle cx="190.8" cy="133.4" r="2.3"/><circle cx="191.8" cy="132.2" r="2.3"/><circle cx="193.0" cy="126.2" r="2.3"/><circle cx="194.0" cy="130.3" r="2.3"/><circle cx="196.1" cy="129.6" r="2.3"/><circle cx="197.1" cy="129.2" r="2.3"/><circle cx="199.3" cy="128.4" r="2.3"/><circle cx="200.0" cy="129.6" r="2.3"/><circle cx="201.7" cy="123.9" r="2.3"/><circle cx="202.8" cy="123.9" r="2.3"/><circle cx="204.4" cy="125.2" r="2.3"/><circle cx="205.7" cy="123.3" r="2.3"/><circle cx="207.3" cy="126.4" r="2.3"/><circle cx="209.7" cy="125.6" r="2.3"/><circle cx="209.9" cy="125.6" r="2.3"/><circle cx="211.5" cy="121.8" r="2.3"/><circle cx="214.0" cy="121.6" r="2.3"/><circle cx="214.1" cy="121.4" r="2.3"/><circle cx="216.3" cy="120.9" r="2.3"/><circle cx="217.7" cy="120.7" r="2.3"/><circle cx="219.2" cy="124.5" r="2.3"/><circle cx="220.3" cy="120.1" r="2.3"/><circle cx="222.2" cy="123.9" r="2.3"/><circle cx="223.8" cy="123.3" r="2.3"/><circle cx="225.5" cy="123.1" r="2.3"/><circle cx="226.3" cy="122.8" r="2.3"/><circle cx="228.3" cy="119.0" r="2.3"/><circle cx="229.6" cy="122.0" r="2.3"/><circle cx="231.4" cy="121.6" r="2.3"/><circle cx="232.9" cy="121.4" r="2.3"/><circle cx="233.8" cy="122.0" r="2.3"/><circle cx="235.0" cy="121.1" r="2.3"/><circle cx="236.4" cy="117.5" r="2.3"/><circle cx="238.2" cy="117.1" r="2.3"/><circle cx="239.2" cy="120.3" r="2.3"/><circle cx="241.5" cy="116.7" r="2.3"/><circle cx="242.4" cy="119.7" r="2.3"/><circle cx="244.0" cy="116.3" r="2.3"/><circle cx="245.2" cy="119.7" r="2.3"/></g><g font-family="Geist, 'Geist Sans', system-ui, sans-serif" font-size="11" fill="#9fb0c2"><text x="101.0" y="229" text-anchor="middle">0.2×</text><text x="246.0" y="229" text-anchor="middle">6×</text><text x="91" y="120.5" text-anchor="end">4.6 m</text><text x="91" y="218" text-anchor="end">0</text></g></svg>
                         </div>
-                        <h3 class="product-title">3D flood replays</h3>
-                        <p>A solver run of a real storm, played through time in 3D, showing where the water goes and when it gets there. A simulation of the storm, not a forecast.</p>
-                        <ul class="product-specs" role="list"><li>3D</li><li>Time-resolved</li><li>Solver run</li></ul>
+                        <div class="product-body">
+                            <span class="chip chip--preview">Private preview</span>
+                            <h3 class="product-title"><a class="product-link" href="product/rainfall-scenarios/">Rainfall scenarios</a></h3>
+                            <p>Move the rainfall from <span class="num">0.2</span> to <span class="num">6</span> times a storm that happened and watch the depth respond. Every tile says whether it is a solver run or a blend between runs.</p>
+                            <ul class="product-specs" role="list"><li>0.2× to 6× rainfall</li><li>3 to 48 h storms</li></ul>
+                            <span class="product-more" aria-hidden="true">See the product <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                        </div>
                     </li>
                     <li class="product-card reveal">
-                        <div class="product-head">
-                            <span class="product-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 15a4 4 0 0 1-.6-7.95A5.5 5.5 0 0 1 17 8a3.5 3.5 0 0 1 .5 7H7Z"/><path d="m8 18-1 2.5M12 18l-1 2.5M16 18l-1 2.5"/></svg></span>
-                            <span class="chip chip--preview">Private preview</span>
+                        <div class="product-art">
+                            <!-- Spot: assets/img/visuals/spot-3d-replays.webp -->
+                            <img class="spot" src="assets/img/visuals/spot-3d-replays.webp" alt="" width="320" height="320" loading="lazy" decoding="async">
                         </div>
-                        <h3 class="product-title">Storm event pages</h3>
-                        <p>One page per storm: the areas its forecast rain reaches, our forecast for each, and a scorecard once it has passed. Storm Austen is the first.</p>
-                        <ul class="product-specs" role="list"><li>Per storm</li><li>Scorecard after</li></ul>
+                        <div class="product-body">
+                            <span class="chip chip--preview">Private preview</span>
+                            <h3 class="product-title"><a class="product-link" href="product/replays/">3D flood replays</a></h3>
+                            <p>A solver run of a real storm, played through time in 3D, showing where the water goes and when it gets there. A simulation of the storm, not a forecast.</p>
+                            <ul class="product-specs" role="list"><li>3D</li><li>Time-resolved</li><li>Solver run</li></ul>
+                            <span class="product-more" aria-hidden="true">See the product <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                        </div>
                     </li>
                     <li class="product-card reveal">
-                        <div class="product-head">
-                            <span class="product-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 2.5 20h19L12 3.5Z"/><path d="M12 10v4.5"/><circle cx="12" cy="17.2" r=".6" fill="currentColor"/></svg></span>
-                            <span class="chip chip--preview">Private preview</span>
+                        <div class="product-art">
+                            <!-- Spot: assets/img/visuals/spot-storm-events.svg -->
+                            <svg class="spot" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><defs><radialGradient id="stormeventsg"><stop offset="0" stop-color="#5cd08f" stop-opacity=".34"/><stop offset=".7" stop-color="#5cd08f" stop-opacity=".12"/><stop offset="1" stop-color="#5cd08f" stop-opacity="0"/></radialGradient><radialGradient id="stormeventsd" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#22395a"/><stop offset="1" stop-color="#14243a"/></radialGradient></defs><circle cx="160" cy="160" r="159" fill="url(#stormeventsg)"/><circle cx="160" cy="160" r="118" fill="url(#stormeventsd)"/><circle cx="160" cy="160" r="118" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><g fill="#5cd08f"><rect x="103.1" y="193.4" width="9.4" height="9.4" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><rect x="77.5" y="167.3" width="9.4" height="9.4" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><rect x="176.1" y="249.7" width="9.4" height="9.4" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><rect x="112.5" y="193.4" width="9.4" height="9.4" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><rect x="86.9" y="167.3" width="9.4" height="9.4" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><rect x="94.4" y="146.8" width="9.4" height="9.4" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><rect x="103.8" y="146.8" width="9.4" height="9.4" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><rect x="223.3" y="206.9" width="9.4" height="9.4" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><rect x="93.8" y="193.4" width="9.4" height="9.4" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><rect x="113.1" y="146.8" width="9.4" height="9.4" fill-opacity="0.22"/><rect x="88.7" y="227.8" width="9.4" height="9.4" fill-opacity="0.22"/><rect x="182.4" y="209.1" width="9.4" height="9.4" fill-opacity="0.22"/><rect x="98.1" y="218.4" width="9.4" height="9.4" fill-opacity="0.25"/><rect x="162.4" y="170.0" width="9.4" height="9.4" fill-opacity="0.25"/><rect x="191.8" y="209.1" width="9.4" height="9.4" fill-opacity="0.25"/><rect x="162.4" y="160.6" width="9.4" height="9.4" fill-opacity="0.27"/><rect x="88.7" y="218.4" width="9.4" height="9.4" fill-opacity="0.28"/><rect x="88.7" y="209.1" width="9.4" height="9.4" fill-opacity="0.29"/><rect x="79.3" y="209.1" width="9.4" height="9.4" fill-opacity="0.29"/><rect x="201.2" y="209.1" width="9.4" height="9.4" fill-opacity="0.29"/><rect x="98.1" y="237.2" width="9.4" height="9.4" fill-opacity="0.29"/><rect x="79.3" y="218.4" width="9.4" height="9.4" fill-opacity="0.29"/><rect x="173.1" y="209.1" width="9.4" height="9.4" fill-opacity="0.29"/><rect x="105.1" y="170.8" width="9.4" height="9.4" fill-opacity="0.30"/><rect x="191.8" y="218.4" width="9.4" height="9.4" fill-opacity="0.30"/><rect x="98.1" y="209.1" width="9.4" height="9.4" fill-opacity="0.30"/><rect x="182.4" y="218.4" width="9.4" height="9.4" fill-opacity="0.32"/><rect x="201.2" y="218.4" width="9.4" height="9.4" fill-opacity="0.33"/><rect x="98.1" y="227.8" width="9.4" height="9.4" fill-opacity="0.34"/><rect x="107.4" y="209.1" width="9.4" height="9.4" fill-opacity="0.34"/><rect x="107.4" y="218.4" width="9.4" height="9.4" fill-opacity="0.35"/><rect x="201.2" y="227.8" width="9.4" height="9.4" fill-opacity="0.39"/><rect x="191.8" y="227.8" width="9.4" height="9.4" fill-opacity="0.39"/><rect x="210.6" y="209.1" width="9.4" height="9.4" fill-opacity="0.39"/><rect x="190.6" y="151.2" width="9.4" height="9.4" fill-opacity="0.40"/><rect x="116.8" y="218.4" width="9.4" height="9.4" fill-opacity="0.41"/><rect x="181.2" y="141.9" width="9.4" height="9.4" fill-opacity="0.41"/><rect x="210.6" y="218.4" width="9.4" height="9.4" fill-opacity="0.42"/><rect x="222.1" y="172.8" width="9.4" height="9.4" fill-opacity="0.42"/><rect x="182.4" y="227.8" width="9.4" height="9.4" fill-opacity="0.42"/><rect x="107.4" y="227.8" width="9.4" height="9.4" fill-opacity="0.43"/><rect x="163.7" y="209.1" width="9.4" height="9.4" fill-opacity="0.44"/><rect x="156.6" y="192.7" width="9.4" height="9.4" fill-opacity="0.44"/><rect x="190.6" y="141.9" width="9.4" height="9.4" fill-opacity="0.44"/><rect x="191.8" y="237.2" width="9.4" height="9.4" fill-opacity="0.46"/><rect x="173.1" y="218.4" width="9.4" height="9.4" fill-opacity="0.46"/><rect x="116.8" y="227.8" width="9.4" height="9.4" fill-opacity="0.46"/><rect x="219.9" y="218.4" width="9.4" height="9.4" fill-opacity="0.46"/><rect x="163.7" y="227.8" width="9.4" height="9.4" fill-opacity="0.46"/><rect x="181.2" y="160.6" width="9.4" height="9.4" fill-opacity="0.47"/><rect x="171.8" y="160.6" width="9.4" height="9.4" fill-opacity="0.47"/><rect x="181.2" y="151.2" width="9.4" height="9.4" fill-opacity="0.48"/><rect x="107.4" y="237.2" width="9.4" height="9.4" fill-opacity="0.48"/><rect x="210.6" y="227.8" width="9.4" height="9.4" fill-opacity="0.49"/><rect x="116.8" y="237.2" width="9.4" height="9.4" fill-opacity="0.49"/><rect x="126.2" y="227.8" width="9.4" height="9.4" fill-opacity="0.49"/><rect x="163.7" y="237.2" width="9.4" height="9.4" fill-opacity="0.49"/><rect x="126.2" y="209.1" width="9.4" height="9.4" fill-opacity="0.50"/><rect x="126.2" y="218.4" width="9.4" height="9.4" fill-opacity="0.50"/><rect x="116.8" y="209.1" width="9.4" height="9.4" fill-opacity="0.51"/><rect x="135.6" y="237.2" width="9.4" height="9.4" fill-opacity="0.52"/><rect x="173.1" y="237.2" width="9.4" height="9.4" fill-opacity="0.52"/><rect x="126.2" y="237.2" width="9.4" height="9.4" fill-opacity="0.53"/><rect x="173.1" y="227.8" width="9.4" height="9.4" fill-opacity="0.53"/><rect x="135.6" y="227.8" width="9.4" height="9.4" fill-opacity="0.54"/><rect x="126.2" y="246.6" width="9.4" height="9.4" fill-opacity="0.55"/><rect x="163.7" y="218.4" width="9.4" height="9.4" fill-opacity="0.56"/><rect x="135.6" y="218.4" width="9.4" height="9.4" fill-opacity="0.58"/><rect x="229.3" y="218.4" width="9.4" height="9.4" fill-opacity="0.59"/><rect x="154.3" y="209.1" width="9.4" height="9.4" fill-opacity="0.59"/><rect x="182.4" y="237.2" width="9.4" height="9.4" fill-opacity="0.60"/><rect x="201.2" y="237.2" width="9.4" height="9.4" fill-opacity="0.61"/><rect x="135.6" y="209.1" width="9.4" height="9.4" fill-opacity="0.64"/><rect x="154.3" y="237.2" width="9.4" height="9.4" fill-opacity="0.67"/><rect x="144.9" y="237.2" width="9.4" height="9.4" fill-opacity="0.68"/><rect x="149.6" y="223.1" width="9.4" height="9.4" fill-opacity="0.69"/><rect x="144.9" y="218.4" width="18.7" height="18.7" fill-opacity="0.69"/><rect x="144.9" y="209.1" width="9.4" height="9.4" fill-opacity="0.71"/><rect x="210.6" y="237.2" width="9.4" height="9.4" fill-opacity="0.92"/><rect x="144.9" y="246.6" width="9.4" height="9.4" fill-opacity="1.00"/></g><rect x="144.9" y="246.6" width="9.4" height="9.4" fill="none" stroke="#eef2f6" stroke-width="1.5"/><g transform="translate(166 104) scale(.8)"><path d="M-46 14a20 20 0 0 1 8-37a27 27 0 0 1 50-6a19 19 0 0 1 33 15a16 16 0 0 1-3 28z" fill="#eef2f6" fill-opacity=".92"/><path d="M-30 22l-5 13" stroke="#4ebbf3" stroke-width="2.2" stroke-linecap="round"/><path d="M-14 22l-5 13" stroke="#4ebbf3" stroke-width="2.2" stroke-linecap="round"/><path d="M2 22l-5 13" stroke="#4ebbf3" stroke-width="2.2" stroke-linecap="round"/><path d="M18 22l-5 13" stroke="#4ebbf3" stroke-width="2.2" stroke-linecap="round"/><path d="M34 22l-5 13" stroke="#4ebbf3" stroke-width="2.2" stroke-linecap="round"/></g></svg>
                         </div>
-                        <h3 class="product-title">Environment Agency warnings alongside</h3>
-                        <p>The Environment Agency's flood warnings for each area, in their own words with a link to GOV.UK, shown beside our forecast but kept apart.</p>
-                        <ul class="product-specs" role="list"><li>EA warnings</li><li>GOV.UK links</li></ul>
+                        <div class="product-body">
+                            <span class="chip chip--preview">Private preview</span>
+                            <h3 class="product-title"><a class="product-link" href="product/storm-events/">Storm event pages</a></h3>
+                            <p>One page per storm: the areas its forecast rain reaches, our forecast for each, and a scorecard once it has passed. Storm Austen, October 2026, is the first.</p>
+                            <ul class="product-specs" role="list"><li>Per storm</li><li>Scorecard after</li></ul>
+                            <span class="product-more" aria-hidden="true">See the product <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                        </div>
                     </li>
                     <li class="product-card reveal">
-                        <div class="product-head">
-                            <span class="product-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M13.5 5l-3 14"/></svg></span>
-                            <span class="chip chip--preview">Private preview</span>
+                        <div class="product-art">
+                            <!-- Spot: assets/img/visuals/spot-ea-warnings.svg -->
+                            <svg class="spot" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><defs><radialGradient id="eawarningsg"><stop offset="0" stop-color="#5cd08f" stop-opacity=".34"/><stop offset=".7" stop-color="#5cd08f" stop-opacity=".12"/><stop offset="1" stop-color="#5cd08f" stop-opacity="0"/></radialGradient><radialGradient id="eawarningsd" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#22395a"/><stop offset="1" stop-color="#14243a"/></radialGradient></defs><circle cx="160" cy="160" r="159" fill="url(#eawarningsg)"/><circle cx="160" cy="160" r="118" fill="url(#eawarningsd)"/><circle cx="160" cy="160" r="118" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><g transform="translate(22 6)"><path d="M66 128c14-22 44-26 58-14s10 30 24 36s10 34-8 44s-44 6-58-6s-34-38-16-60z" fill="#eef2f6" fill-opacity=".06" stroke="#eef2f6" stroke-width="2" stroke-dasharray="5 4" stroke-linejoin="round"/><path d="M66 110l9-16l9 16z" fill="#eef2f6"/><path d="M75 100v5m0 3v1" stroke="#14243a" stroke-width="1.8" stroke-linecap="round"/></g><rect x="180" y="118" width="84.0" height="84.0" fill="#2a4366"/><path fill="#4ebbf3" d="M243 132h7v7h-7zM243 146h7v7h-7zM250 153h14v7h-14zM187 174h7v7h-7zM215 174h7v7h-7zM236 174h7v7h-7zM229 181h7v7h-7zM187 188h7v7h-7zM215 188h7v7h-7z"/><path fill="#389eda" d="M250 118h7v7h-7zM236 125h14v7h-14zM180 132h7v7h-7zM236 132h7v7h-7zM236 139h7v7h-7zM229 146h14v7h-14zM222 153h28v7h-28zM215 160h35v7h-35zM194 167h7v7h-7zM208 167h35v7h-35zM201 174h7v7h-7zM222 174h14v7h-14zM187 181h7v7h-7zM222 181h7v7h-7zM257 181h7v7h-7zM222 188h7v7h-7zM250 188h7v7h-7zM215 195h7v7h-7z"/><path fill="#2d83bd" d="M180 118h14v7h-14zM236 118h14v7h-14zM180 125h7v7h-7zM201 125h7v7h-7zM229 132h7v7h-7zM208 139h7v7h-7zM222 139h14v7h-14zM222 146h7v7h-7zM201 153h7v7h-7zM215 153h7v7h-7zM208 160h7v7h-7zM194 181h7v7h-7z"/><path fill="#2672ac" d="M194 118h21v7h-21zM229 118h7v7h-7zM229 125h7v7h-7zM215 146h7v7h-7zM201 167h7v7h-7zM194 174h7v7h-7zM257 188h7v7h-7zM257 195h7v7h-7z"/><path fill="#1f5f9b" d="M215 118h14v7h-14zM208 125h21v7h-21zM215 132h14v7h-14zM215 139h7v7h-7zM208 146h7v7h-7zM208 153h7v7h-7zM201 160h7v7h-7zM250 195h7v7h-7z"/><rect x="180" y="118" width="84.0" height="84.0" fill="none" stroke="#eef2f6" stroke-opacity=".5"/><path d="M168 104v112" stroke="#9fb0c2" stroke-opacity=".35" stroke-dasharray="2 4"/></svg>
                         </div>
-                        <h3 class="product-title">API for your sites</h3>
-                        <p>Send coordinates, get a depth in metres with its uncertainty. Portfolio screening and an MCP server for AI assistants are in development.</p>
-                        <ul class="product-specs" role="list"><li>JSON API</li><li>Per location</li></ul>
+                        <div class="product-body">
+                            <span class="chip chip--preview">Private preview</span>
+                            <h3 class="product-title"><a class="product-link" href="product/flood-warnings/">Environment Agency warnings</a></h3>
+                            <p>The Environment Agency's flood warnings for each area, in their own words with a link to GOV.UK, shown beside our forecast but kept apart from it.</p>
+                            <ul class="product-specs" role="list"><li>EA warnings</li><li>GOV.UK links</li></ul>
+                            <span class="product-more" aria-hidden="true">See the product <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                        </div>
+                    </li>
+                    <li class="product-card reveal">
+                        <div class="product-art">
+                            <!-- Spot: assets/img/visuals/spot-find-your-area.svg (stand-in drawn for the prototype; expected from the visuals hand-off) -->
+                            <svg class="spot" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><defs><radialGradient id="findareag"><stop offset="0" stop-color="#5cd08f" stop-opacity=".34"/><stop offset=".7" stop-color="#5cd08f" stop-opacity=".12"/><stop offset="1" stop-color="#5cd08f" stop-opacity="0"/></radialGradient><radialGradient id="findaread" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#22395a"/><stop offset="1" stop-color="#14243a"/></radialGradient></defs><circle cx="160" cy="160" r="159" fill="url(#findareag)"/><circle cx="160" cy="160" r="118" fill="url(#findaread)"/><circle cx="160" cy="160" r="118" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><rect x="92" y="96" width="136" height="26" rx="13" fill="#22395a" stroke="#5cd08f" stroke-opacity=".6"/><circle cx="108" cy="109" r="5.5" fill="none" stroke="#b8c4d2" stroke-width="2"/><path d="m112 113 5 5" stroke="#b8c4d2" stroke-width="2" stroke-linecap="round"/><rect x="124" y="106" width="64" height="6" rx="3" fill="#9fb0c3" opacity=".7"/><g fill="#5cd08f"><rect x="104" y="146" width="14" height="14" opacity=".35"/><rect x="122" y="146" width="14" height="14" opacity=".6"/><rect x="140" y="146" width="14" height="14" opacity=".9"/><rect x="104" y="164" width="14" height="14" opacity=".6"/><rect x="158" y="164" width="14" height="14" opacity=".45"/><rect x="176" y="164" width="14" height="14" opacity=".8"/><rect x="122" y="182" width="14" height="14" opacity=".45"/><rect x="140" y="182" width="14" height="14" opacity=".7"/><rect x="194" y="182" width="14" height="14" opacity=".35"/><rect x="158" y="200" width="14" height="14" opacity=".6"/><rect x="176" y="200" width="14" height="14" opacity=".9"/><rect x="140" y="218" width="14" height="14" opacity=".45"/></g><g fill="none" stroke="#9fb0c3" stroke-opacity=".6"><rect x="122.5" y="164.5" width="13" height="13"/><rect x="194.5" y="164.5" width="13" height="13"/><rect x="104.5" y="200.5" width="13" height="13"/><rect x="194.5" y="200.5" width="13" height="13"/></g><circle cx="216" cy="146" r="15" fill="#4ebbf3"/><circle cx="216" cy="146" r="6" fill="#14243a"/><path d="M168 132c-9 0-15 6.5-15 14.5 0 10 15 23.5 15 23.5s15-13.5 15-23.5c0-8-6-14.5-15-14.5Z" fill="#ffffff"/><circle cx="168" cy="146" r="5" fill="#14243a"/></svg>
+                        </div>
+                        <div class="product-body">
+                            <span class="chip chip--preview">Private preview</span>
+                            <h3 class="product-title"><a class="product-link" href="product/find-your-area/">Find your area</a></h3>
+                            <p>Search over <span class="num">750</span> registered areas by name or county, see on a map which ones have forecasts or solver runs, and open any area's depth map in one click.</p>
+                            <ul class="product-specs" role="list"><li>Search</li><li>Coverage map</li><li>Status per area</li></ul>
+                            <span class="product-more" aria-hidden="true">See the product <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                        </div>
+                    </li>
+                    <li class="product-card reveal">
+                        <div class="product-art">
+                            <!-- Spot: assets/img/visuals/spot-api.svg -->
+                            <svg class="spot" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><defs><radialGradient id="apig"><stop offset="0" stop-color="#5cd08f" stop-opacity=".34"/><stop offset=".7" stop-color="#5cd08f" stop-opacity=".12"/><stop offset="1" stop-color="#5cd08f" stop-opacity="0"/></radialGradient><radialGradient id="apid" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#22395a"/><stop offset="1" stop-color="#14243a"/></radialGradient></defs><circle cx="160" cy="160" r="159" fill="url(#apig)"/><circle cx="160" cy="160" r="118" fill="url(#apid)"/><circle cx="160" cy="160" r="118" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><rect x="72" y="96" width="176" height="34" rx="8" fill="#22395a" stroke="#5cd08f" stroke-opacity=".5"/><text x="86" y="118" font-family="'Geist Mono', ui-monospace, monospace" font-size="13" fill="#5cd08f" font-weight="600">GET</text><text x="118" y="118" font-family="'Geist Mono', ui-monospace, monospace" font-size="13" fill="#eef2f6">/depth-at</text><path d="M160 136v18m-6-6l6 6l6-6" fill="none" stroke="#9fb0c2" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><rect x="72" y="160" width="176" height="74" rx="8" fill="#22395a" stroke="#9fb0c2" stroke-opacity=".4"/><g font-family="'Geist Mono', ui-monospace, monospace" font-size="13"><text x="84" y="182" fill="#9fb0c2">{</text><text x="96" y="201" fill="#5cd08f">"depth_m"</text><rect x="178" y="192" width="44" height="10" rx="3" fill="#4ebbf3" fill-opacity=".8"/><text x="96" y="220" fill="#5cd08f">"inside"</text><rect x="170" y="211" width="30" height="10" rx="3" fill="#9fb0c2" fill-opacity=".5"/><text x="84" y="232" fill="#9fb0c2">}</text></g></svg>
+                        </div>
+                        <div class="product-body">
+                            <span class="chip chip--preview">Private preview</span>
+                            <h3 class="product-title"><a class="product-link" href="product/api/">API for your sites</a></h3>
+                            <p>Send coordinates and get back a depth in metres for each location, with its uncertainty band and caveats. Portfolio screening is in development.</p>
+                            <ul class="product-specs" role="list"><li>JSON API</li><li>Per location</li></ul>
+                            <span class="product-more" aria-hidden="true">See the product <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                        </div>
+                    </li>
+                    <li class="product-card reveal">
+                        <div class="product-art">
+                            <!-- Spot: assets/img/visuals/spot-live-forecasts.svg -->
+                            <svg class="spot" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><defs><radialGradient id="liveforecastsg"><stop offset="0" stop-color="#5cd08f" stop-opacity=".34"/><stop offset=".7" stop-color="#5cd08f" stop-opacity=".12"/><stop offset="1" stop-color="#5cd08f" stop-opacity="0"/></radialGradient><radialGradient id="liveforecastsd" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#22395a"/><stop offset="1" stop-color="#14243a"/></radialGradient></defs><circle cx="160" cy="160" r="159" fill="url(#liveforecastsg)"/><circle cx="160" cy="160" r="118" fill="url(#liveforecastsd)"/><circle cx="160" cy="160" r="118" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><path d="M66 214H254" stroke="#9fb0c2" stroke-opacity=".6"/><path d="M73.5 214v4" stroke="#9fb0c2" stroke-opacity=".5"/><path d="M163.8 214v4" stroke="#9fb0c2" stroke-opacity=".5"/><path d="M254.0 214v4" stroke="#9fb0c2" stroke-opacity=".5"/><path d="M66.0 214.0 L69.8 214.0 L73.5 212.0 L77.3 207.5 L81.0 200.5 L84.8 179.3 L88.6 163.4 L92.3 156.5 L96.1 156.5 L99.8 156.5 L103.6 156.5 L107.4 156.5 L111.1 156.5 L114.9 156.5 L118.6 156.5 L122.4 156.5 L126.2 156.5 L129.9 156.5 L133.7 156.5 L137.4 155.2 L141.2 155.2 L145.0 155.2 L148.7 155.2 L152.5 155.2 L156.2 155.2 L160.0 155.2 L163.8 155.2 L167.5 155.2 L171.3 155.2 L175.0 155.2 L178.8 155.2 L182.6 155.2 L186.3 155.2 L190.1 155.2 L193.8 155.2 L197.6 155.2 L201.4 155.2 L205.1 154.8 L208.9 153.2 L212.6 151.2 L216.4 147.9 L220.2 141.4 L223.9 133.2 L227.7 126.7 L231.4 119.3 L235.2 119.3 L239.0 119.3 L242.7 119.3 L246.5 119.3 L250.2 119.3" fill="none" stroke="#9fb0c2" stroke-width="1.5" stroke-dasharray="4 3" stroke-opacity=".8"/><path d="M66.0 214.0 L69.8 214.0 L73.5 212.0 L77.3 207.1 L81.0 197.3 L84.8 179.3 L88.6 168.3 L92.3 167.5 L96.1 167.5 L99.8 167.5 L103.6 167.5 L107.4 167.5 L111.1 167.5 L114.9 167.5 L118.6 167.5 L122.4 167.5 L126.2 167.5 L129.9 167.5 L133.7 167.5 L137.4 167.5 L141.2 167.5 L145.0 167.5 L148.7 167.5 L152.5 167.5 L156.2 167.5 L160.0 167.5 L163.8 167.5 L167.5 167.5 L171.3 167.5 L175.0 167.5 L178.8 167.5 L182.6 167.5 L186.3 167.5 L190.1 167.5 L193.8 167.5 L197.6 167.5 L201.4 167.5 L205.1 166.9 L208.9 165.3 L212.6 163.7 L216.4 161.2 L220.2 154.3 L223.9 146.6 L227.7 142.9 L231.4 132.7 L235.2 132.7 L239.0 132.7 L242.7 132.7 L246.5 132.7 L250.2 132.7" fill="none" stroke="#4ebbf3" stroke-width="2.2" stroke-linejoin="round"/><path d="M103.6 208v14" stroke="#9fb0c2" stroke-width="2.2" stroke-linecap="round"/><path d="M114.9 208v14" stroke="#5cd08f" stroke-width="2.2" stroke-linecap="round"/><circle cx="250.2" cy="132.7" r="3.5" fill="#4ebbf3"/><g font-family="Geist, 'Geist Sans', system-ui, sans-serif" font-size="11" fill="#9fb0c2"><text x="99.6" y="234" text-anchor="end">08:00</text><text x="118.9" y="234" fill="#5cd08f">11:00</text><text x="208.9" y="144.7" text-anchor="end" fill="#4ebbf3">19.9 mm</text><text x="208.9" y="117.3" text-anchor="end" fill-opacity=".8">23.2 mm</text></g></svg>
+                        </div>
+                        <div class="product-body">
+                            <span class="chip chip--dev">In development</span>
+                            <h3 class="product-title"><a class="product-link" href="product/live-forecasts/">Live forecasts for your assets</a></h3>
+                            <p>Choose your sites and we re-run the forecast each time a new rainfall forecast is issued, with depth in metres at every asset and the forecast's issue time.</p>
+                            <ul class="product-specs" role="list"><li>Per asset</li><li>Each forecast issue</li><li>Issue time</li></ul>
+                            <span class="product-more" aria-hidden="true">See the product <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                        </div>
+                    </li>
+                    <li class="product-card reveal">
+                        <div class="product-art">
+                            <!-- Spot: assets/img/visuals/spot-ai-assistants.svg -->
+                            <svg class="spot" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><defs><radialGradient id="aiassistantsg"><stop offset="0" stop-color="#5cd08f" stop-opacity=".34"/><stop offset=".7" stop-color="#5cd08f" stop-opacity=".12"/><stop offset="1" stop-color="#5cd08f" stop-opacity="0"/></radialGradient><radialGradient id="aiassistantsd" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#22395a"/><stop offset="1" stop-color="#14243a"/></radialGradient></defs><circle cx="160" cy="160" r="159" fill="url(#aiassistantsg)"/><circle cx="160" cy="160" r="118" fill="url(#aiassistantsd)"/><circle cx="160" cy="160" r="118" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><path d="M78 98h120a12 12 0 0 1 12 12v22a12 12 0 0 1-12 12h-92l-16 12v-12h-12a12 12 0 0 1-12-12v-22a12 12 0 0 1 12-12z" fill="none" stroke="#9fb0c2" stroke-opacity=".7" stroke-width="1.6"/><path d="M90 114h96M90 128h64" stroke="#9fb0c2" stroke-opacity=".5" stroke-width="5" stroke-linecap="round"/><path d="M126 166h112a12 12 0 0 1 12 12v32a12 12 0 0 1-12 12h-12v12l-16-12h-84a12 12 0 0 1-12-12v-32a12 12 0 0 1 12-12z" fill="#22395a" stroke="#5cd08f" stroke-opacity=".6" stroke-width="1.6"/><rect x="130" y="184" width="18" height="18" rx="3" fill="#1f5f9b"/><text x="158" y="200" font-family="Geist, 'Geist Sans', system-ui, sans-serif" font-size="22" font-weight="500" fill="#eef2f6">1.1 m</text></svg>
+                        </div>
+                        <div class="product-body">
+                            <span class="chip chip--dev">In development</span>
+                            <h3 class="product-title"><a class="product-link" href="product/ai-assistants/">For AI assistants</a></h3>
+                            <p>Ask Claude or another AI assistant about flood depth at your sites. Our MCP server gives it the depths, bands and caveats the API returns, in plain words first.</p>
+                            <ul class="product-specs" role="list"><li>MCP server</li><li>Same data as the API</li></ul>
+                            <span class="product-more" aria-hidden="true">See the product <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                        </div>
                     </li>
                 </ul>
             </div>
         </section>
 
         <!-- How it works -->
-        <section id="how" class="how light" aria-labelledby="how-title">
+        <section id="how" class="how band--white light" aria-labelledby="how-title">
             <div class="container">
                 <div class="section-head">
                     <p class="eyebrow">How it works</p>
@@ -208,6 +312,71 @@
                     </li>
                 </ol>
                 <p class="steps-note">It is as early as the rainfall forecast it is given.</p>
+                <figure class="layers reveal" aria-labelledby="layers-title">
+                    <div class="layers-stack">
+                        <div class="layers-frame">
+                            <!-- The exploded stack without baked-in labels: cropped from site-visuals/layers.png (labels and notes masked). The labels are the HTML list beside it. -->
+                            <img src="assets/img/visuals/layers-stack.webp" srcset="assets/img/visuals/layers-stack-1x.webp 525w, assets/img/visuals/layers-stack.webp 1050w" sizes="(min-width: 1000px) 560px, 100vw" width="1050" height="1070" loading="lazy" decoding="async" alt="An exploded view of one square of Exeter city centre, its layers drawn apart: terrain at the bottom, buildings above it, the storm's rainfall above those, and the water depth on top.">
+                        </div>
+                        <ol class="layer-labels" role="list">
+                            <li style="--y: 26.4%"><span class="layer-name">Water depth</span><span class="layer-src">LISFLOOD-FP solver run, <span class="num">2&nbsp;m</span> cells</span><span class="layer-q">Where does the water collect, and how deep?</span></li>
+                            <li style="--y: 42.5%"><span class="layer-name">Rainfall</span><span class="layer-src">Recorded by three Environment Agency gauges</span><span class="layer-q">How much rain falls, and when?</span></li>
+                            <li style="--y: 58.6%"><span class="layer-name">Buildings</span><span class="layer-src">Ordnance Survey OpenMap Local footprints</span><span class="layer-q">Where can water not go?</span></li>
+                            <li style="--y: 74.6%"><span class="layer-name">Terrain</span><span class="layer-src">Environment Agency <span class="num">1&nbsp;m</span> LiDAR, bare earth</span><span class="layer-q">What shape is the ground?</span></li>
+                        </ol>
+                    </div>
+                    <figcaption class="layers-caption">
+                        <h3 id="layers-title">One place, layer by layer</h3>
+                        <p>The layers behind the Exeter replay at the top of this page, drawn apart. They share the same ground: the terrain, the buildings standing on it, the rain that fell on it, and the water depth the solver computed. Heights exaggerated three times.</p>
+                        <p>The forecast model learns from many runs like this one, on other ground and other storms.</p>
+                        <p class="layers-credit">Contains Environment Agency information © Environment Agency and/or database right 2026. Contains OS data © Crown copyright and database right 2026.</p>
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+
+
+        <!-- What goes into a forecast: each card checked against the platform's README, CLAUDE.md, VOCABULARY.md and DECISIONS.md (2026-10-24) -->
+        <section id="inputs" class="inputs dark" aria-labelledby="inputs-title">
+            <div class="container">
+                <div class="section-head">
+                    <p class="eyebrow">Inputs</p>
+                    <h2 class="section-title" id="inputs-title">What goes into a Finkele flood forecast</h2>
+                    <p class="section-lede">Four inputs and the model that uses them. Each is named, so you can see what a depth rests on.</p>
+                </div>
+                <ul class="input-grid" role="list">
+                    <li class="input-card reveal">
+                        <span class="input-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18c3-5 5-7 8-7s4 3 7 3 3-3 5-5"/><path d="M2 22h20" opacity=".5"/></svg></span>
+                        <p class="input-kicker">Ground</p>
+                        <h3 class="input-title">Terrain</h3>
+                        <p>Environment Agency LiDAR on a <span class="num">1&nbsp;m</span> grid: the bare-earth ground the water runs over.</p>
+                    </li>
+                    <li class="input-card reveal">
+                        <span class="input-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V10l5-3v14M8 21V5l7-2v18M15 21v-9l6 2v7"/><path d="M2 21h20"/></svg></span>
+                        <p class="input-kicker">On the ground</p>
+                        <h3 class="input-title">Buildings</h3>
+                        <p>Ordnance Survey OpenMap Local footprints, used where a solver run models buildings, as in our replays, where they stand as solid blocks.</p>
+                    </li>
+                    <li class="input-card reveal">
+                        <span class="input-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 14a4 4 0 0 1-.6-7.95A5.5 5.5 0 0 1 17 7a3.5 3.5 0 0 1 .5 7H7Z"/><path d="m8 17-1 3M12 17l-1 3M16 17l-1 3"/></svg></span>
+                        <p class="input-kicker">The storm</p>
+                        <h3 class="input-title">Rainfall</h3>
+                        <p>A storm's rainfall: forecast rain for coming events, rain recorded by Environment Agency gauges for replays, and design storms for scenarios.</p>
+                    </li>
+                    <li class="input-card reveal">
+                        <span class="input-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18" opacity=".55"/><rect x="9" y="15" width="6" height="6" fill="currentColor" stroke="none" opacity=".7"/><rect x="15" y="9" width="6" height="6" fill="currentColor" stroke="none" opacity=".4"/></svg></span>
+                        <p class="input-kicker">Training data</p>
+                        <h3 class="input-title">Solver runs</h3>
+                        <p>LISFLOOD-FP runs over many storms on real terrain: the physics-based training data the model learns from.</p>
+                    </li>
+                    <li class="input-card input-card--model reveal">
+                        <span class="input-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="7" r="2"/><circle cx="5" cy="17" r="2"/><circle cx="19" cy="12" r="2"/><path d="M7 7.8 17 11M7 16.2 17 13"/></svg></span>
+                        <p class="input-kicker">The model</p>
+                        <h3 class="input-title">TERRA</h3>
+                        <p>Our machine-learning model, trained on those runs. From a storm's rainfall it gives water depth in metres, with an uncertainty band.</p>
+                    </li>
+                </ul>
+                <p class="inputs-note">The forecast model's terrain is bare earth today, without buildings or flood defences. It uses rain falling on the area only, not river or coastal flow.</p>
             </div>
         </section>
 
@@ -389,6 +558,18 @@
                     <li><strong>Flood simulation:</strong> LISFLOOD-FP (LISFLOOD-FP developers, <a href="https://doi.org/10.5281/zenodo.13121102" rel="noopener">https://doi.org/10.5281/zenodo.13121102</a>).</li>
                 </ul>
             </section>
+            <nav class="footer-products" aria-label="Products">
+                <span class="footer-products-label">Products</span>
+                <a href="product/flood-depth-maps/">Flood depth maps</a>
+                <a href="product/rainfall-scenarios/">Rainfall scenarios</a>
+                <a href="product/replays/">3D flood replays</a>
+                <a href="product/storm-events/">Storm event pages</a>
+                <a href="product/flood-warnings/">Environment Agency warnings</a>
+                <a href="product/find-your-area/">Find your area</a>
+                <a href="product/api/">API</a>
+                <a href="product/live-forecasts/">Live forecasts</a>
+                <a href="product/ai-assistants/">For AI assistants</a>
+            </nav>
             <p class="axiom">We also develop AXIOM, a protocol for checking machine-learning surrogates in engineering simulation.</p>
         </div>
         <div class="container footer-inner">

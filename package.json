@@ -17,8 +17,7 @@
   "license": "UNLICENSED",
   "private": true,
   "devDependencies": {
-    "live-server": "^1.2.2",
-    "staticrypt": "^3.5.4"
+    "live-server": "^1.2.2"
   },
   "repository": {
     "type": "git",

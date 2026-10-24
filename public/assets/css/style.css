@@ -4,7 +4,7 @@
 
 /* ── Variables ─────────────────────────────── */
 :root {
-  --green:        #038C50;
+  --green:        #027A46;
   --green-dark:   #026B3C;
   --green-light:  #4FBF7F;
   --black:        #141F20;
@@ -746,4 +746,9 @@ a.marquee-item:focus-visible { outline: 2px solid #027a46; outline-offset: 4px; 
   .hero-inner { max-width: 1180px; }
   .hero-title { font-size: clamp(2.6rem, 3.9vw, 3.5rem); white-space: nowrap; }
   .hero-subtitle { max-width: 720px; margin-left: auto; margin-right: auto; }
+}
+
+/* Looping background motion stops for visitors who ask for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  .hero, .hero *, .marquee-track, .pulse-ring, .cta-demo { animation: none !important; }
 }

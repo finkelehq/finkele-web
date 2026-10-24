@@ -737,4 +737,6 @@ a.marquee-item:focus-visible { outline: 2px solid #027a46; outline-offset: 4px; 
 }
 .tech-card h3 { font-size: 1.25rem; font-weight: 700; margin: .5rem 0 0; color: #141f20; }
 .tech-stat { font-size: .95rem; font-weight: 700; color: #027a46; margin: 0; font-variant-numeric: tabular-nums; }
-.tech-card p:last-child { font-size: .95rem; color: var(--muted); line-height: 1.6; margin: 0; min-height: 4.8em; }
+.tech-card p:last-child { font-size: .95rem; color: var(--muted); line-height: 1.6; margin: 0; min-height: 4.8em; text-wrap: pretty; }
+
+.product-card p, .problem-desc { text-wrap: pretty; }

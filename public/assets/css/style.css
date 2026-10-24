@@ -390,6 +390,8 @@ a { text-decoration: none; color: inherit; }
 }
 .marquee-item:hover { filter: grayscale(0%) opacity(1); }
 .marquee-item img { height: 42px; width: auto; max-width: 160px; object-fit: contain; }
+.marquee-item--named { gap: .55rem; }
+.marquee-name { font-size: 1.35rem; font-weight: 600; letter-spacing: -.01em; color: #5f6b6b; }
 @keyframes marquee-scroll {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -673,3 +675,5 @@ a { text-decoration: none; color: inherit; }
   .problem-stat { font-size: 1.5rem; }
   .marquee-item img { height: 28px; }
 }
+
+.footer-legal { font-size: .75rem; line-height: 1.5; color: rgba(255,255,255,.72); margin-top: 1rem; text-align: center; }

@@ -374,6 +374,9 @@ section { background: var(--bg); color: var(--fg); }
   font-family: var(--font-mono); font-size: .72rem; letter-spacing: .02em;
   color: var(--ink); background: var(--paper); border: 1px solid var(--line);
   border-radius: 6px; padding: .2rem .5rem;
+/* The problem in red, the answer in green: --problem-red is 6.6:1 on white, so the tag text stays AA. */
+.problem-card--problem { border-top: 3px solid var(--problem-red, #b42318); }
+.tag.tag--problem { color: var(--problem-red, #b42318); background: rgba(180, 35, 24, .08); border-color: rgba(180, 35, 24, .25); }
 }
 .product-more { display: inline-flex; align-items: center; gap: .4rem; font-weight: 600; font-size: .9rem; color: var(--green); }
 .product-more svg { transition: transform 200ms var(--ease-out); }

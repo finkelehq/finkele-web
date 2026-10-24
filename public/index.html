@@ -99,17 +99,17 @@
         <!-- Problem and solution: the founder's wording, kept exactly -->
         <section class="problem light" aria-label="The problem and our answer">
             <div class="container problem-grid">
-                <div class="problem-card reveal">
-                    <span class="tag">The Problem</span>
+                <div class="problem-card problem-card--problem reveal">
+                    <span class="tag tag--problem">The Problem</span>
                     <p class="problem-stat num">£3.3bn</p>
-                    <p class="problem-desc">in annual flood damage across the UK, projected to rise to £4.5bn by 2050. Many asset owners still lack the information they need to see flood risk at their own sites and act early, before damage occurs.</p>
-                    <p class="problem-note">Source: Climate Change Committee, <a href="https://www.theccc.org.uk/publication/a-well-adapted-uk/" target="_blank" rel="noopener">A Well-Adapted UK</a>; 2025 prices, 2050 under 2°C of global warming.</p>
+                    <p class="problem-desc">in annual flood damage across the UK, projected to rise to £4.5bn by 2050. Many asset owners still lack the clear, local information they need to see flood risk at their own sites, street by street, and act early, before costly damage to property and operations occurs.</p>
+                    <p class="problem-note">Source: CCC, <a href="https://www.theccc.org.uk/publication/a-well-adapted-uk/" target="_blank" rel="noopener">A Well-Adapted UK</a>; 2025 prices, 2°C warming.</p>
                 </div>
                 <div class="problem-card problem-card--solution reveal">
                     <span class="tag tag--green">The Solution</span>
                     <p class="problem-stat">In seconds</p>
-                    <p class="problem-desc">Our model maps water depth in metres across a catchment from a storm's rainfall, so owners can see which streets and buildings it reaches. It works from the rainfall forecast and your location, so it is as early as that forecast.</p>
-                    <p class="problem-note">Measured inference time on our deployed 2-CPU service: <span class="num">8.5&nbsp;s</span> for a <span class="num">1&nbsp;km</span> square in Leeds.</p>
+                    <p class="problem-desc">Our model maps water depth in metres across a catchment from a storm's rainfall, so owners can see in advance which streets and buildings it reaches, and how deep it gets. It works from the latest rainfall forecast and your location, so it is as early as that forecast.</p>
+                    <p class="problem-note">Measured: <span class="num">8.5&nbsp;s</span> per <span class="num">1&nbsp;km</span> square in Leeds, 2-CPU service.</p>
                 </div>
             </div>
         </section>
@@ -438,7 +438,7 @@
                         </svg>
                         <p class="step-num">Step 3</p>
                         <h3 class="step-title">TERRA</h3>
-                        <p>A machine-learning model trained on those runs, which gives depth in metres from a storm's rainfall.</p>
+                        <p>Finkele's own machine-learning model, trained on those runs, which gives depth in metres from a storm's rainfall.</p>
                         <div class="ramp" aria-hidden="true"><span class="ramp-bar"></span><span class="ramp-labels"><span>shallow</span><span>deep</span></span></div>
                     </li>
                 </ol>

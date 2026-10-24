@@ -210,7 +210,7 @@ a { text-decoration: none; color: inherit; }
 }
 .problem-col--solution .problem-stat { color: var(--green); }
 .problem-desc {
-  font-size: .98rem; color: var(--muted); line-height: 1.65;
+  font-size: .98rem; color: var(--muted); line-height: 1.65; flex: 1;
 }
 .problem-note {
   font-size: .72rem; color: var(--muted); line-height: 1.5; margin-top: .6rem; opacity: .85;

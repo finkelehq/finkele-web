@@ -947,5 +947,5 @@ html.motion .reveal.is-in { opacity: 1; transform: none; }
 .acc-logo { display: block; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.25rem, 3vw, 2rem); }
 .acc-logo img { display: block; width: 100%; max-width: 300px; height: auto; margin-inline: auto; }
 .acc-logo:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
-.acc-text .section-lede { max-width: 36rem; }
+.acc-text .section-lede { max-width: 40rem; text-wrap: pretty; }
 .acc-text .product-more { margin-top: 1.1rem; }

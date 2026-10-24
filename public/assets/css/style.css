@@ -927,3 +927,14 @@ html.motion .reveal.is-in { opacity: 1; transform: none; }
   .hero .hero-title { font-size: clamp(2.4rem, 3.3vw, 3.4rem); }
   .hero .hero-line { display: block; white-space: nowrap; }
 }
+
+/* Hero: the accelerator we are in, as a quiet line under the buttons. The JBS mark is drawn
+   white on the navy hero; the whole line is the link to the programme page. */
+.hero-backing {
+  display: inline-flex; align-items: center; gap: .85rem; margin-top: 1.75rem;
+  padding-top: 1.25rem; border-top: 1px solid rgba(255, 255, 255, .12);
+  color: var(--on-navy-muted); font-size: .875rem; line-height: 1.4; text-decoration: none; max-width: 30rem;
+}
+.hero-backing img { height: 34px; width: auto; flex: none; filter: brightness(0) invert(1); opacity: .85; }
+@media (hover: hover) and (pointer: fine) { .hero-backing:hover span { color: var(--on-navy); text-decoration: underline; } }
+.hero-backing:focus-visible { outline: 2px solid var(--white); outline-offset: 4px; border-radius: 4px; }

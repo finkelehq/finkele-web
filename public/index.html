@@ -42,6 +42,7 @@
                 <ul class="nav-links">
                     <li><a href="#home" class="nav-link">Home</a></li>
                     <li><a href="#products" class="nav-link">Products</a></li>
+                    <li><a href="#research" class="nav-link">Research</a></li>
                     <li><a href="#how" class="nav-link">How it works</a></li>
                     <li><a href="#awards" class="nav-link">Awards</a></li>
                     <li><a href="#contact" class="nav-link">Contact</a></li>
@@ -310,6 +311,97 @@
                         </div>
                     </li>
                 </ul>
+            </div>
+        </section>
+
+        <!-- Research: candidate models that are not served. Figures from the platform's
+             docs/paper/RESULTS_AND_VALIDATION.md and docs/DECISIONS.md (checked 2026-10-24);
+             loops rendered from local solver and model data. Script: assets/js/research.js. -->
+        <section id="research" class="research dark" aria-labelledby="research-title">
+            <div class="container">
+                <div class="section-head">
+                    <p class="eyebrow">Research</p>
+                    <h2 class="section-title" id="research-title">Models we are testing, not yet in the product</h2>
+                    <p class="section-lede">None of these is the model we serve. Each result compares a model with the LISFLOOD-FP solver, or with itself, on the same storm: that is verification, not validation against an observed flood.</p>
+                </div>
+                <ul class="research-grid" role="list">
+                    <li class="research-card reveal">
+                        <figure class="research-media" data-research-loop>
+                            <div class="research-frame">
+                                <img src="assets/research/depth-1m-manchester.jpg" width="800" height="450" loading="lazy" decoding="async" alt="Peak flood depth in blue on a 400 m square of Manchester: on the left the research model's 5 m output, then the same water laid onto 1 m terrain; on the right the solver at 1 m." aria-describedby="rc-depth-cap">
+                                <video muted loop playsinline preload="none" width="800" height="450" hidden aria-hidden="true">
+                                    <source data-src="assets/research/depth-1m-manchester.webm" type="video/webm">
+                                    <source data-src="assets/research/depth-1m-manchester.mp4" type="video/mp4">
+                                </video>
+                                <button class="research-toggle" type="button" hidden>
+                                    <svg class="icon-pause" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+                                    <svg class="icon-play" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>
+                                    <span class="visually-hidden">Pause animation</span>
+                                </button>
+                            </div>
+                            <div class="research-labels" aria-hidden="true"><span>Model · research candidate</span><span>Solver · LISFLOOD-FP</span></div>
+                        </figure>
+                        <div class="research-body">
+                            <span class="chip chip--research">Research</span>
+                            <h3 class="research-title"><a class="research-link" href="research.html#depth-1m">A two-level model: <span class="num">5&nbsp;m</span> water level on <span class="num">1&nbsp;m</span> terrain</a></h3>
+                            <p class="research-text">It learns where water stands at <span class="num">5&nbsp;m</span> across a whole <span class="num">5&nbsp;km</span> area, and we lay that level onto the <span class="num">1&nbsp;m</span> terrain. On areas it never saw, it is checked against the solver.</p>
+                            <ul class="research-specs" role="list"><li>5 m model</li><li>1 m terrain</li><li>Not served yet</li></ul>
+                            <p class="research-caption" id="rc-depth-cap">Peak depth on a <span class="num">400&nbsp;m</span> square of the Manchester test area, held-out storm ho3 (<span class="num">150&nbsp;mm</span> over <span class="num">24&nbsp;h</span>, synthetic). Left: the model's <span class="num">5&nbsp;m</span> output, then laid onto <span class="num">1&nbsp;m</span> terrain. Right: the solver at <span class="num">1&nbsp;m</span>.<span class="research-credit">Contains Environment Agency information © Environment Agency and/or database right 2026. Solver output: LISFLOOD-FP 8.3.</span></p>
+                            <span class="research-more" aria-hidden="true">More on this topic <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                        </div>
+                    </li>
+                    <li class="research-card reveal">
+                        <figure class="research-media" data-research-loop>
+                            <div class="research-frame">
+                                <img src="assets/research/grid-shift-manchester.jpg" width="800" height="450" loading="lazy" decoding="async" alt="The research model's peak flood depth across the Manchester test area, with the lines of its 500 m tile grid drawn over it; the animation moves the grid 250 m and back." aria-describedby="rc-grid-cap">
+                                <video muted loop playsinline preload="none" width="800" height="450" hidden aria-hidden="true">
+                                    <source data-src="assets/research/grid-shift-manchester.webm" type="video/webm">
+                                    <source data-src="assets/research/grid-shift-manchester.mp4" type="video/mp4">
+                                </video>
+                                <button class="research-toggle" type="button" hidden>
+                                    <svg class="icon-pause" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+                                    <svg class="icon-play" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>
+                                    <span class="visually-hidden">Pause animation</span>
+                                </button>
+                            </div>
+                            <div class="research-labels research-labels--one" aria-hidden="true"><span>Model · research candidate</span></div>
+                        </figure>
+                        <div class="research-body">
+                            <span class="chip chip--research">Research</span>
+                            <h3 class="research-title"><a class="research-link" href="research.html#grid-shift">Testing that moving the grid does not move the answer</a></h3>
+                            <p class="research-text">The model works in <span class="num">500&nbsp;m</span> tiles. With the tile grid moved <span class="num">250&nbsp;m</span>, at most <span class="num">2</span> of about <span class="num">21</span>&nbsp;million cells per area switched between wet and dry at <span class="num">15&nbsp;cm</span>, on ten test areas.</p>
+                            <ul class="research-specs" role="list"><li>500 m tiles</li><li>Moved 250 m</li><li>Pre-registered</li></ul>
+                            <p class="research-caption" id="rc-grid-cap">Peak depth across the Manchester test area, held-out storm ho3 (<span class="num">150&nbsp;mm</span> over <span class="num">24&nbsp;h</span>, synthetic), under the <span class="num">500&nbsp;m</span> tile grid as used and moved <span class="num">250&nbsp;m</span>. Each position shows that grid's own prediction.<span class="research-credit">Contains Environment Agency information © Environment Agency and/or database right 2026.</span></p>
+                            <span class="research-more" aria-hidden="true">More on this topic <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                        </div>
+                    </li>
+                    <li class="research-card reveal">
+                        <figure class="research-media" data-research-loop>
+                            <div class="research-frame">
+                                <img src="assets/research/time-manchester.jpg" width="800" height="450" loading="lazy" decoding="async" alt="Flood depth in blue on the Manchester test area 15 hours into a 24-hour storm, the solver on the left and the research model on the right, with a bar of the storm's hourly rain below; the animation steps through the storm every 30 minutes." aria-describedby="rc-time-cap">
+                                <video muted loop playsinline preload="none" width="800" height="450" hidden aria-hidden="true">
+                                    <source data-src="assets/research/time-manchester.webm" type="video/webm">
+                                    <source data-src="assets/research/time-manchester.mp4" type="video/mp4">
+                                </video>
+                                <button class="research-toggle" type="button" hidden>
+                                    <svg class="icon-pause" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+                                    <svg class="icon-play" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>
+                                    <span class="visually-hidden">Pause animation</span>
+                                </button>
+                            </div>
+                            <div class="research-labels" aria-hidden="true"><span>Solver · LISFLOOD-FP</span><span>Model · research candidate</span></div>
+                        </figure>
+                        <div class="research-body">
+                            <span class="chip chip--research">Research</span>
+                            <h3 class="research-title"><a class="research-link" href="research.html#time">Water through time</a></h3>
+                            <p class="research-text">A model of depth every <span class="num">30</span>&nbsp;minutes through a storm. On nine held-out runs it came closer to the solver than a fixed peak map, but missed its timing test.</p>
+                            <ul class="research-specs" role="list"><li>Every 30 min</li><li>9 held-out runs</li><li>Timing missed</li></ul>
+                            <p class="research-caption" id="rc-time-cap">Depth every <span class="num">30</span>&nbsp;minutes on the Manchester test area, held-out storm ho3 (<span class="num">150&nbsp;mm</span> over <span class="num">24&nbsp;h</span>, synthetic), on a <span class="num">10&nbsp;m</span> grid. Left: the solver. Right: the time-resolved research candidate.<span class="research-credit">Contains Environment Agency information © Environment Agency and/or database right 2026. Solver output: LISFLOOD-FP 8.3.</span></p>
+                            <span class="research-more" aria-hidden="true">More on this topic <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                        </div>
+                    </li>
+                </ul>
+                <p class="research-all"><a href="research.html" class="btn btn-ghost">Results, gaps and checks for each topic</a></p>
             </div>
         </section>
 
@@ -676,6 +768,7 @@
                 <h2 class="footer-heading" id="f-company">Company</h2>
                 <ul role="list">
                     <li><a href="#technology">Technology</a></li>
+                    <li><a href="research.html">Research</a></li>
                     <li><a href="#awards">Awards</a></li>
                     <li><a href="mailto:june.soh@finkele.com?subject=Demo%20Request">Book a demo</a></li>
                     <li><a href="mailto:june.soh@finkele.com">Contact</a></li>
@@ -701,5 +794,6 @@
 
     <script src="assets/js/main.js" defer></script>
     <script src="assets/js/showpieces.js" defer></script>
+    <script src="assets/js/research.js" defer></script>
 </body>
 </html>

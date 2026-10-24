@@ -938,3 +938,14 @@ html.motion .reveal.is-in { opacity: 1; transform: none; }
 .hero-backing img { height: 34px; width: auto; flex: none; filter: brightness(0) invert(1); opacity: .85; }
 @media (hover: hover) and (pointer: fine) { .hero-backing:hover span { color: var(--on-navy); text-decoration: underline; } }
 .hero-backing:focus-visible { outline: 2px solid var(--white); outline-offset: 4px; border-radius: 4px; }
+
+/* Acceleration: one programme, logo beside a short statement. */
+.acceleration { --bg: var(--paper); --fg: var(--ink); --muted: var(--ink-muted); --accent: var(--green); --line: rgba(20, 36, 58, .1); --focus: var(--green);
+  padding: clamp(3rem, 6vw, 4.5rem) 0; }
+.acc-grid { display: grid; gap: 1.75rem; align-items: center; }
+@media (min-width: 820px) { .acc-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: clamp(2.5rem, 6vw, 5rem); } }
+.acc-logo { display: block; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.25rem, 3vw, 2rem); }
+.acc-logo img { display: block; width: 100%; max-width: 300px; height: auto; margin-inline: auto; }
+.acc-logo:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
+.acc-text .section-lede { max-width: 36rem; }
+.acc-text .product-more { margin-top: 1.1rem; }

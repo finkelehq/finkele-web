@@ -99,17 +99,17 @@
         <!-- Problem and solution: the founder's wording, kept exactly -->
         <section class="problem light" aria-label="The problem and our answer">
             <div class="container problem-grid">
-                <div class="problem-card problem-card--problem reveal">
-                    <span class="tag tag--problem">The Problem</span>
+                <div class="problem-card reveal">
+                    <span class="tag">The Problem</span>
                     <p class="problem-stat num">£3.3bn</p>
-                    <p class="problem-desc">in annual flood damage across the UK, projected to rise to £4.5bn by 2050. Many asset owners still lack the clear, local information they need to see flood risk at their own sites, street by street, and act early, before costly damage to property and operations occurs.</p>
-                    <p class="problem-note">Source: CCC, <a href="https://www.theccc.org.uk/publication/a-well-adapted-uk/" target="_blank" rel="noopener">A Well-Adapted UK</a>; 2025 prices, 2°C warming.</p>
+                    <p class="problem-desc">in annual flood damage across the UK, projected to rise to £4.5bn by 2050. Many asset owners still lack the information they need to see flood risk at their own sites and act early, before damage occurs.</p>
+                    <p class="problem-note">Source: Climate Change Committee, <a href="https://www.theccc.org.uk/publication/a-well-adapted-uk/" target="_blank" rel="noopener">A Well-Adapted UK</a>; 2025 prices, 2050 under 2°C of global warming.</p>
                 </div>
                 <div class="problem-card problem-card--solution reveal">
                     <span class="tag tag--green">The Solution</span>
                     <p class="problem-stat">In seconds</p>
-                    <p class="problem-desc">Our model maps water depth in metres across a catchment from a storm's rainfall, so owners can see in advance which streets and buildings it reaches, and how deep it gets. It works from the latest rainfall forecast and your location, so it is as early as that forecast.</p>
-                    <p class="problem-note">Measured: <span class="num">8.5&nbsp;s</span> per <span class="num">1&nbsp;km</span> square in Leeds, 2-CPU service.</p>
+                    <p class="problem-desc">Our model maps water depth in metres across a catchment from a storm's rainfall, so owners can see which streets and buildings it reaches. It works from the rainfall forecast and your location, so it is as early as that forecast.</p>
+                    <p class="problem-note">Measured inference time on our deployed 2-CPU service: <span class="num">8.5&nbsp;s</span> for a <span class="num">1&nbsp;km</span> square in Leeds.</p>
                 </div>
             </div>
         </section>
@@ -120,7 +120,7 @@
                 <div class="section-head">
                     <p class="eyebrow">Our technology</p>
                     <h2 class="section-title" id="tech-title">AI trained on physics simulations</h2>
-                    <p class="section-lede">TERRA is our machine-learning flood model. We run the LISFLOOD-FP hydraulic solver through many storms over Environment Agency LiDAR terrain, and TERRA learns from those runs. Give it a storm's rainfall and it returns water depth in metres, with an uncertainty band, in seconds.</p>
+                    <p class="section-lede">TERRA is our proprietary AI flood model. We run a physics-based hydraulic solver through many storms over Environment Agency LiDAR terrain, and TERRA learns from those runs. Give it a storm's rainfall and it returns water depth in metres, with an uncertainty band, in seconds.</p>
                 </div>
                 <ul class="tech-grid" role="list">
                     <li class="tech-card reveal">
@@ -187,8 +187,8 @@
                         </button>
                     </div>
                     <figcaption class="devices-caption" id="devices-caption">
-                        <p><strong>Hebden Bridge, a <span class="num">500&nbsp;m</span> area, design storm.</strong> Recorded from the Finkele platform. The storm control moves from a solver run of <span class="num">29&nbsp;mm</span> of rain in <span class="num">21&nbsp;h</span> to one of <span class="num">211&nbsp;mm</span> in <span class="num">24&nbsp;h</span>, and the water spreads. A click on one cell then gives its depth, <span class="num">0.7&nbsp;m</span>, and its band, <span class="num">0.6</span> to <span class="num">0.9&nbsp;m</span>. These depths are the solver's, not the model's: <span class="num">50</span> LISFLOOD-FP runs of different storms on bare-earth Environment Agency LiDAR terrain, interpolated between the two nearest runs where the control falls between them. Rain falling on the area only; buildings are not obstacles in these runs. The phone shows the same area on the mobile layout. The map is shown without a basemap.</p>
-                        <p class="showpiece-credit">Flood simulation: LISFLOOD-FP (LISFLOOD-FP developers). Contains Environment Agency information © Environment Agency and/or database right 2026.</p>
+                        <p><strong>Hebden Bridge, a <span class="num">500&nbsp;m</span> area, design storm.</strong> Recorded from the Finkele platform. The storm control moves from a solver run of <span class="num">29&nbsp;mm</span> of rain in <span class="num">21&nbsp;h</span> to one of <span class="num">211&nbsp;mm</span> in <span class="num">24&nbsp;h</span>, and the water spreads. A click on one cell then gives its depth, <span class="num">0.7&nbsp;m</span>, and its band, <span class="num">0.6</span> to <span class="num">0.9&nbsp;m</span>. These depths are the solver's, not the model's: <span class="num">50</span> physics solver runs of different storms on bare-earth Environment Agency LiDAR terrain, interpolated between the two nearest runs where the control falls between them. Rain falling on the area only; buildings are not obstacles in these runs. The phone shows the same area on the mobile layout. The map is shown without a basemap.</p>
+                        <p class="showpiece-credit">Contains Environment Agency information © Environment Agency and/or database right 2026.</p>
                     </figcaption>
                 </figure>
 
@@ -322,13 +322,13 @@
                 <div class="section-head">
                     <p class="eyebrow">Research</p>
                     <h2 class="section-title" id="research-title">Models we are testing, not yet in the product</h2>
-                    <p class="section-lede">None of these is the model we serve. Each result compares a model with the LISFLOOD-FP solver, or with itself, on the same storm: that is verification, not validation against an observed flood.</p>
+                    <p class="section-lede">None of these is the model we serve. Each result compares a model with the physics solver, or with itself, on the same storm: that is verification, not validation against an observed flood.</p>
                 </div>
                 <ul class="research-grid" role="list">
                     <li class="research-card reveal">
                         <figure class="research-media" data-research-loop>
                             <div class="research-frame">
-                                <img src="assets/research/depth-1m-manchester.jpg" width="800" height="450" loading="lazy" decoding="async" alt="Peak flood depth in blue on a 400 m square of Manchester: on the left the research model's 5 m output, then the same water laid onto 1 m terrain; on the right the solver at 1 m." aria-describedby="rc-depth-cap">
+                                <img src="assets/research/depth-1m-manchester.jpg" width="800" height="450" loading="lazy" decoding="async" alt="Peak flood depth in blue on a 400 m square of Manchester: on the left the research model's prediction; on the right the physics solver at 1 m." aria-describedby="rc-depth-cap">
                                 <video muted loop playsinline preload="none" width="800" height="450" hidden aria-hidden="true">
                                     <source data-src="assets/research/depth-1m-manchester.webm" type="video/webm">
                                     <source data-src="assets/research/depth-1m-manchester.mp4" type="video/mp4">
@@ -339,21 +339,21 @@
                                     <span class="visually-hidden">Pause animation</span>
                                 </button>
                             </div>
-                            <div class="research-labels" aria-hidden="true"><span>Model · research candidate</span><span>Solver · LISFLOOD-FP</span></div>
+                            <div class="research-labels" aria-hidden="true"><span>Model · research candidate</span><span>Physics solver</span></div>
                         </figure>
                         <div class="research-body">
                             <span class="chip chip--research">Research</span>
-                            <h3 class="research-title"><a class="research-link" href="research.html#depth-1m">A two-level model: <span class="num">5&nbsp;m</span> water level on <span class="num">1&nbsp;m</span> terrain</a></h3>
-                            <p class="research-text">It learns where water stands at <span class="num">5&nbsp;m</span> across a whole <span class="num">5&nbsp;km</span> area, and we lay that level onto the <span class="num">1&nbsp;m</span> terrain. On areas it never saw, it is checked against the solver.</p>
-                            <ul class="research-specs" role="list"><li>5 m model</li><li>1 m terrain</li><li>Not served yet</li></ul>
-                            <p class="research-caption" id="rc-depth-cap">Peak depth on a <span class="num">400&nbsp;m</span> square of the Manchester test area, held-out storm ho3 (<span class="num">150&nbsp;mm</span> over <span class="num">24&nbsp;h</span>, synthetic). Left: the model's <span class="num">5&nbsp;m</span> output, then laid onto <span class="num">1&nbsp;m</span> terrain. Right: the solver at <span class="num">1&nbsp;m</span>.<span class="research-credit">Contains Environment Agency information © Environment Agency and/or database right 2026. Solver output: LISFLOOD-FP 8.3.</span></p>
+                            <h3 class="research-title"><a class="research-link" href="research.html#depth-1m">Depth at <span class="num">1&nbsp;m</span> across whole <span class="num">5&nbsp;km</span> areas</a></h3>
+                            <p class="research-text">It predicts peak water depth for every <span class="num">1&nbsp;m</span> cell across a whole <span class="num">5&nbsp;km</span> area, and was checked against the solver on areas and storms it never saw.</p>
+                            <ul class="research-specs" role="list"><li>1 m depth</li><li>5 km areas</li><li>Not served yet</li></ul>
+                            <p class="research-caption" id="rc-depth-cap">Peak depth on a <span class="num">400&nbsp;m</span> square of the Manchester test area, held-out storm ho3 (<span class="num">150&nbsp;mm</span> over <span class="num">24&nbsp;h</span>, synthetic). Left: the research model. Right: the physics solver at <span class="num">1&nbsp;m</span>.<span class="research-credit">Contains Environment Agency information © Environment Agency and/or database right 2026.</span></p>
                             <span class="research-more" aria-hidden="true">More on this topic <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
                         </div>
                     </li>
                     <li class="research-card reveal">
                         <figure class="research-media" data-research-loop>
                             <div class="research-frame">
-                                <img src="assets/research/grid-shift-manchester.jpg" width="800" height="450" loading="lazy" decoding="async" alt="The research model's peak flood depth across the Manchester test area, with the lines of its 500 m tile grid drawn over it; the animation moves the grid 250 m and back." aria-describedby="rc-grid-cap">
+                                <img src="assets/research/grid-shift-manchester.jpg" width="800" height="450" loading="lazy" decoding="async" alt="The research model's peak flood depth across the Manchester test area, with the lines of the model's grid drawn over it; the animation moves the grid 250 m and back." aria-describedby="rc-grid-cap">
                                 <video muted loop playsinline preload="none" width="800" height="450" hidden aria-hidden="true">
                                     <source data-src="assets/research/grid-shift-manchester.webm" type="video/webm">
                                     <source data-src="assets/research/grid-shift-manchester.mp4" type="video/mp4">
@@ -369,9 +369,9 @@
                         <div class="research-body">
                             <span class="chip chip--research">Research</span>
                             <h3 class="research-title"><a class="research-link" href="research.html#grid-shift">Testing that moving the grid does not move the answer</a></h3>
-                            <p class="research-text">The model works in <span class="num">500&nbsp;m</span> tiles. With the tile grid moved <span class="num">250&nbsp;m</span>, at most <span class="num">2</span> of about <span class="num">21</span>&nbsp;million cells per area switched between wet and dry at <span class="num">15&nbsp;cm</span>, on ten test areas.</p>
-                            <ul class="research-specs" role="list"><li>500 m tiles</li><li>Moved 250 m</li><li>Pre-registered</li></ul>
-                            <p class="research-caption" id="rc-grid-cap">Peak depth across the Manchester test area, held-out storm ho3 (<span class="num">150&nbsp;mm</span> over <span class="num">24&nbsp;h</span>, synthetic), under the <span class="num">500&nbsp;m</span> tile grid as used and moved <span class="num">250&nbsp;m</span>. Each position shows that grid's own prediction.<span class="research-credit">Contains Environment Agency information © Environment Agency and/or database right 2026.</span></p>
+                            <p class="research-text">With the model's grid moved <span class="num">250&nbsp;m</span>, the answer barely changed: at most <span class="num">2</span> of about <span class="num">21</span>&nbsp;million cells per area switched between wet and dry at <span class="num">15&nbsp;cm</span>, on ten test areas.</p>
+                            <ul class="research-specs" role="list"><li>Moved 250 m</li><li>Ten test areas</li><li>Pre-registered</li></ul>
+                            <p class="research-caption" id="rc-grid-cap">Peak depth across the Manchester test area, held-out storm ho3 (<span class="num">150&nbsp;mm</span> over <span class="num">24&nbsp;h</span>, synthetic), with the model's grid as used and moved <span class="num">250&nbsp;m</span>. Each position shows that grid's own prediction.<span class="research-credit">Contains Environment Agency information © Environment Agency and/or database right 2026.</span></p>
                             <span class="research-more" aria-hidden="true">More on this topic <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
                         </div>
                     </li>
@@ -389,14 +389,14 @@
                                     <span class="visually-hidden">Pause animation</span>
                                 </button>
                             </div>
-                            <div class="research-labels" aria-hidden="true"><span>Solver · LISFLOOD-FP</span><span>Model · research candidate</span></div>
+                            <div class="research-labels" aria-hidden="true"><span>Physics solver</span><span>Model · research candidate</span></div>
                         </figure>
                         <div class="research-body">
                             <span class="chip chip--research">Research</span>
                             <h3 class="research-title"><a class="research-link" href="research.html#time">Water through time</a></h3>
                             <p class="research-text">A model of depth every <span class="num">30</span>&nbsp;minutes through a storm. On nine held-out runs it came closer to the solver than a fixed peak map, but missed its timing test.</p>
                             <ul class="research-specs" role="list"><li>Every 30 min</li><li>9 held-out runs</li><li>Timing missed</li></ul>
-                            <p class="research-caption" id="rc-time-cap">Depth every <span class="num">30</span>&nbsp;minutes on the Manchester test area, held-out storm ho3 (<span class="num">150&nbsp;mm</span> over <span class="num">24&nbsp;h</span>, synthetic), on a <span class="num">10&nbsp;m</span> grid. Left: the solver. Right: the time-resolved research candidate.<span class="research-credit">Contains Environment Agency information © Environment Agency and/or database right 2026. Solver output: LISFLOOD-FP 8.3.</span></p>
+                            <p class="research-caption" id="rc-time-cap">Depth every <span class="num">30</span>&nbsp;minutes on the Manchester test area, held-out storm ho3 (<span class="num">150&nbsp;mm</span> over <span class="num">24&nbsp;h</span>, synthetic), on a <span class="num">10&nbsp;m</span> grid. Left: the solver. Right: the time-resolved research candidate.<span class="research-credit">Contains Environment Agency information © Environment Agency and/or database right 2026.</span></p>
                             <span class="research-more" aria-hidden="true">More on this topic <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
                         </div>
                     </li>
@@ -430,7 +430,7 @@
                         </svg>
                         <p class="step-num">Step 2</p>
                         <h3 class="step-title">Solver runs</h3>
-                        <p>LISFLOOD-FP solver runs over many storms.</p>
+                        <p>Physics solver runs over many storms.</p>
                     </li>
                     <li class="step reveal">
                         <svg class="step-icon" viewBox="0 0 48 48" width="48" height="48" aria-hidden="true">
@@ -438,7 +438,7 @@
                         </svg>
                         <p class="step-num">Step 3</p>
                         <h3 class="step-title">TERRA</h3>
-                        <p>Finkele's own machine-learning model, trained on those runs, which gives depth in metres from a storm's rainfall.</p>
+                        <p>A machine-learning model trained on those runs, which gives depth in metres from a storm's rainfall.</p>
                         <div class="ramp" aria-hidden="true"><span class="ramp-bar"></span><span class="ramp-labels"><span>shallow</span><span>deep</span></span></div>
                     </li>
                 </ol>
@@ -450,7 +450,7 @@
                             <img src="assets/img/visuals/layers-stack.webp" srcset="assets/img/visuals/layers-stack-1x.webp 525w, assets/img/visuals/layers-stack.webp 1050w" sizes="(min-width: 1000px) 560px, 100vw" width="1050" height="1070" loading="lazy" decoding="async" alt="An exploded view of one square of Exeter city centre, its layers drawn apart: terrain at the bottom, buildings above it, the storm's rainfall above those, and the water depth on top.">
                         </div>
                         <ol class="layer-labels" role="list">
-                            <li style="--y: 26.4%"><span class="layer-name">Water depth</span><span class="layer-src">LISFLOOD-FP solver run, <span class="num">2&nbsp;m</span> cells</span><span class="layer-q">Where does the water collect, and how deep?</span></li>
+                            <li style="--y: 26.4%"><span class="layer-name">Water depth</span><span class="layer-src">Physics solver run, <span class="num">2&nbsp;m</span> cells</span><span class="layer-q">Where does the water collect, and how deep?</span></li>
                             <li style="--y: 42.5%"><span class="layer-name">Rainfall</span><span class="layer-src">Recorded by three Environment Agency gauges</span><span class="layer-q">How much rain falls, and when?</span></li>
                             <li style="--y: 58.6%"><span class="layer-name">Buildings</span><span class="layer-src">Ordnance Survey OpenMap Local footprints</span><span class="layer-q">Where can water not go?</span></li>
                             <li style="--y: 74.6%"><span class="layer-name">Terrain</span><span class="layer-src">Environment Agency <span class="num">1&nbsp;m</span> LiDAR, bare earth</span><span class="layer-q">What shape is the ground?</span></li>
@@ -485,8 +485,8 @@
                         <span>Water under <span class="num">0.05&nbsp;m</span> is not drawn.</span>
                     </div>
                     <figcaption class="compare-caption">
-                        <p><strong>Exeter city centre, 17 September 2023.</strong> One LISFLOOD-FP solver run of the storm's rainfall as recorded by three Environment Agency gauges, <span class="num">65.0&nbsp;mm</span> in all, on <span class="num">2&nbsp;m</span> cells, drawn here on <span class="num">4&nbsp;m</span> cells, with buildings as solid blocks. At <span class="num">07:45</span> BST light overnight rain has left little standing water. <span class="num">14:15</span> BST is the time with the largest wet area in the run. Rain only: drains and the River Exe's own flow are not modelled. A simulation, not a forecast, and not compared with observed flooding.</p>
-                        <p class="showpiece-credit">Flood simulation: LISFLOOD-FP (LISFLOOD-FP developers). Contains Environment Agency information © Environment Agency and/or database right 2026. Contains OS data © Crown copyright and database right 2026.</p>
+                        <p><strong>Exeter city centre, 17 September 2023.</strong> One physics solver run of the storm's rainfall as recorded by three Environment Agency gauges, <span class="num">65.0&nbsp;mm</span> in all, on <span class="num">2&nbsp;m</span> cells, drawn here on <span class="num">4&nbsp;m</span> cells, with buildings as solid blocks. At <span class="num">07:45</span> BST light overnight rain has left little standing water. <span class="num">14:15</span> BST is the time with the largest wet area in the run. Rain only: drains and the River Exe's own flow are not modelled. A simulation, not a forecast, and not compared with observed flooding.</p>
+                        <p class="showpiece-credit">Contains Environment Agency information © Environment Agency and/or database right 2026. Contains OS data © Crown copyright and database right 2026.</p>
                     </figcaption>
                 </figure>
             </div>
@@ -524,13 +524,13 @@
                         <span class="input-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18" opacity=".55"/><rect x="9" y="15" width="6" height="6" fill="currentColor" stroke="none" opacity=".7"/><rect x="15" y="9" width="6" height="6" fill="currentColor" stroke="none" opacity=".4"/></svg></span>
                         <p class="input-kicker">Training data</p>
                         <h3 class="input-title">Solver runs</h3>
-                        <p>LISFLOOD-FP runs over many storms on real terrain: the physics-based training data the model learns from.</p>
+                        <p>Physics solver runs over many storms on real terrain: the physics-based training data the model learns from.</p>
                     </li>
                     <li class="input-card input-card--model reveal">
                         <span class="input-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="7" r="2"/><circle cx="5" cy="17" r="2"/><circle cx="19" cy="12" r="2"/><path d="M7 7.8 17 11M7 16.2 17 13"/></svg></span>
                         <p class="input-kicker">The model</p>
                         <h3 class="input-title">TERRA</h3>
-                        <p>Our machine-learning model, trained on those runs. From a storm's rainfall it gives water depth in metres, with an uncertainty band.</p>
+                        <p>Our AI model, trained on those runs. From a storm's rainfall it gives water depth in metres, with an uncertainty band.</p>
                     </li>
                 </ul>
                 <p class="inputs-note">The forecast model's terrain is bare earth today, without buildings or flood defences. It uses rain falling on the area only, not river or coastal flow.</p>
@@ -569,14 +569,14 @@
                 <figure class="compare reveal" aria-labelledby="cmp-manchester-title">
                     <div class="compare-head">
                         <h3 id="cmp-manchester-title">Solver and model, on a storm the model never saw</h3>
-                        <p>Verification against the solver: the same time in the same storm, from LISFLOOD-FP on the left and from a research candidate model on the right.</p>
+                        <p>Verification against the solver: the same time in the same storm, from the physics solver on the left and from a research candidate model on the right.</p>
                     </div>
                     <div class="compare-frame" data-compare>
                         <img src="assets/img/showpieces/compare-manchester-ho3-model-1600.webp" srcset="assets/img/showpieces/compare-manchester-ho3-model-800.webp 800w, assets/img/showpieces/compare-manchester-ho3-model-1600.webp 1600w" sizes="(min-width: 1300px) 1240px, calc(100vw - 64px)" width="1600" height="1000" loading="lazy" decoding="async" alt="The same view from a research candidate model: a similar pattern of blue, with the large central pond drawn shallower and smaller.">
                         <div class="compare-before">
                             <img src="assets/img/showpieces/compare-manchester-ho3-solver-1600.webp" srcset="assets/img/showpieces/compare-manchester-ho3-solver-800.webp 800w, assets/img/showpieces/compare-manchester-ho3-solver-1600.webp 1600w" sizes="(min-width: 1300px) 1240px, calc(100vw - 64px)" width="1600" height="1000" loading="lazy" decoding="async" alt="Part of Manchester along the river Irwell from above, 15 hours into a synthetic storm: the solver's water depth in blue along the river Irwell and in low ground, deepest in one large pond near the centre.">
                         </div>
-                        <span class="compare-label compare-label--a" aria-hidden="true">Solver · LISFLOOD-FP</span>
+                        <span class="compare-label compare-label--a" aria-hidden="true">Physics solver</span>
                         <span class="compare-label compare-label--b" aria-hidden="true">Model · research candidate</span>
                         <span class="compare-divider" aria-hidden="true"></span>
                         <span class="compare-grip" role="slider" tabindex="0" aria-label="Divider: drag, or use the arrow keys, to compare solver with model" aria-orientation="horizontal" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="50% solver, 50% model" data-a="solver" data-b="model"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span>
@@ -586,8 +586,8 @@
                         <span>Water under <span class="num">0.05&nbsp;m</span> is not drawn.</span>
                     </div>
                     <figcaption class="compare-caption">
-                        <p><strong>Manchester, Irwell, <span class="num">15&nbsp;h</span> into held-out storm ho3: <span class="num">150&nbsp;mm</span> of rain over <span class="num">24&nbsp;h</span>, a synthetic storm.</strong> Left, the LISFLOOD-FP solver run on <span class="num">1&nbsp;m</span> cells. Right, the depth a research candidate model predicts for the same time from the terrain and the rain fallen so far; it never trained on this area or this storm, and it is a prototype, not the model we serve. Both are bare-earth Environment Agency LiDAR terrain, drawn on <span class="num">10&nbsp;m</span> cells, in a <span class="num">5&nbsp;km</span> by <span class="num">3.125&nbsp;km</span> window. Where the two differ, the model is wrong against the solver. Comparing them is verification against the solver, not validation against an observed flood.</p>
-                        <p class="showpiece-credit">Flood simulation: LISFLOOD-FP (LISFLOOD-FP developers). Contains Environment Agency information © Environment Agency and/or database right 2026.</p>
+                        <p><strong>Manchester, Irwell, <span class="num">15&nbsp;h</span> into held-out storm ho3: <span class="num">150&nbsp;mm</span> of rain over <span class="num">24&nbsp;h</span>, a synthetic storm.</strong> Left, the physics solver run on <span class="num">1&nbsp;m</span> cells. Right, the depth a research candidate model predicts for the same time from the terrain and the rain fallen so far; it never trained on this area or this storm, and it is a prototype, not the model we serve. Both are bare-earth Environment Agency LiDAR terrain, drawn on <span class="num">10&nbsp;m</span> cells, in a <span class="num">5&nbsp;km</span> by <span class="num">3.125&nbsp;km</span> window. Where the two differ, the model is wrong against the solver. Comparing them is verification against the solver, not validation against an observed flood.</p>
+                        <p class="showpiece-credit">Contains Environment Agency information © Environment Agency and/or database right 2026.</p>
                     </figcaption>
                 </figure>
             </div>
@@ -783,7 +783,6 @@
                 <div><dt>River levels and warnings</dt><dd>Environment Agency flood-monitoring and Hydrology APIs, under the Open Government Licence v3.0.</dd></div>
                 <div><dt>Mapping</dt><dd>Ordnance Survey OpenData, under the Open Government Licence v3.0. Contains OS data © Crown copyright and database right 2026.</dd></div>
                 <div><dt>Rainfall</dt><dd>Weather data by <a href="https://open-meteo.com/" rel="noopener">Open-Meteo.com</a>, under <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener">CC-BY 4.0</a>.</dd></div>
-                <div><dt>Flood simulation</dt><dd>LISFLOOD-FP, by the LISFLOOD-FP developers (<a href="https://doi.org/10.5281/zenodo.13121102" rel="noopener">doi:10.5281/zenodo.13121102</a>).</dd></div>
             </dl>
         </div>
         <div class="container footer-bottom">

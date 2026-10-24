@@ -23,6 +23,7 @@
     <link rel="preload" href="assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/media/hero-poster.avif" as="image" type="image/avif" fetchpriority="high">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/showpieces.css">
 </head>
 <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -151,6 +152,44 @@
                     <h2 class="section-title" id="products-title">What you can see</h2>
                     <p class="section-lede">In private preview. <a href="#contact">Book a demo</a> to see it for your sites.</p>
                 </div>
+
+                <!-- Showpiece: the Finkele platform on a laptop and a phone. Frames are CSS; the screens are
+                     captures of the platform (frontend/, run locally on 2026-10-24 with no Mapbox token, so the
+                     map has no third-party backdrop). Loop: assets/media/platform-hebden-*; still and poster:
+                     assets/img/showpieces/. Captions checked against the replay and campaign data. -->
+                <figure class="devices reveal" data-devices>
+                    <div class="devices-stage">
+                        <div class="laptop">
+                            <div class="laptop-lid">
+                                <div class="laptop-screen">
+                                    <img src="assets/img/showpieces/platform-hebden-poster-1280x800.webp" width="1280" height="800" loading="lazy" decoding="async" alt="The Finkele platform on a laptop: the Hebden Bridge area's flood depth map in blue, its depth legend, and the storm control set to a solver run of 29 mm of rain in 21 hours.">
+                                    <video muted loop playsinline preload="none" width="1280" height="800" hidden aria-describedby="devices-caption">
+                                        <source data-src="assets/media/platform-hebden-1280x800.webm" type="video/webm">
+                                        <source data-src="assets/media/platform-hebden-800x500.mp4" type="video/mp4" media="(max-width: 700px)">
+                                        <source data-src="assets/media/platform-hebden-1280x800.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                            </div>
+                            <div class="laptop-base" aria-hidden="true"></div>
+                        </div>
+                        <div class="phone">
+                            <div class="phone-screen">
+                                <img src="assets/img/showpieces/platform-hebden-phone-600.webp" width="600" height="1298" loading="lazy" decoding="async" alt="The same Hebden Bridge depth map on a phone, for a solver run of 211 mm of rain in 24 hours, with the depth legend below it.">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="devices-controls">
+                        <button class="devices-toggle" type="button">
+                            <svg class="icon-pause" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+                            <svg class="icon-play" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>
+                            <span class="devices-toggle-label">Pause recording</span>
+                        </button>
+                    </div>
+                    <figcaption class="devices-caption" id="devices-caption">
+                        <p><strong>Hebden Bridge, a <span class="num">500&nbsp;m</span> area, design storm.</strong> Recorded from the Finkele platform. The storm control moves from a solver run of <span class="num">29&nbsp;mm</span> of rain in <span class="num">21&nbsp;h</span> to one of <span class="num">211&nbsp;mm</span> in <span class="num">24&nbsp;h</span>, and the water spreads. A click on one cell then gives its depth, <span class="num">0.7&nbsp;m</span>, and its band, <span class="num">0.6</span> to <span class="num">0.9&nbsp;m</span>. These depths are the solver's, not the model's: <span class="num">50</span> LISFLOOD-FP runs of different storms on bare-earth Environment Agency LiDAR terrain, interpolated between the two nearest runs where the control falls between them. Rain falling on the area only; buildings are not obstacles in these runs. The phone shows the same area on the mobile layout. The map is shown without a basemap.</p>
+                        <p class="showpiece-credit">Flood simulation: LISFLOOD-FP (LISFLOOD-FP developers). Contains Environment Agency information © Environment Agency and/or database right 2026.</p>
+                    </figcaption>
+                </figure>
 
                 <ul class="product-grid" role="list">
                     <li class="product-card reveal">
@@ -332,6 +371,32 @@
                         <p class="layers-credit">Contains Environment Agency information © Environment Agency and/or database right 2026. Contains OS data © Crown copyright and database right 2026.</p>
                     </figcaption>
                 </figure>
+                <!-- Showpiece: drag to compare, rendered from the replay packs in deploy/data/replays
+                     (depth in DEPTH_COLOURS over a hillshade of EA LiDAR). Script: assets/js/showpieces.js. -->
+                <figure class="compare reveal" aria-labelledby="cmp-exeter-title">
+                    <div class="compare-head">
+                        <h3 id="cmp-exeter-title">Before the storm, and at the peak</h3>
+                        <p>Drag the divider across the same <span class="num">2&nbsp;km</span> by <span class="num">1.25&nbsp;km</span> of Exeter: water depth at <span class="num">07:45</span> on the left, at <span class="num">14:15</span> on the right.</p>
+                    </div>
+                    <div class="compare-frame" data-compare>
+                        <img src="assets/img/showpieces/compare-exeter-1415-1600.webp" srcset="assets/img/showpieces/compare-exeter-1415-800.webp 800w, assets/img/showpieces/compare-exeter-1415-1600.webp 1600w" sizes="(min-width: 1300px) 1240px, calc(100vw - 64px)" width="1600" height="1000" loading="lazy" decoding="async" alt="Exeter city centre from above at 14:15 BST on 17 September 2023: blue water along the river and across streets on both sides of it, darker where it is deeper.">
+                        <div class="compare-before">
+                            <img src="assets/img/showpieces/compare-exeter-0745-1600.webp" srcset="assets/img/showpieces/compare-exeter-0745-800.webp 800w, assets/img/showpieces/compare-exeter-0745-1600.webp 1600w" sizes="(min-width: 1300px) 1240px, calc(100vw - 64px)" width="1600" height="1000" loading="lazy" decoding="async" alt="Exeter city centre from above at 07:45 BST on 17 September 2023: grey buildings on shaded terrain, with only small patches of blue water.">
+                        </div>
+                        <span class="compare-label compare-label--a" aria-hidden="true">Before the storm · 07:45 BST</span>
+                        <span class="compare-label compare-label--b" aria-hidden="true">At the peak · 14:15 BST</span>
+                        <span class="compare-divider" aria-hidden="true"></span>
+                        <span class="compare-grip" role="slider" tabindex="0" aria-label="Divider: drag, or use the arrow keys, to compare before the storm with at the peak" aria-orientation="horizontal" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="50% before the storm, 50% at the peak" data-a="before the storm" data-b="at the peak"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span>
+                    </div>
+                    <div class="compare-legend" aria-hidden="true">
+                        <span class="compare-ramp">0.05&nbsp;m <span class="compare-ramp-bar"><span style="background:#4ebbf3"></span><span style="background:#389eda"></span><span style="background:#2d83bd"></span><span style="background:#2672ac"></span><span style="background:#1f5f9b"></span><span style="background:#184f8a"></span><span style="background:#113e7a"></span><span style="background:#092c6d"></span><span style="background:#031272"></span></span> 4.8&nbsp;m and deeper</span>
+                        <span>Water under <span class="num">0.05&nbsp;m</span> is not drawn.</span>
+                    </div>
+                    <figcaption class="compare-caption">
+                        <p><strong>Exeter city centre, 17 September 2023.</strong> One LISFLOOD-FP solver run of the storm's rainfall as recorded by three Environment Agency gauges, <span class="num">65.0&nbsp;mm</span> in all, on <span class="num">2&nbsp;m</span> cells, drawn here on <span class="num">4&nbsp;m</span> cells, with buildings as solid blocks. At <span class="num">07:45</span> BST light overnight rain has left little standing water. <span class="num">14:15</span> BST is the time with the largest wet area in the run. Rain only: drains and the River Exe's own flow are not modelled. A simulation, not a forecast, and not compared with observed flooding.</p>
+                        <p class="showpiece-credit">Flood simulation: LISFLOOD-FP (LISFLOOD-FP developers). Contains Environment Agency information © Environment Agency and/or database right 2026. Contains OS data © Crown copyright and database right 2026.</p>
+                    </figcaption>
+                </figure>
             </div>
         </section>
 
@@ -407,6 +472,32 @@
                         </ul>
                     </article>
                 </div>
+                <!-- Showpiece: drag to compare, rendered from the replay packs in deploy/data/replays
+                     (depth in DEPTH_COLOURS over a hillshade of EA LiDAR). Script: assets/js/showpieces.js. -->
+                <figure class="compare reveal" aria-labelledby="cmp-manchester-title">
+                    <div class="compare-head">
+                        <h3 id="cmp-manchester-title">Solver and model, on a storm the model never saw</h3>
+                        <p>Verification against the solver: the same time in the same storm, from LISFLOOD-FP on the left and from a research candidate model on the right.</p>
+                    </div>
+                    <div class="compare-frame" data-compare>
+                        <img src="assets/img/showpieces/compare-manchester-ho3-model-1600.webp" srcset="assets/img/showpieces/compare-manchester-ho3-model-800.webp 800w, assets/img/showpieces/compare-manchester-ho3-model-1600.webp 1600w" sizes="(min-width: 1300px) 1240px, calc(100vw - 64px)" width="1600" height="1000" loading="lazy" decoding="async" alt="The same view from a research candidate model: a similar pattern of blue, with the large central pond drawn shallower and smaller.">
+                        <div class="compare-before">
+                            <img src="assets/img/showpieces/compare-manchester-ho3-solver-1600.webp" srcset="assets/img/showpieces/compare-manchester-ho3-solver-800.webp 800w, assets/img/showpieces/compare-manchester-ho3-solver-1600.webp 1600w" sizes="(min-width: 1300px) 1240px, calc(100vw - 64px)" width="1600" height="1000" loading="lazy" decoding="async" alt="Part of Manchester along the river Irwell from above, 15 hours into a synthetic storm: the solver's water depth in blue along the river Irwell and in low ground, deepest in one large pond near the centre.">
+                        </div>
+                        <span class="compare-label compare-label--a" aria-hidden="true">Solver · LISFLOOD-FP</span>
+                        <span class="compare-label compare-label--b" aria-hidden="true">Model · research candidate</span>
+                        <span class="compare-divider" aria-hidden="true"></span>
+                        <span class="compare-grip" role="slider" tabindex="0" aria-label="Divider: drag, or use the arrow keys, to compare solver with model" aria-orientation="horizontal" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="50% solver, 50% model" data-a="solver" data-b="model"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span>
+                    </div>
+                    <div class="compare-legend" aria-hidden="true">
+                        <span class="compare-ramp">0.05&nbsp;m <span class="compare-ramp-bar"><span style="background:#4ebbf3"></span><span style="background:#389eda"></span><span style="background:#2d83bd"></span><span style="background:#2672ac"></span><span style="background:#1f5f9b"></span><span style="background:#184f8a"></span><span style="background:#113e7a"></span><span style="background:#092c6d"></span><span style="background:#031272"></span></span> 4.8&nbsp;m and deeper</span>
+                        <span>Water under <span class="num">0.05&nbsp;m</span> is not drawn.</span>
+                    </div>
+                    <figcaption class="compare-caption">
+                        <p><strong>Manchester, Irwell, <span class="num">15&nbsp;h</span> into held-out storm ho3: <span class="num">150&nbsp;mm</span> of rain over <span class="num">24&nbsp;h</span>, a synthetic storm.</strong> Left, the LISFLOOD-FP solver run on <span class="num">1&nbsp;m</span> cells. Right, the depth a research candidate model predicts for the same time from the terrain and the rain fallen so far; it never trained on this area or this storm, and it is a prototype, not the model we serve. Both are bare-earth Environment Agency LiDAR terrain, drawn on <span class="num">10&nbsp;m</span> cells, in a <span class="num">5&nbsp;km</span> by <span class="num">3.125&nbsp;km</span> window. Where the two differ, the model is wrong against the solver. Comparing them is verification against the solver, not validation against an observed flood.</p>
+                        <p class="showpiece-credit">Flood simulation: LISFLOOD-FP (LISFLOOD-FP developers). Contains Environment Agency information © Environment Agency and/or database right 2026.</p>
+                    </figcaption>
+                </figure>
             </div>
         </section>
 
@@ -590,5 +681,6 @@
     </footer>
 
     <script src="assets/js/main.js" defer></script>
+    <script src="assets/js/showpieces.js" defer></script>
 </body>
 </html>

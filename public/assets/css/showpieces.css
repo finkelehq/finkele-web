@@ -1,0 +1,179 @@
+/* Showpieces: the platform on a laptop and a phone, and the drag-to-compare slider.
+   Kept apart from style.css so the two can be reviewed and changed separately. Both read
+   the theme scope they sit in (--fg, --muted, --line, --surface, --accent, --focus), so they
+   work in a light or a dark section. The device frames are drawn here in CSS: generic, no
+   logos, no photographs. */
+
+/* ---------- Devices ---------- */
+.devices { margin-bottom: clamp(2.5rem, 5vw, 3.5rem); }
+.devices-stage {
+  position: relative;
+  container-type: inline-size;
+  max-width: 1040px;
+  margin-inline: auto;
+  padding-bottom: 2cqw;
+}
+
+/* Laptop: a lid with an even bezel, a 16:10 screen, and a thin base slab. */
+/* The base is 112% of the lid and centred under it, so the lid is inset to keep the base inside the stage. */
+.laptop { width: 80%; margin-left: 5%; position: relative; }
+.laptop-lid {
+  position: relative;
+  padding: 2.2cqw 2.2cqw 2.6cqw;
+  border-radius: 2cqw 2cqw .6cqw .6cqw;
+  background: linear-gradient(180deg, #2b323c, #1c2129);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .10), 0 2cqw 4cqw -1.6cqw rgba(10, 18, 30, .45);
+}
+.laptop-lid::before { /* camera dot, centred in the top bezel */
+  content: ""; position: absolute; top: .9cqw; left: 50%; width: .5cqw; height: .5cqw;
+  margin-left: -.25cqw; border-radius: 50%; background: #0d1015; box-shadow: 0 0 0 1px rgba(255, 255, 255, .06);
+}
+.laptop-screen {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: .4cqw;
+  background: #eef1ee;
+}
+.laptop-screen img,
+.laptop-screen video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.laptop-base {
+  position: relative;
+  width: 112%;
+  margin-left: -6%;
+  height: 1.6cqw;
+  border-radius: 0 0 1.4cqw 1.4cqw / 0 0 1.2cqw 1.2cqw;
+  background: linear-gradient(180deg, #c9cfd6 0, #aab2bc 45%, #8a939e 100%);
+  box-shadow: 0 1.4cqw 2.4cqw -1cqw rgba(10, 18, 30, .5);
+}
+.laptop-base::before { /* the hinge line where the lid meets the base */
+  content: ""; position: absolute; left: 6%; right: 6%; top: 0; height: .35cqw;
+  background: linear-gradient(180deg, #4a525d, #6b7480);
+  border-radius: 0 0 .3cqw .3cqw;
+}
+
+/* Phone: overlaps the laptop's lower right corner. */
+.phone {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 16%;
+  padding: .8cqw;
+  border-radius: 3cqw;
+  background: linear-gradient(160deg, #2b323c, #161a20);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12), 0 2cqw 4cqw -1.2cqw rgba(10, 18, 30, .55);
+}
+.phone-screen {
+  position: relative;
+  aspect-ratio: 390 / 844;
+  overflow: hidden;
+  border-radius: 2.2cqw;
+  background: #eef1ee;
+}
+.phone-screen img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+
+/* Pause and play for the loop, under the devices so it covers nothing on the screens.
+   Its label names the action; .is-paused swaps the icon. */
+.devices-controls { display: flex; justify-content: center; margin-top: 1rem; }
+.devices-toggle {
+  display: inline-flex; align-items: center; gap: .5rem;
+  min-height: 44px; padding: 0 1rem;
+  border: 1px solid var(--line); border-radius: 999px;
+  background: var(--surface); color: var(--fg);
+  font: inherit; font-size: .875rem;
+  cursor: pointer;
+  transition: transform .16s var(--ease-out, ease-out), border-color .16s ease;
+}
+.devices-toggle svg { fill: currentColor; flex: none; }
+.devices-toggle:active { transform: scale(.97); }
+.devices-toggle .icon-play { display: none; }
+.devices-toggle.is-paused .icon-pause { display: none; }
+.devices-toggle.is-paused .icon-play { display: block; }
+.devices-toggle:focus-visible { outline: 2px solid var(--focus, #027a46); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) { .devices-toggle:hover { border-color: var(--accent); } }
+
+.devices-caption { max-width: 60rem; margin: 1.5rem auto 0; font-size: .875rem; line-height: 1.6; color: var(--muted); }
+.devices-caption strong { color: var(--fg); }
+.showpiece-credit { margin-top: .6rem; font-size: .75rem; line-height: 1.5; color: var(--muted); overflow-wrap: anywhere; }
+
+@media (prefers-reduced-motion: reduce) {
+  .devices-controls { display: none; }
+}
+/* Below 560 px the phone would be too small to read: it sits under the laptop instead. */
+@media (max-width: 560px) {
+  .laptop { width: 88%; margin-inline: auto; }
+  .phone { position: relative; width: 46%; margin: 1.25rem auto 0; padding: 2cqw; border-radius: 7cqw; }
+  .phone-screen { border-radius: 5.2cqw; }
+}
+
+/* ---------- Drag to compare ---------- */
+.compare { margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+.compare-head { max-width: 52rem; margin-bottom: 1.25rem; }
+.compare-head h3 { font-size: 1.25rem; font-weight: 600; letter-spacing: -.01em; margin-bottom: .4rem; }
+.compare-head p { color: var(--muted); }
+
+.compare-frame {
+  --pos: 50%;
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: var(--radius, 14px);
+  border: 1px solid var(--line);
+  background: #d9dcd6;
+  touch-action: pan-y;            /* vertical scrolling stays with the page; horizontal drags move the divider */
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: ew-resize;
+}
+.compare-frame img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+.compare-before { position: absolute; inset: 0; clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+
+.compare-label {
+  position: absolute; top: .75rem; z-index: 1;
+  max-width: 44%;
+  padding: .3rem .6rem;
+  border-radius: 6px;
+  background: rgba(20, 36, 58, .86); color: #fff;
+  font-family: var(--font-mono); font-size: .75rem; line-height: 1.35; letter-spacing: .02em;
+  pointer-events: none;
+}
+.compare-label--a { left: .75rem; }
+.compare-label--b { right: .75rem; text-align: right; }
+
+/* The divider and its grip. The grip is the focusable slider; the whole frame takes pointer input. */
+.compare-divider {
+  position: absolute; top: 0; bottom: 0; left: var(--pos); z-index: 2;
+  width: 2px; margin-left: -1px;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(20, 36, 58, .35);
+  pointer-events: none;
+}
+.compare-grip {
+  position: absolute; top: 50%; left: var(--pos); z-index: 3;
+  display: grid; place-items: center;
+  width: 44px; height: 44px; margin: -22px 0 0 -22px;
+  border-radius: 50%;
+  background: #fff; color: var(--navy, #14243a);
+  box-shadow: 0 0 0 1px rgba(20, 36, 58, .25), 0 4px 14px rgba(10, 18, 30, .3);
+  cursor: ew-resize;
+  touch-action: none;
+}
+.compare-grip svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.compare-grip:focus-visible { outline: 3px solid var(--focus, #027a46); outline-offset: 3px; }
+
+.compare-legend { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem .9rem; margin-top: .9rem; font-size: .75rem; color: var(--muted); }
+.compare-ramp { display: inline-flex; align-items: center; gap: .5rem; font-family: var(--font-mono); }
+.compare-ramp-bar { display: inline-flex; height: 10px; border-radius: 2px; overflow: hidden; }
+.compare-ramp-bar span { width: 18px; }
+.compare-caption { max-width: 60rem; margin-top: .9rem; font-size: .875rem; line-height: 1.6; color: var(--muted); }
+.compare-caption strong { color: var(--fg); }
+
+@media (max-width: 560px) {
+  .compare-label { top: .5rem; font-size: .6875rem; padding: .25rem .45rem; }
+  .compare-label--a { left: .5rem; }
+  .compare-label--b { right: .5rem; }
+}

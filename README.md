@@ -15,7 +15,6 @@ public website.
 ```
 public/
 ├── index.html      landing page
-├── floodmap.html   legacy page, to be removed: its service was deleted on 2026-10-23
 ├── assets/         CSS, JavaScript and images
 └── CNAME           the custom domain, finkele.com
 ```

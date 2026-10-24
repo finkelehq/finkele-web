@@ -445,7 +445,9 @@ section { background: var(--bg); color: var(--fg); }
 /* Optical sizes: wide wordmarks shorter, compact marks taller, so the row reads evenly. */
 .logo--cjbs { --h: 42px; } .logo--carbon13 { --h: 40px; } .logo--c2s { --h: 44px; }
 .logo--geovation { --h: 22px; } .logo--os { --h: 34px; } .logo--gcloud { --h: 27px; }
-.logo-item--named { gap: .55rem; }
+.logo-item > a { display: flex; align-items: center; gap: .55rem; color: inherit; text-decoration: none; border-radius: 6px; }
+.logo-item > a:focus-visible { outline: 2px solid var(--green); outline-offset: 6px; }
+.logo--nvidia { --h: 40px; }
 .logo-item--named img { height: 30px; width: 30px; }
 .logo-name { font-size: 1.35rem; font-weight: 600; letter-spacing: -.01em; color: #5f6b6b; }
 @media (hover: hover) and (pointer: fine) { .logo-item:hover { filter: none; opacity: 1; } }

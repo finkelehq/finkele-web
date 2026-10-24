@@ -729,7 +729,7 @@ html.motion .reveal.is-in { opacity: 1; transform: none; }
 .footer-credits { padding: 2rem 0 2.25rem; border-bottom: 1px solid var(--line); }
 .credits { display: grid; gap: 1rem 2.5rem; font-size: .8rem; line-height: 1.55; }
 @media (min-width: 820px) { .credits { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (min-width: 1100px) { .credits { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .credits { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 .credits dt { color: var(--on-navy); font-weight: 600; margin-bottom: .15rem; }
 .credits dd { margin: 0; overflow-wrap: anywhere; }
 .footer-bottom { display: grid; gap: .5rem; padding-top: 1.5rem; font-size: .8rem; line-height: 1.55; color: var(--on-navy-faint); }
@@ -868,3 +868,10 @@ html.motion .reveal.is-in { opacity: 1; transform: none; }
 .inputs-note { max-width: none; }
 .section-head:not(:has(.section-lede)) { max-width: none; }
 .info-card > p:first-of-type { max-width: none; }
+
+/* Hero headline on two lines, one phrase each: sized so "Climate Intelligence" fits the
+   hero column. Each phrase never breaks inside on wide screens; phones wrap normally. */
+@media (min-width: 900px) {
+  .hero .hero-title { font-size: clamp(2.4rem, 3.3vw, 3.4rem); }
+  .hero .hero-line { display: block; white-space: nowrap; }
+}

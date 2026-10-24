@@ -15,13 +15,12 @@ public website.
 ```
 public/
 ├── index.html      landing page
-├── alert.html      legacy page, to be removed: its service was retired on 2026-10-24
 ├── floodmap.html   legacy page, to be removed: its service was deleted on 2026-10-23
 ├── assets/         CSS, JavaScript and images
 └── CNAME           the custom domain, finkele.com
 ```
 
-The retired flood alert dashboard's code is kept in `finkelehq/finkele-gauge-dashboard`, and
+The flood alert dashboard the site used to embed was retired on 2026-10-24; its code is kept in `finkelehq/finkele-gauge-dashboard`, and
 the name `finkele-alert` is reserved for a future alerting service.
 
 ## Local development

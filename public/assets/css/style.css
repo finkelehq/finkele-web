@@ -714,3 +714,6 @@ a { text-decoration: none; color: inherit; }
 .status--dev { background: #fdf0d8; color: #7a4a00; }
 .product-cta { text-align: center; margin-top: 2rem; font-size: .9rem; color: var(--muted); }
 @media (prefers-reduced-motion: reduce) { .product-card, .product-card:hover { transition: none; transform: none; } }
+
+a.marquee-item { text-decoration: none; }
+a.marquee-item:focus-visible { outline: 2px solid #027a46; outline-offset: 4px; border-radius: .4rem; }

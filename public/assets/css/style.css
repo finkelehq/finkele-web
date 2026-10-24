@@ -212,6 +212,9 @@ a { text-decoration: none; color: inherit; }
 .problem-desc {
   font-size: .98rem; color: var(--muted); line-height: 1.65;
 }
+.problem-note {
+  font-size: .72rem; color: var(--muted); line-height: 1.5; margin-top: .6rem; opacity: .85;
+}
 .problem-divider {
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;

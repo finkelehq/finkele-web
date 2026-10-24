@@ -83,12 +83,19 @@
             <div class="container">
                 <h2 class="section-heading">Flood depth for your sites</h2>
 
+                <h3 class="product-group">In private preview</h3>
                 <div class="product-grid">
                     <article class="product-card">
                         <div class="product-head"><span class="product-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="m3 13 9 5 9-5"/><path d="m3 17.5 9 5 9-5" opacity=".55"/></svg></span><span class="status status--preview">Private preview</span></div>
                         <h3>Flood depth maps for each area</h3>
                         <p>Peak water depth in metres on a 1 m grid across a 5 km area, for a stated rainfall and with an uncertainty band. Download the grid to check it in your own GIS.</p>
                         <ul class="product-specs"><li>1 m grid</li><li>5 km areas</li><li>GeoTIFF</li></ul>
+                    </article>
+                    <article class="product-card">
+                        <div class="product-head"><span class="product-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></span><span class="status status--preview">Private preview</span></div>
+                        <h3>Rainfall scenarios</h3>
+                        <p>Move the rainfall from 0.2 to 6 times a storm that happened and watch the depth respond. Every tile says whether it is a solver run or a blend between runs.</p>
+                        <ul class="product-specs"><li>0.2× to 6× rainfall</li><li>3 to 48 h storms</li></ul>
                     </article>
                     <article class="product-card">
                         <div class="product-head"><span class="product-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8v8l9 5 9-5V8Z"/><path d="m10 9.5 4.5 2.5L10 14.5v-5Z" fill="currentColor" stroke="none"/></svg></span><span class="status status--preview">Private preview</span></div>
@@ -111,8 +118,23 @@
                     <article class="product-card">
                         <div class="product-head"><span class="product-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M13.5 5l-3 14"/></svg></span><span class="status status--preview">Private preview</span></div>
                         <h3>API for your sites</h3>
-                        <p>Send coordinates, get a depth in metres with its uncertainty. Portfolio screening and an MCP server for AI assistants are in development.</p>
+                        <p>Send coordinates and get back a depth in metres for each location, with its uncertainty band and caveats. Portfolio screening is in development.</p>
                         <ul class="product-specs"><li>JSON API</li><li>Per location</li></ul>
+                    </article>
+                </div>
+                <h3 class="product-group">Coming next</h3>
+                <div class="product-grid product-grid--two">
+                    <article class="product-card">
+                        <div class="product-head"><span class="product-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3.5l2-5 3.5 10 2.5-7 1.5 2H21"/></svg></span><span class="status status--dev">In development</span></div>
+                        <h3>Live forecasts for your assets</h3>
+                        <p>Choose your sites and we re-run the forecast each time a new rainfall forecast is issued, with depth in metres at every asset and the time it was issued.</p>
+                        <ul class="product-specs"><li>Per asset</li><li>Each forecast issue</li><li>Issue time shown</li></ul>
+                    </article>
+                    <article class="product-card">
+                        <div class="product-head"><span class="product-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v2M12 19v2M3 12h2M19 12h2"/><rect x="6.5" y="6.5" width="11" height="11" rx="2.5"/><path d="M9.5 13.5c.7.7 1.5 1 2.5 1s1.8-.3 2.5-1"/><circle cx="10" cy="10.5" r=".6" fill="currentColor"/><circle cx="14" cy="10.5" r=".6" fill="currentColor"/></svg></span><span class="status status--dev">In development</span></div>
+                        <h3>For AI assistants</h3>
+                        <p>Ask Claude or another AI assistant about flood depth at your sites. Our MCP server gives it the same depths, bands and caveats the API returns, in plain words first.</p>
+                        <ul class="product-specs"><li>MCP server</li><li>Same data as the API</li></ul>
                     </article>
                 </div>
                 <p class="product-cta">In private preview. <a href="#contact">Book a demo</a> to see it for your sites.</p>

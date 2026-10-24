@@ -719,3 +719,7 @@ a { text-decoration: none; color: inherit; }
 
 a.marquee-item { text-decoration: none; }
 a.marquee-item:focus-visible { outline: 2px solid #027a46; outline-offset: 4px; border-radius: .4rem; }
+.product-group { font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 2.5rem 0 0; }
+.product-group + .product-grid { margin-top: 1rem; }
+.product-grid--two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 680px) { .product-grid--two { grid-template-columns: 1fr; } }

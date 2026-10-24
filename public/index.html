@@ -506,31 +506,31 @@
                         <span class="input-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18c3-5 5-7 8-7s4 3 7 3 3-3 5-5"/><path d="M2 22h20" opacity=".5"/></svg></span>
                         <p class="input-kicker">Ground</p>
                         <h3 class="input-title">Terrain</h3>
-                        <p>Environment Agency LiDAR on a <span class="num">1&nbsp;m</span> grid: the bare-earth ground the water runs over.</p>
+                        <p>Environment Agency LiDAR on a <span class="num">1&nbsp;m</span> grid: the bare-earth ground the water runs over, street by street.</p>
                     </li>
                     <li class="input-card reveal">
                         <span class="input-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V10l5-3v14M8 21V5l7-2v18M15 21v-9l6 2v7"/><path d="M2 21h20"/></svg></span>
                         <p class="input-kicker">On the ground</p>
                         <h3 class="input-title">Buildings</h3>
-                        <p>Ordnance Survey OpenMap Local footprints, used where a solver run models buildings, as in our replays, where they stand as solid blocks.</p>
+                        <p>Ordnance Survey footprints, as solid blocks where a solver run models buildings, as in our replays.</p>
                     </li>
                     <li class="input-card reveal">
                         <span class="input-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 14a4 4 0 0 1-.6-7.95A5.5 5.5 0 0 1 17 7a3.5 3.5 0 0 1 .5 7H7Z"/><path d="m8 17-1 3M12 17l-1 3M16 17l-1 3"/></svg></span>
                         <p class="input-kicker">The storm</p>
                         <h3 class="input-title">Rainfall</h3>
-                        <p>A storm's rainfall: forecast rain for coming events, rain recorded by Environment Agency gauges for replays, and design storms for scenarios.</p>
+                        <p>Forecast rain for coming storms, gauge records for replays, and design storms for scenarios.</p>
                     </li>
                     <li class="input-card reveal">
                         <span class="input-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18" opacity=".55"/><rect x="9" y="15" width="6" height="6" fill="currentColor" stroke="none" opacity=".7"/><rect x="15" y="9" width="6" height="6" fill="currentColor" stroke="none" opacity=".4"/></svg></span>
                         <p class="input-kicker">Training data</p>
                         <h3 class="input-title">Solver runs</h3>
-                        <p>Physics solver runs over many storms on real terrain: the physics-based training data the model learns from.</p>
+                        <p>Physics solver runs over many storms on real terrain: the training data our model learns from.</p>
                     </li>
                     <li class="input-card input-card--model reveal">
                         <span class="input-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="7" r="2"/><circle cx="5" cy="17" r="2"/><circle cx="19" cy="12" r="2"/><path d="M7 7.8 17 11M7 16.2 17 13"/></svg></span>
                         <p class="input-kicker">The model</p>
                         <h3 class="input-title">TERRA</h3>
-                        <p>Our AI model, trained on those runs. From a storm's rainfall it gives water depth in metres, with an uncertainty band.</p>
+                        <p>Our AI model, trained on those runs, gives water depth in metres, with an uncertainty band.</p>
                     </li>
                 </ul>
                 <p class="inputs-note">The forecast model's terrain is bare earth today, without buildings or flood defences. It uses rain falling on the area only, not river or coastal flow.</p>
@@ -547,9 +547,9 @@
                 <div class="info-grid">
                     <article class="info-card reveal" aria-labelledby="check-title">
                         <h3 class="info-title" id="check-title">What we check and how</h3>
-                        <p>Comparing TERRA's depths with the solver's own runs is verification. Comparing them with floods that were recorded is validation. We report the two separately.</p>
+                        <p>Comparing TERRA with the solver's own runs is verification. Comparing it with recorded floods is validation. We report the two separately.</p>
                         <ul>
-                            <li><strong>Verification.</strong> How often the solver's depth falls inside our uncertainty band. This coverage is being re-measured on the band we now ship, so we give no figure yet.</li>
+                            <li><strong>Verification.</strong> How often the physics solver's depth falls inside our uncertainty band. This coverage is being re-measured on the band we now ship, so we give no figure until that is done.</li>
                             <li><strong>Validation.</strong> Comparison with recorded floods is open work.</li>
                         </ul>
                     </article>
@@ -557,7 +557,7 @@
                         <h3 class="info-title" id="gaps-title">What it does not do yet</h3>
                         <ul>
                             <li>No return periods: each map is for a stated rainfall.</li>
-                            <li>Terrain is bare earth with buildings removed, and flood defences are not included.</li>
+                            <li>Bare-earth terrain: buildings removed, flood defences not included.</li>
                             <li>Peak depth, not the time the water arrives.</li>
                             <li>Rain falling on the area only, not river or coastal flooding.</li>
                             <li>Checking results against satellite images will come later.</li>
@@ -569,7 +569,7 @@
                 <figure class="compare reveal" aria-labelledby="cmp-manchester-title">
                     <div class="compare-head">
                         <h3 id="cmp-manchester-title">Solver and model, on a storm the model never saw</h3>
-                        <p>Verification against the solver: the same time in the same storm, from the physics solver on the left and from a research candidate model on the right.</p>
+                        <p>Verification against the solver: the same moment of the same storm, physics solver on the left, research candidate model on the right.</p>
                     </div>
                     <div class="compare-frame" data-compare>
                         <img src="assets/img/showpieces/compare-manchester-ho3-model-1600.webp" srcset="assets/img/showpieces/compare-manchester-ho3-model-800.webp 800w, assets/img/showpieces/compare-manchester-ho3-model-1600.webp 1600w" sizes="(min-width: 1300px) 1240px, calc(100vw - 64px)" width="1600" height="1000" loading="lazy" decoding="async" alt="The same view from a research candidate model: a similar pattern of blue, with the large central pond drawn shallower and smaller.">

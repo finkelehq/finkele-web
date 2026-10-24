@@ -863,3 +863,8 @@ html.motion .reveal.is-in { opacity: 1; transform: none; }
   .section-head:has(.section-lede) > .section-title { grid-column: 1; }
   .section-head:has(.section-lede) > .section-lede { grid-column: 2; grid-row: 1 / span 2; margin-top: 0; max-width: none; }
 }
+
+/* Founder's layout calls, 2026-10-25: these run the full content width. */
+.inputs-note { max-width: none; }
+.section-head:not(:has(.section-lede)) { max-width: none; }
+.info-card > p:first-of-type { max-width: none; }

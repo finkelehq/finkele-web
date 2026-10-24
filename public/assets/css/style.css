@@ -633,7 +633,7 @@ section { background: var(--bg); color: var(--fg); }
     content: ""; position: absolute; left: 2rem; top: calc(.75rem - 3px); width: 7px; height: 7px; border-radius: 50%; background: var(--green-on-navy);
   }
 }
-.layers-caption { margin-top: 1.5rem; max-width: 52rem; }
+.layers-caption { margin-top: 1.5rem; }
 .layers-caption h3 { font-size: 1.25rem; font-weight: 600; letter-spacing: -.01em; margin-bottom: .5rem; }
 .layers-caption p { color: var(--muted); }
 .layers-caption p + p { margin-top: .6rem; }

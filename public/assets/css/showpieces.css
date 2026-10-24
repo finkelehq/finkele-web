@@ -92,7 +92,7 @@
 .devices-toggle:focus-visible { outline: 2px solid var(--focus, #027a46); outline-offset: 3px; }
 @media (hover: hover) and (pointer: fine) { .devices-toggle:hover { border-color: var(--accent); } }
 
-.devices-caption { max-width: 60rem; margin: 1.5rem auto 0; font-size: .875rem; line-height: 1.6; color: var(--muted); }
+.devices-caption { margin: 1.5rem 0 0; font-size: .875rem; line-height: 1.6; color: var(--muted); }
 .devices-caption strong { color: var(--fg); }
 .showpiece-credit { margin-top: .6rem; font-size: .75rem; line-height: 1.5; color: var(--muted); overflow-wrap: anywhere; }
 
@@ -108,7 +108,7 @@
 
 /* ---------- Drag to compare ---------- */
 .compare { margin-top: clamp(2.5rem, 5vw, 3.5rem); }
-.compare-head { max-width: 52rem; margin-bottom: 1.25rem; }
+.compare-head { margin-bottom: 1.25rem; }
 .compare-head h3 { font-size: 1.25rem; font-weight: 600; letter-spacing: -.01em; margin-bottom: .4rem; }
 .compare-head p { color: var(--muted); }
 
@@ -169,7 +169,7 @@
 .compare-ramp { display: inline-flex; align-items: center; gap: .5rem; font-family: var(--font-mono); }
 .compare-ramp-bar { display: inline-flex; height: 10px; border-radius: 2px; overflow: hidden; }
 .compare-ramp-bar span { width: 18px; }
-.compare-caption { max-width: 60rem; margin-top: .9rem; font-size: .875rem; line-height: 1.6; color: var(--muted); }
+.compare-caption { margin-top: .9rem; font-size: .875rem; line-height: 1.6; color: var(--muted); }
 .compare-caption strong { color: var(--fg); }
 
 @media (max-width: 560px) {

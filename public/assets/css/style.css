@@ -190,7 +190,7 @@ a { text-decoration: none; color: inherit; }
   gap: 2rem; flex-wrap: wrap;
 }
 .problem-col {
-  flex: 1; min-width: 220px; max-width: 340px;
+  flex: 1; min-width: 220px; max-width: 370px;
   display: flex; flex-direction: column; gap: .6rem;
 }
 .problem-tag {

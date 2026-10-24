@@ -723,3 +723,18 @@ a.marquee-item:focus-visible { outline: 2px solid #027a46; outline-offset: 4px; 
 .product-group + .product-grid { margin-top: 1rem; }
 .product-grid--two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 @media (max-width: 680px) { .product-grid--two { grid-template-columns: 1fr; } }
+
+/* Technology cards (2026-10-24) */
+.tech-section { padding: 4.5rem 0 1rem; background: var(--bg); }
+.tech-eyebrow { text-align: center; font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #027a46; margin: 0 0 .5rem; }
+.tech-lede { max-width: 46rem; margin: 1rem auto 0; text-align: center; color: var(--muted); font-size: 1.02rem; line-height: 1.7; }
+.tech-grid { display: grid; gap: 1.25rem; margin-top: 2.25rem; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 900px) { .tech-grid { grid-template-columns: 1fr; } }
+.tech-card {
+  background: linear-gradient(160deg, #fff 55%, #eef6fd); border: 1px solid rgba(20,31,32,.09); border-radius: var(--radius-lg);
+  padding: 1.6rem 1.5rem; display: flex; flex-direction: column; gap: .55rem;
+  box-shadow: 0 1px 2px rgba(20,31,32,.04), 0 8px 24px -12px rgba(20,31,32,.12);
+}
+.tech-card h3 { font-size: 1.25rem; font-weight: 700; margin: .5rem 0 0; color: #141f20; }
+.tech-stat { font-size: .95rem; font-weight: 700; color: #027a46; margin: 0; font-variant-numeric: tabular-nums; }
+.tech-card p:last-child { font-size: .95rem; color: var(--muted); line-height: 1.6; margin: 0; min-height: 4.8em; }

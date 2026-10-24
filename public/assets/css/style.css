@@ -283,26 +283,78 @@ section { background: var(--bg); color: var(--fg); }
   aspect-ratio: 16 / 9;
   border-radius: var(--radius);
   overflow: hidden;
-  background: #eef2f1;
+  /* The film's own scene background, so the frame never flashes a lighter colour. */
+  background: var(--navy);
   box-shadow: 0 0 0 1px var(--line), 0 24px 60px -24px rgba(0, 0, 0, .55);
 }
 .film-poster, .film-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* The clock of the solver frame on screen: HTML over the film, so it stays legible on a phone. */
+.film-clock {
+  position: absolute; left: 10px; top: 10px;
+  padding: .3rem .6rem; border-radius: 6px;
+  font-size: .8125rem; line-height: 1.35; font-weight: 500;
+  color: var(--white); background: rgba(20, 36, 58, .84);
+  border: 1px solid rgba(255, 255, 255, .16);
+}
+
+/* Under the film: one button that pauses and plays, drawn as the film's progress bar. */
+.film-bar { margin-top: .5rem; }
+.film-bar[hidden] { display: none; }
 .film-toggle {
-  position: absolute; right: 12px; top: 12px;
-  width: 44px; height: 44px; border-radius: 50%;
-  display: inline-flex; align-items: center; justify-content: center;
-  background: rgba(20, 36, 58, .82); color: var(--white);
-  border: 1px solid rgba(255, 255, 255, .28);
-  cursor: pointer;
+  display: flex; align-items: center; gap: .7rem; width: 100%; min-height: 44px;
+  padding: 0; background: none; border: 0; color: var(--on-navy); cursor: pointer;
+}
+.film-toggle svg {
+  flex: none; box-sizing: content-box; padding: 7px; border-radius: 50%;
+  fill: currentColor; border: 1px solid rgba(255, 255, 255, .28);
   transition: transform 160ms var(--ease-out), background-color 160ms ease;
 }
-.film-toggle svg { fill: currentColor; }
-.film-toggle:active { transform: scale(.94); }
+.film-toggle:active svg { transform: scale(.94); }
 .film-toggle .icon-play { display: none; }
 .film-toggle[aria-pressed="true"] .icon-pause { display: none; }
 .film-toggle[aria-pressed="true"] .icon-play { display: block; }
-.film-toggle:focus-visible { outline-color: var(--white); border-radius: 50%; }
-@media (hover: hover) and (pointer: fine) { .film-toggle:hover { background: var(--navy); } }
+.film-toggle:focus-visible { outline-color: var(--white); border-radius: 8px; }
+.film-track {
+  position: relative; flex: 1; height: 4px; border-radius: 2px; overflow: hidden;
+  background: rgba(255, 255, 255, .2);
+}
+.film-fill {
+  position: absolute; inset: 0; transform-origin: left center; transform: scaleX(0);
+  background: var(--depth-1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .film-toggle:hover svg { background: var(--navy-3); }
+}
+
+/* Depth legend: the film's nine wet bands. --depth-1, 3, 5, 7 and 9 are the site tokens; the
+   bands between them are the platform's own depth ramp, the colours the film's water is drawn in. */
+.film-legend {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .35rem .9rem;
+  margin-top: .45rem; font-size: .75rem; line-height: 1.3; color: var(--on-navy-muted);
+}
+.film-legend-title { color: var(--on-navy); font-weight: 500; }
+.film-legend-scale { display: block; flex: 0 1 15rem; min-width: 0; }
+.film-ramp {
+  display: block; width: min(15rem, 100%); height: 10px; border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .3);
+  background: linear-gradient(90deg,
+    var(--depth-1) 0 11.111%, #389eda 0 22.222%, var(--depth-3) 0 33.333%,
+    #2672ac 0 44.444%, var(--depth-5) 0 55.556%, #184f8a 0 66.667%,
+    var(--depth-7) 0 77.778%, #092c6d 0 88.889%, var(--depth-9) 0);
+}
+.film-ticks { position: relative; display: block; width: min(15rem, 100%); height: 1rem; margin-top: .2rem; font-variant-numeric: tabular-nums; }
+.film-ticks span { position: absolute; top: 0; }
+.film-ticks span:nth-child(1) { left: 0; }
+.film-ticks span:nth-child(2) { left: 22.222%; }
+.film-ticks span:nth-child(3) { left: 44.444%; }
+.film-ticks span:nth-child(4) { left: 66.667%; }
+.film-ticks span:nth-child(5) { left: 88.889%; }
+/* The river, painted flat in the film from OS mapped surface water: outside the depth ramp. */
+.film-legend-river { display: inline-flex; align-items: center; gap: .45rem; align-self: flex-start; }
+.film-swatch-river {
+  width: 1.4rem; height: 10px; border-radius: 2px; background: #8ea3b3;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .3);
+}
 
 .film-caption { margin-top: 1rem; font-size: .875rem; line-height: 1.6; color: var(--on-navy-muted); }
 .film-caption strong { color: var(--on-navy); }
@@ -310,7 +362,7 @@ section { background: var(--bg); color: var(--fg); }
 .film-credit a { color: inherit; }
 
 @media (prefers-reduced-motion: reduce) {
-  .film-video, .film-toggle { display: none; }
+  .film-video, .film-bar { display: none; }
 }
 
 /* Problem and solution */

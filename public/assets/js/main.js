@@ -37,37 +37,75 @@
     });
   }
 
-  /* Hero film: a pause/play toggle (aria-pressed is true while paused). Under reduced
-     motion the film is not loaded and the poster stays. Off screen it pauses, and it
-     resumes on return unless the viewer paused it. */
+  /* Hero film. The markup has no autoplay and preload="none", so nothing but the poster loads
+     until this starts the film; it does not under reduced motion or when the browser asks to
+     save data. The bar under the film is one button: it pauses and plays (aria-pressed is
+     true while paused) and shows how far through the loop the film is. Off screen the film
+     pauses, and it resumes on return unless the viewer paused it. The clock over the film
+     follows the solver frame on screen, from data-times: [seconds into the film, "HH:MM"]. */
   var video = document.getElementById('hero-film');
   var filmToggle = document.getElementById('film-toggle');
+  var filmBar = document.getElementById('film-bar');
+  var filmFill = document.getElementById('film-fill');
+  var filmClock = document.getElementById('film-clock');
   var userPaused = false;
+  var saveData = !!(navigator.connection && navigator.connection.saveData);
+  var filmTimes = [];
+  var clockAtRest = filmClock ? filmClock.textContent : '';
+  var frameRequest = 0;
+
+  if (video) {
+    try { filmTimes = JSON.parse(video.getAttribute('data-times') || '[]'); } catch (err) { filmTimes = []; }
+  }
 
   function syncToggle() {
     if (filmToggle && video) filmToggle.setAttribute('aria-pressed', String(video.paused));
   }
 
+  function drawProgress() {
+    var t = video.currentTime;
+    if (filmFill && video.duration) filmFill.style.transform = 'scaleX(' + (t / video.duration) + ')';
+    if (filmClock && filmTimes.length) {
+      var label = filmTimes[0][1];
+      for (var i = 0; i < filmTimes.length && filmTimes[i][0] <= t; i++) label = filmTimes[i][1];
+      if (filmClock.textContent !== label) filmClock.textContent = label;
+    }
+  }
+
+  function followFilm() {
+    drawProgress();
+    frameRequest = video.paused ? 0 : window.requestAnimationFrame(followFilm);
+  }
+
+  function playFilm() {
+    var p = video.play();
+    if (p && p.catch) p.catch(syncToggle);
+  }
+
   function stopFilm() {
     if (!video) return;
     video.pause();
-    video.removeAttribute('autoplay');
     video.preload = 'none';
     Array.prototype.forEach.call(video.querySelectorAll('source'), function (s) { s.remove(); });
     video.load();
+    if (filmBar) filmBar.hidden = true;
+    if (filmClock) filmClock.textContent = clockAtRest;
   }
 
   if (video && filmToggle) {
-    if (reduceQuery.matches) {
+    if (reduceQuery.matches || saveData) {
       stopFilm();
     } else {
-      video.addEventListener('play', syncToggle);
-      video.addEventListener('pause', syncToggle);
+      if (filmBar) filmBar.hidden = false;
+      video.addEventListener('play', function () {
+        syncToggle();
+        if (!frameRequest) frameRequest = window.requestAnimationFrame(followFilm);
+      });
+      video.addEventListener('pause', function () { syncToggle(); drawProgress(); });
       filmToggle.addEventListener('click', function () {
         if (video.paused) {
           userPaused = false;
-          var p = video.play();
-          if (p && p.catch) p.catch(syncToggle);
+          playFilm();
         } else {
           userPaused = true;
           video.pause();
@@ -77,14 +115,12 @@
         new IntersectionObserver(function (entries) {
           entries.forEach(function (entry) {
             if (userPaused) return;
-            if (entry.isIntersecting) {
-              var p = video.play();
-              if (p && p.catch) p.catch(syncToggle);
-            } else {
-              video.pause();
-            }
+            if (entry.isIntersecting) playFilm();
+            else video.pause();
           });
         }, { threshold: 0.1 }).observe(video);
+      } else {
+        playFilm();
       }
       syncToggle();
     }

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Finkele's flood-model research that is not in the product yet: depth at 1 m across whole 5 km areas, a test that moving the grid does not move the answer, and water through time. Checked against the physics solver the models learned from.">
+    <meta name="author" content="Finkele">
+    <meta name="theme-color" content="#14243a">
+    <meta property="og:title" content="Research – Finkele">
+    <meta property="og:description" content="Flood-model research that is not in the product yet, checked against the physics solver.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://finkele.com/assets/img/og-image.png?v=3">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Finkele – Climate Intelligence for Resilient Assets">
+    <meta property="og:url" content="https://finkele.com/research.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Research – Finkele">
+    <meta name="twitter:description" content="Flood-model research that is not in the product yet, checked against the physics solver.">
+    <meta name="twitter:image" content="https://finkele.com/assets/img/og-image.png?v=3">
+    <title>Research – Finkele</title>
+    <link rel="canonical" href="https://finkele.com/research.html">
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <link rel="preload" href="assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- Nav -->
+    <header class="site-header dark" id="navbar">
+        <nav class="container nav" aria-label="Main">
+            <a href="./" class="nav-logo">
+                <img src="assets/img/finkele-logo-on-navy.webp" alt="Finkele" width="78" height="36">
+            </a>
+            <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
+                <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+                <span class="visually-hidden">Menu</span>
+            </button>
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="./" class="nav-link">Home</a></li>
+                    <li><a href="./#products" class="nav-link">Products</a></li>
+                    <li><a href="research.html" class="nav-link is-active" aria-current="page">Research</a></li>
+                    <li><a href="./#how" class="nav-link">How it works</a></li>
+                    <li><a href="./#awards" class="nav-link">Awards</a></li>
+                    <li><a href="./#contact" class="nav-link">Contact</a></li>
+                </ul>
+                <a href="mailto:june.soh@finkele.com?subject=Demo%20Request" class="btn btn-primary btn-sm">Book a demo</a>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main">
+
+        <section class="hero page-hero rp-hero dark" aria-labelledby="page-title">
+            <div class="container">
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <ol>
+                        <li><a href="./">Home</a></li>
+                        <li><span aria-current="page">Research</span></li>
+                    </ol>
+                </nav>
+                <div class="hero-text">
+                    <p class="eyebrow">Not in the product yet</p>
+                    <span class="chip chip--research">Research</span>
+                    <h1 class="hero-title" id="page-title">Research</h1>
+                    <p class="hero-sub">Three lines of work on our flood model that are not in the product yet. None of these research candidates is the model we serve. Every figure keeps its depth threshold, its areas and its storms.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="band band--white light" aria-labelledby="read-title">
+            <div class="container">
+                <div class="section-head">
+                    <p class="eyebrow">Before you read</p>
+                    <h2 class="section-title" id="read-title">How to read this page</h2>
+                </div>
+                <div class="rp-read-grid">
+                    <article class="info-card" aria-labelledby="read-vv">
+                        <h3 class="info-title" id="read-vv">Verification and validation</h3>
+                        <p>Verification compares a model with the solver it learned from, on the same area and storm. Validation compares it with a flood that was observed. Everything here is verification, or a check of a model against itself.</p>
+                    </article>
+                    <article class="info-card" aria-labelledby="read-csi">
+                        <h3 class="info-title" id="read-csi">CSI</h3>
+                        <p>The critical success index scores agreement between two flood maps: cells both call wet, divided by cells either calls wet. 1 is a perfect match and 0 is no overlap. A cell is wet when its water is at least the stated depth.</p>
+                    </article>
+                    <article class="info-card" aria-labelledby="read-ho">
+                        <h3 class="info-title" id="read-ho">Held-out storms</h3>
+                        <p>Three held-out synthetic storms of rising size run on test areas at Cambridge, Manchester and Hebden Bridge: ho1 is 40&nbsp;mm over 3&nbsp;h, ho2 80&nbsp;mm over 12&nbsp;h and ho3 150&nbsp;mm over 24&nbsp;h.</p>
+                    </article>
+                </div>
+                <div class="rp-legend" role="group" aria-label="Depth colours in the figures, in metres">
+                    <span class="rp-legend-title">Depth in the figures (m)</span>
+                    <ol role="list">
+                        <li><i style="background:#4ebbf3"></i>0.05</li>
+                        <li><i style="background:#389eda"></i>0.15</li>
+                        <li><i style="background:#2d83bd"></i>0.3</li>
+                        <li><i style="background:#2672ac"></i>0.6</li>
+                        <li><i style="background:#1f5f9b"></i>0.9</li>
+                        <li><i style="background:#184f8a"></i>1.2</li>
+                        <li><i style="background:#113e7a"></i>2.3</li>
+                        <li><i style="background:#092c6d"></i>3.6</li>
+                        <li><i style="background:#031272"></i>4.8</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <section id="depth-1m" class="rp-topic light" aria-labelledby="depth-1m-title">
+            <div class="container rp-grid">
+                <figure class="research-media rp-media" data-research-loop>
+                    <div class="research-frame">
+                        <img src="assets/research/depth-1m-manchester.jpg" width="800" height="450" loading="lazy" decoding="async" alt="Peak flood depth in blue on a 400 m square of Manchester: on the left the research model's prediction; on the right the physics solver at 1 m." aria-describedby="rp-depth-cap">
+                        <video muted loop playsinline preload="none" width="800" height="450" hidden aria-hidden="true">
+                            <source data-src="assets/research/depth-1m-manchester.webm" type="video/webm">
+                            <source data-src="assets/research/depth-1m-manchester.mp4" type="video/mp4">
+                        </video>
+                        <button class="research-toggle" type="button" hidden>
+                            <svg class="icon-pause" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+                            <svg class="icon-play" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>
+                            <span class="visually-hidden">Pause animation</span>
+                        </button>
+                    </div>
+                    <div class="research-labels" aria-hidden="true"><span>Model · research candidate</span><span>Physics solver</span></div>
+                    <figcaption id="rp-depth-cap">Peak depth on a 400&nbsp;m square of the Manchester test area, held-out storm ho3 (150&nbsp;mm over 24&nbsp;h, synthetic). Left: the v2 candidate's prediction. Right: the physics solver at 1&nbsp;m on the same storm.<span class="research-credit">Contains Environment Agency information © Environment Agency and/or database right 2026.</span></figcaption>
+                </figure>
+                <div class="rp-text">
+                    <p class="eyebrow">Research topic 1 of 3</p>
+                    <h2 id="depth-1m-title">Depth at 1&nbsp;m across whole 5&nbsp;km areas</h2>
+                    <p class="rp-result">On ten test areas it had never seen, on one storm (storm&nbsp;49, 291.8&nbsp;mm over 7.5&nbsp;h), the v2 candidate scored a CSI of 0.571 at 15&nbsp;cm against the solver. On the same cells the model we serve today scored 0.326, and a terrain-only threshold 0.284. On the nine held-out runs it scored 0.515, the served model 0.213 and the threshold 0.269.</p>
+                    <h3>What it does not show yet</h3>
+                    <ul role="list">
+                        <li>In Hebden Bridge's steep valley the served model is ahead on all three held-out storms: 0.372 to 0.402 at 15&nbsp;cm, against v2's 0.209 to 0.318.</li>
+                        <li>Water in features only a few metres wide, such as a steep, narrow valley floor, is not yet resolved.</li>
+                        <li>The served model was trained on different solver runs, so these figures compare two products, not two designs.</li>
+                        <li>v2 is not promoted to the product, and no AXIOM certificate has been run on it.</li>
+                    </ul>
+                    <h3>What it predicts and how it was checked</h3>
+                    <p>From the terrain and a storm's rainfall, the model predicts the peak water depth for every 1&nbsp;m cell across a whole 5&nbsp;km area. It trained on 53 solver runs over 22 areas and was scored against physics solver runs at 1&nbsp;m on the same areas and storms, on tests written down before training.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="grid-shift" class="rp-topic band--white light" aria-labelledby="grid-shift-title">
+            <div class="container rp-grid">
+                <figure class="research-media rp-media" data-research-loop>
+                    <div class="research-frame">
+                        <img src="assets/research/grid-shift-manchester.jpg" width="800" height="450" loading="lazy" decoding="async" alt="The research model's peak flood depth across the Manchester test area; the animation switches between its prediction with the model's grid as used and with the grid moved 250 m." aria-describedby="rp-grid-cap">
+                        <video muted loop playsinline preload="none" width="800" height="450" hidden aria-hidden="true">
+                            <source data-src="assets/research/grid-shift-manchester.webm" type="video/webm">
+                            <source data-src="assets/research/grid-shift-manchester.mp4" type="video/mp4">
+                        </video>
+                        <button class="research-toggle" type="button" hidden>
+                            <svg class="icon-pause" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+                            <svg class="icon-play" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>
+                            <span class="visually-hidden">Pause animation</span>
+                        </button>
+                    </div>
+                    <div class="research-labels research-labels--one" aria-hidden="true"><span>Model · research candidate</span></div>
+                    <figcaption id="rp-grid-cap">The v2 candidate's peak depth across the Manchester test area (5&nbsp;km wide), held-out storm ho3 (150&nbsp;mm over 24&nbsp;h, synthetic), averaged to a 10&nbsp;m drawing grid. The animation switches between the model's grid as used and moved 250&nbsp;m; each map is that grid's own prediction.<span class="research-credit">Contains Environment Agency information © Environment Agency and/or database right 2026.</span></figcaption>
+                </figure>
+                <div class="rp-text">
+                    <p class="eyebrow">Research topic 2 of 3</p>
+                    <h2 id="grid-shift-title">Testing that moving the grid does not move the answer</h2>
+                    <p class="rp-result">With the model's grid moved 250&nbsp;m on both axes, the answer barely changed: at most 2&nbsp;of about 21&nbsp;million cells per area switched between wet and dry at 15&nbsp;cm, on ten test areas and storm&nbsp;49, against a pre-registered limit of 1% of cells. Its predecessor v1 switched 2.18% on average and failed that limit; the model we serve today switched 10.59% on average.</p>
+                    <p>Since 20 October 2026 a model must also pass a stricter test before it can be promoted: 24 windows on 22 sites, the grid moved 250 cells, no more than 0.001% of cells may switch at 5, 15 or 30&nbsp;cm, and the 99th percentile of depth change must be at most 1&nbsp;mm. The model we serve today fails every window, with 1.48% to 13.70% of cells switching at 5&nbsp;cm. A research model built so that moving the grid changes nothing, which is not served either, passes with no cell switching on any window.</p>
+                    <h3>What it does not show yet</h3>
+                    <ul role="list">
+                        <li>This is a check of the model against itself: both sides are the model, so it is neither verification nor validation.</li>
+                        <li>Promoting v2 would still need the promotion test and the AXIOM gate.</li>
+                        <li>The promotion test's pass rule is still to be confirmed.</li>
+                    </ul>
+                    <h3>How it was checked</h3>
+                    <p>The same area is predicted twice, with the grid where it is used and with it moved, and the two maps are compared cell by cell.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="time" class="rp-topic light" aria-labelledby="time-title">
+            <div class="container rp-grid">
+                <figure class="research-media rp-media" data-research-loop>
+                    <div class="research-frame">
+                        <img src="assets/research/time-manchester.jpg" width="800" height="450" loading="lazy" decoding="async" alt="Flood depth in blue on the Manchester test area 15 hours into a 24-hour storm, the solver on the left and the research model on the right, with a bar of the storm's hourly rain below; the animation steps through the storm every 30 minutes." aria-describedby="rp-time-cap">
+                        <video muted loop playsinline preload="none" width="800" height="450" hidden aria-hidden="true">
+                            <source data-src="assets/research/time-manchester.webm" type="video/webm">
+                            <source data-src="assets/research/time-manchester.mp4" type="video/mp4">
+                        </video>
+                        <button class="research-toggle" type="button" hidden>
+                            <svg class="icon-pause" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+                            <svg class="icon-play" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>
+                            <span class="visually-hidden">Pause animation</span>
+                        </button>
+                    </div>
+                    <div class="research-labels" aria-hidden="true"><span>Physics solver</span><span>Model · research candidate</span></div>
+                    <figcaption id="rp-time-cap">Depth every 30&nbsp;minutes on the Manchester test area (5&nbsp;km), held-out storm ho3 (150&nbsp;mm over 24&nbsp;h, synthetic), both drawn on the solver replay's 10&nbsp;m grid. Left: the physics solver. Right: the time-resolved research candidate, which never trained on this area or this storm. The bar shows the storm's rain by hour.<span class="research-credit">Contains Environment Agency information © Environment Agency and/or database right 2026.</span></figcaption>
+                </figure>
+                <div class="rp-text">
+                    <p class="eyebrow">Research topic 3 of 3</p>
+                    <h2 id="time-title">Water through time</h2>
+                    <p class="rp-result">On the nine held-out runs, the time-resolved candidate scored a CSI of 0.543 at 15&nbsp;cm, pooled over every saved frame, against 0.402 for v2's peak map held flat through each storm. It gains most by being right early in a storm, while the water is still spreading.</p>
+                    <h3>What it does not show yet</h3>
+                    <ul role="list">
+                        <li>It missed its pre-registered timing test: the time of the largest flooded area was within 1&nbsp;hour of the solver's on 6 of 9 runs, where 7 were needed. On the 24-hour storm it was 3.0&nbsp;hours late at Cambridge and 1.5&nbsp;hours late at Manchester.</li>
+                        <li>It floods too little late in long storms. At Manchester on the 24-hour storm, its largest flooded area at 15&nbsp;cm was 229&nbsp;ha, against the solver's 275&nbsp;ha.</li>
+                        <li>Every run it trained on is on lowland, so steep ground is outside what it has seen.</li>
+                        <li>The 3-hour storm has the shape of a storm it trained on, scaled up; the 12-hour and 24-hour storms are new to it.</li>
+                        <li>It is a prototype: not promoted, and no AXIOM certificate has been run on it.</li>
+                    </ul>
+                    <h3>What it predicts and how it was checked</h3>
+                    <p>For each moment in a storm, the model predicts the water depth from the terrain and the rain that has fallen up to that time. Each frame is compared with the solver's own frame, saved every 30&nbsp;minutes.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="rp-end band--white light" aria-label="Where next">
+            <div class="container cta-row">
+                <a href="./#research" class="btn btn-ghost">Back to the home page</a>
+                <a href="mailto:june.soh@finkele.com?subject=Demo%20Request" class="btn btn-primary">Book a demo</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer dark">
+        <div class="container footer-top">
+            <div class="footer-brand">
+                <img src="assets/img/finkele-logo-on-navy.webp" alt="Finkele" width="78" height="36" loading="lazy" decoding="async">
+                <p>Flood depth in metres for areas in England, from a model trained on physics-based solver runs.</p>
+                <p class="axiom">We also develop AXIOM, a protocol for checking machine-learning surrogates in engineering simulation.</p>
+            </div>
+            <nav class="footer-col" aria-labelledby="f-products">
+                <h2 class="footer-heading" id="f-products">Products</h2>
+                <ul role="list">
+                    <li><a href="product/flood-depth-maps/">Flood depth maps</a></li>
+                    <li><a href="product/rainfall-scenarios/">Rainfall scenarios</a></li>
+                    <li><a href="product/replays/">3D flood replays</a></li>
+                    <li><a href="product/find-your-area/">Find your area</a></li>
+                    <li><a href="product/storm-events/">Storm event pages</a></li>
+                    <li><a href="product/flood-warnings/">Environment Agency warnings</a></li>
+                    <li><a href="product/api/">API</a></li>
+                    <li><a href="product/live-forecasts/">Live forecasts</a></li>
+                    <li><a href="product/ai-assistants/">For AI assistants</a></li>
+                </ul>
+            </nav>
+            <nav class="footer-col" aria-labelledby="f-company">
+                <h2 class="footer-heading" id="f-company">Company</h2>
+                <ul role="list">
+                    <li><a href="./#technology">Technology</a></li>
+                    <li><a href="research.html">Research</a></li>
+                    <li><a href="./#awards">Awards</a></li>
+                    <li><a href="mailto:june.soh@finkele.com?subject=Demo%20Request">Book a demo</a></li>
+                    <li><a href="mailto:june.soh@finkele.com">Contact</a></li>
+                    <li><a href="https://www.linkedin.com/company/finkele/" target="_blank" rel="noopener">LinkedIn</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="container footer-credits" aria-labelledby="data-title">
+            <h2 class="footer-heading" id="data-title">Data and credits</h2>
+            <dl class="credits">
+                <div><dt>Terrain</dt><dd>Environment Agency LiDAR. Contains public sector information licensed under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="noopener">Open Government Licence v3.0</a>.</dd></div>
+                <div><dt>River levels and warnings</dt><dd>Environment Agency flood-monitoring and Hydrology APIs, under the Open Government Licence v3.0.</dd></div>
+                <div><dt>Mapping</dt><dd>Ordnance Survey OpenData, under the Open Government Licence v3.0. Contains OS data © Crown copyright and database right 2026.</dd></div>
+                <div><dt>Rainfall</dt><dd>Weather data by <a href="https://open-meteo.com/" rel="noopener">Open-Meteo.com</a>, under <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener">CC-BY 4.0</a>.</dd></div>
+            </dl>
+        </div>
+        <div class="container footer-bottom">
+            <p class="footer-copy">&copy; 2026 Finkele Ltd. All rights reserved.</p>
+            <p class="footer-legal">Finkele Ltd is a private limited company registered in England and Wales, company number 16223616. Registered office: 9 Caxton House, Broad Street, Cambourne, Cambridge CB23 6JN, United Kingdom.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js" defer></script>
+    <script src="assets/js/research.js" defer></script>
+</body>
+</html>

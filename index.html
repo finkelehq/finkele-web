@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Finkele maps flood depth in metres for areas in England, from a model trained on physics-based solver runs, for property owners and asset managers.">
     <meta name="keywords" content="climate risk, ESG, flood monitoring, asset management, sustainability">
     <meta name="author" content="Finkele">
+    <meta name="theme-color" content="#14243a">
     <meta property="og:title" content="Finkele – Flood Depth Maps for Asset Managers">
     <meta property="og:description" content="Flood depth in metres for areas in England, from a model trained on physics-based solver runs, for property owners and asset managers.">
     <meta property="og:image" content="https://finkele.com/assets/img/og-image.png?v=3">
@@ -16,194 +17,645 @@
     <meta name="twitter:image" content="https://finkele.com/assets/img/og-image.png?v=3">
     <meta name="twitter:title" content="Finkele – Flood Depth Maps for Asset Managers">
     <meta name="twitter:description" content="Flood depth in metres for areas in England, from a model trained on physics-based solver runs, for property owners and asset managers.">
-    <meta property="og:url" content="https://www.finkele.com">
+    <meta property="og:url" content="https://finkele.com/">
     <title>Finkele – Climate Intelligence Platform</title>
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <link rel="preload" href="assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/media/hero-poster.avif" as="image" type="image/avif" fetchpriority="high">
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="preload" href="assets/img/finkele-logo-square.png" as="image">
+    <link rel="stylesheet" href="assets/css/showpieces.css">
 </head>
 <body>
+    <a class="skip-link" href="#main">Skip to content</a>
 
     <!-- Nav -->
-    <nav id="navbar" class="navbar">
-        <div class="nav-container">
-            <a href="#home" class="logo">
-                <img src="assets/img/finkele-logo-square.png" alt="Finkele" class="logo-img">
+    <header class="site-header dark" id="navbar">
+        <nav class="container nav" aria-label="Main">
+            <a href="#home" class="nav-logo">
+                <img src="assets/img/finkele-logo-on-navy.webp" alt="Finkele" width="78" height="36">
             </a>
-            <ul class="nav-links">
-                <li><a href="#home" class="nav-link active">Home</a></li>
-                <li><a href="#products" class="nav-link">Products</a></li>
-                <li><a href="#awards" class="nav-link">Awards</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-            <a href="mailto:june.soh@finkele.com?subject=Demo%20Request" class="nav-demo-btn">Book a Demo</a>
-            <div class="hamburger" id="hamburger">
-                <span></span><span></span><span></span>
+            <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
+                <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+                <span class="visually-hidden">Menu</span>
+            </button>
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#products" class="nav-link">Products</a></li>
+                    <li><a href="#research" class="nav-link">Research</a></li>
+                    <li><a href="#how" class="nav-link">How it works</a></li>
+                    <li><a href="#awards" class="nav-link">Awards</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+                <a href="mailto:june.soh@finkele.com?subject=Demo%20Request" class="btn btn-primary btn-sm">Book a demo</a>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
-    <main>
+    <main id="main">
 
         <!-- Hero -->
-        <section id="home" class="hero">
-            <div class="hero-inner">
-                <h1 class="hero-title">
-                    Climate <span class="gradient-text">Intelligence</span> for Resilient Assets
-                </h1>
-                <p class="hero-subtitle">
-                    Flood depth in metres for areas in England, from a model trained on
-                    physics-based solver runs over Environment Agency LiDAR terrain.
-                </p>
-                <div class="cta-row">
-                    <a href="#products" class="btn btn-primary">Explore Products</a>
-                    <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+        <section id="home" class="hero dark" aria-labelledby="hero-title">
+            <div class="container hero-grid">
+                <div class="hero-text">
+                    <p class="eyebrow">Protect what matters. Act with confidence.</p>
+                    <h1 class="hero-title" id="hero-title"><span class="hero-line">Climate Intelligence</span> <span class="hero-line">for Resilient Assets</span></h1>
+                    <p class="hero-sub">
+                        Flood depth in metres for areas in England, from a model trained on
+                        physics-based solver runs over Environment Agency LiDAR terrain.
+                    </p>
+                    <div class="cta-row">
+                        <a href="#products" class="btn btn-primary">What you can see</a>
+                        <a href="#contact" class="btn btn-ghost">Get in touch</a>
+                    </div>
+                    <a class="hero-backing" href="https://www.jbs.cam.ac.uk/entrepreneurship/programmes/accelerate-cambridge/" target="_blank" rel="noopener">
+                        <img src="assets/img/support/cambridge-jbs.webp" alt="" width="165" height="48" decoding="async">
+                        <span>In Accelerate Cambridge, the accelerator at Cambridge Judge Business School</span>
+                    </a>
                 </div>
+
+                <figure class="film">
+                    <div class="film-frame">
+                        <picture>
+                            <source srcset="assets/media/hero-poster.avif" type="image/avif">
+                            <img class="film-poster" src="assets/media/hero-poster.jpg" width="1280" height="720" alt="A 3D view of Exeter city centre at 14:15, when the simulated water covers the most ground: grey terrain and buildings, the River Exe in a flat grey-blue, and the simulated flood water in brighter blues in streets and between buildings." fetchpriority="high" decoding="async">
+                        </picture>
+                        <!-- No autoplay and preload="none": main.js starts the film, and does not under
+                             reduced motion or when the browser asks to save data, so then nothing but the
+                             poster loads. data-times maps seconds into the film to the solver frame's clock
+                             (BST), from the replay manifest's start_utc and frames.t_s. Phones first: browsers
+                             take the first matching source. -->
+                        <video class="film-video" id="hero-film" muted loop playsinline preload="none" width="1280" height="720" aria-describedby="film-caption" data-times='[[0,"14:15"],[13.967,"12:15"],[15.233,"12:30"],[15.7,"12:45"],[16.167,"13:00"],[16.633,"13:15"],[17.1,"13:30"],[17.567,"13:45"],[18.033,"14:00"],[18.5,"14:15"]]'>
+                            <source src="assets/media/hero-540.mp4" type="video/mp4" media="(max-width: 700px)">
+                            <source src="assets/media/hero.webm" type="video/webm">
+                            <source src="assets/media/hero.mp4" type="video/mp4">
+                        </video>
+                        <p class="film-clock">17 September 2023, <span class="num" id="film-clock">14:15</span>&nbsp;BST</p>
+                    </div>
+                    <div class="film-bar" id="film-bar" hidden>
+                        <button class="film-toggle" id="film-toggle" type="button" aria-pressed="false" aria-controls="hero-film" aria-label="Pause film">
+                            <svg class="icon-pause" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+                            <svg class="icon-play" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>
+                            <span class="film-track" aria-hidden="true"><span class="film-fill" id="film-fill"></span></span>
+                        </button>
+                    </div>
+                    <div class="film-legend" role="img" aria-label="Water depth in metres, in nine bands from light blue at 0.05 m to dark blue at 4.8 m and over. The river is a flat grey-blue: mapped water, not a depth.">
+                        <span class="film-legend-title">Water depth (m)</span>
+                        <span class="film-legend-scale"><span class="film-ramp"></span><span class="film-ticks" aria-hidden="true"><span>0.05</span><span>0.3</span><span>0.9</span><span>2.3</span><span>4.8</span></span></span>
+                        <span class="film-legend-river"><span class="film-swatch-river"></span>River (mapped water)</span>
+                    </div>
+                    <figcaption class="film-caption" id="film-caption">
+                        <p><strong>Exeter city centre, 17 September 2023, 12:15 to 14:15 BST.</strong> A time-resolved flood replay: one run of a physics-based hydraulic solver on the storm's rainfall as recorded by three Environment Agency gauges, on <span class="num">2&nbsp;m</span> cells over Environment Agency LiDAR terrain with buildings as solid blocks. The film opens at 14:15, when the water in the run covers the most ground, and loops back through the two hours before it. Rain only: drains are not modelled. A simulation, not a forecast, and not compared with observed flooding. Heights exaggerated three times. The river is drawn as mapped water; the run modelled rain, not river flow.</p>
+                        <p class="film-credit">River outline: OS OpenMap Local surface water. Contains Environment Agency information © Environment Agency and/or database right 2026. Contains OS data © Crown copyright and database right 2026.</p>
+                    </figcaption>
+                </figure>
             </div>
-            <div class="trust-bar">
-                <div class="problem-col problem-col--problem">
-                    <span class="problem-tag">The Problem</span>
-                    <p class="problem-stat">£3.3bn</p>
-                    <p class="problem-desc">in annual flood damage across the UK, projected to rise to £4.5bn by 2050. Many asset owners still lack the information they need to see flood risk at their own sites and act early, before damage occurs.</p>
-                    <p class="problem-note">Source: Climate Change Committee, <a href="https://www.theccc.org.uk/publication/a-well-adapted-uk/" target="_blank" rel="noopener">A Well-Adapted UK</a>; 2025 prices, 2050 under 2°C of global warming.</p>
+        </section>
+
+        <!-- Problem and solution: the founder's wording, kept exactly -->
+        <section class="problem light" aria-label="The problem and our answer">
+            <div class="container problem-grid">
+                <div class="problem-card problem-card--problem reveal">
+                    <span class="tag tag--problem">The Problem</span>
+                    <p class="problem-stat num">£3.3bn</p>
+                    <p class="problem-desc">in annual flood damage across the UK, projected to rise to £4.5bn by 2050. Many asset owners still lack the clear, local information they need to see flood risk at their own sites, street by street, and act early, before costly damage to property and operations occurs.</p>
+                    <p class="problem-note">Source: CCC, <a href="https://www.theccc.org.uk/publication/a-well-adapted-uk/" target="_blank" rel="noopener">A Well-Adapted UK</a>; 2025 prices, 2°C warming.</p>
                 </div>
-                <div class="trust-divider" style="height:auto;align-self:stretch"></div>
-                <div class="problem-col problem-col--solution">
-                    <span class="problem-tag problem-tag--solution">The Solution</span>
+                <div class="problem-card problem-card--solution reveal">
+                    <span class="tag tag--green">The Solution</span>
                     <p class="problem-stat">In seconds</p>
-                    <p class="problem-desc">Our model maps water depth in metres across a catchment from a storm's rainfall, so owners can see which streets and buildings it reaches. It works from the rainfall forecast and your location, so it is as early as that forecast.</p>
-                    <p class="problem-note">Measured inference time on our deployed 2-CPU service: 8.5 s for a 1 km square in Leeds.</p>
+                    <p class="problem-desc">Our model maps water depth in metres across a catchment from a storm's rainfall, so owners can see in advance which streets and buildings it reaches, and how deep it gets. It works from the latest rainfall forecast and your location, so it is as early as that forecast.</p>
+                    <p class="problem-note">Measured: <span class="num">8.5&nbsp;s</span> per <span class="num">1&nbsp;km</span> square in Leeds, 2-CPU service.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Technology: AI trained on physics simulations -->
-        <section id="technology" class="tech-section">
+        <!-- Technology: AI trained on physics simulations (text as on the live page, 2026-10-24) -->
+        <section id="technology" class="tech dark" aria-labelledby="tech-title">
             <div class="container">
-                <p class="tech-eyebrow">Our technology</p>
-                <h2 class="section-heading">AI trained on physics simulations</h2>
-                <p class="tech-lede">TERRA is our machine-learning flood model. We run the LISFLOOD-FP hydraulic solver through many storms over Environment Agency LiDAR terrain, and TERRA learns from those runs. Give it a storm's rainfall and it returns water depth in metres, with an uncertainty band, in seconds.</p>
-                <div class="tech-grid">
-                    <article class="tech-card">
+                <div class="section-head">
+                    <p class="eyebrow">Our technology</p>
+                    <h2 class="section-title" id="tech-title">AI trained on physics simulations</h2>
+                    <p class="section-lede">TERRA is our proprietary AI flood model. We run a physics-based hydraulic solver through many storms over Environment Agency LiDAR terrain, and TERRA learns from those runs. Give it a storm's rainfall and it returns water depth in metres, with an uncertainty band, in seconds.</p>
+                </div>
+                <ul class="tech-grid" role="list">
+                    <li class="tech-card reveal">
                         <span class="product-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="13" r="7.5"/><path d="M13 9v4l2.5 1.5M2.5 8h4M2 12h3M2.5 16h4"/></svg></span>
                         <h3>Fast</h3>
-                        <p class="tech-stat">Seconds for a 1 km square</p>
-                        <p>8.5 s of measured inference on our deployed service, so each new rainfall forecast becomes a depth map while it is still current.</p>
-                    </article>
-                    <article class="tech-card">
+                        <p class="tech-stat">Seconds for a <span class="num">1&nbsp;km</span> square</p>
+                        <p><span class="num">8.5&nbsp;s</span> of measured inference on our deployed service, so each new rainfall forecast becomes a depth map while it is still current.</p>
+                    </li>
+                    <li class="tech-card reveal">
                         <span class="product-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="1.5"/><path d="M4 9.3h16M4 14.6h16M9.3 4v16M14.6 4v16"/></svg></span>
                         <h3>Detailed</h3>
-                        <p class="tech-stat">1 m grid</p>
-                        <p>Depth on a 1 m grid over Environment Agency LiDAR, resolving water street by street, with an uncertainty band on every cell.</p>
-                    </article>
-                    <article class="tech-card">
+                        <p class="tech-stat"><span class="num">1&nbsp;m</span> grid</p>
+                        <p>Depth on a <span class="num">1&nbsp;m</span> grid over Environment Agency LiDAR, resolving water street by street, with an uncertainty band on every cell.</p>
+                    </li>
+                    <li class="tech-card reveal">
                         <span class="product-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-7 7M10 20H4v-6M4 20l7-7"/></svg></span>
                         <h3>Across England</h3>
-                        <p class="tech-stat">Over 750 areas registered</p>
+                        <p class="tech-stat">Over <span class="num">750</span> areas registered</p>
                         <p>Registered on Environment Agency LiDAR across England, with more being added and new areas set up when you ask for them.</p>
-                    </article>
-                </div>
+                    </li>
+                </ul>
             </div>
         </section>
 
-        <!-- Products bento -->
-        <section id="products" class="products reveal">
+        <!-- Products -->
+        <section id="products" class="products light" aria-labelledby="products-title">
             <div class="container">
-                <h2 class="section-heading">Flood depth for your sites</h2>
-
-                <div class="product-grid">
-                    <article class="product-card">
-                        <div class="product-head"><span class="product-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="m3 13 9 5 9-5"/><path d="m3 17.5 9 5 9-5" opacity=".55"/></svg></span><span class="status status--preview">Private preview</span></div>
-                        <h3>Flood depth maps for each area</h3>
-                        <p>Peak water depth in metres on a 1 m grid across a 5 km area, for a stated rainfall and with an uncertainty band. Download the grid to check it in your own GIS.</p>
-                        <ul class="product-specs"><li>1 m grid</li><li>5 km areas</li><li>GeoTIFF</li></ul>
-                    </article>
-                    <article class="product-card">
-                        <div class="product-head"><span class="product-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></span><span class="status status--preview">Private preview</span></div>
-                        <h3>Rainfall scenarios</h3>
-                        <p>Move the rainfall from 0.2 to 6 times a storm that happened and watch the depth respond. Every tile says whether it is a solver run or a blend between runs.</p>
-                        <ul class="product-specs"><li>0.2× to 6× rainfall</li><li>3 to 48 h storms</li></ul>
-                    </article>
-                    <article class="product-card">
-                        <div class="product-head"><span class="product-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8v8l9 5 9-5V8Z"/><path d="m10 9.5 4.5 2.5L10 14.5v-5Z" fill="currentColor" stroke="none"/></svg></span><span class="status status--preview">Private preview</span></div>
-                        <h3>3D flood replays</h3>
-                        <p>A solver run of a real storm, played through time in 3D, showing where the water goes and when it gets there. A simulation of the storm, not a forecast.</p>
-                        <ul class="product-specs"><li>3D</li><li>Time-resolved</li><li>Solver run</li></ul>
-                    </article>
-                    <article class="product-card">
-                        <div class="product-head"><span class="product-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 15a4 4 0 0 1-.6-7.95A5.5 5.5 0 0 1 17 8a3.5 3.5 0 0 1 .5 7H7Z"/><path d="m8 18-1 2.5M12 18l-1 2.5M16 18l-1 2.5"/></svg></span><span class="status status--preview">Private preview</span></div>
-                        <h3>Storm event pages</h3>
-                        <p>One page per named storm: the areas its forecast rain reaches, our flood forecast for each, and a scorecard after it passes. Storm Austen, October 2026, is the first.</p>
-                        <ul class="product-specs"><li>Per storm</li><li>Scorecard after</li></ul>
-                    </article>
-                    <article class="product-card">
-                        <div class="product-head"><span class="product-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 2.5 20h19L12 3.5Z"/><path d="M12 10v4.5"/><circle cx="12" cy="17.2" r=".6" fill="currentColor"/></svg></span><span class="status status--preview">Private preview</span></div>
-                        <h3>Environment Agency warnings</h3>
-                        <p>The Environment Agency's latest official flood warnings for each area, in their own words with a link to GOV.UK, shown beside our forecast but kept apart from it.</p>
-                        <ul class="product-specs"><li>EA warnings</li><li>GOV.UK links</li></ul>
-                    </article>
-                    <article class="product-card">
-                        <div class="product-head"><span class="product-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.3"/></svg></span><span class="status status--preview">Private preview</span></div>
-                        <h3>Find your area</h3>
-                        <p>Search over 750 registered areas in England by name or county, see on a map which have forecasts or solver runs, and open any area's depth map in one click.</p>
-                        <ul class="product-specs"><li>Search</li><li>Coverage map</li><li>Status per area</li></ul>
-                    </article>
-                    <article class="product-card">
-                        <div class="product-head"><span class="product-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M13.5 5l-3 14"/></svg></span><span class="status status--preview">Private preview</span></div>
-                        <h3>API for your sites</h3>
-                        <p>Send coordinates and get back a depth in metres for each location, with its uncertainty band and caveats, as JSON. Portfolio screening is in development.</p>
-                        <ul class="product-specs"><li>JSON API</li><li>Per location</li></ul>
-                    </article>
-                    <article class="product-card">
-                        <div class="product-head"><span class="product-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3.5l2-5 3.5 10 2.5-7 1.5 2H21"/></svg></span><span class="status status--dev">In development</span></div>
-                        <h3>Live forecasts for your assets</h3>
-                        <p>Choose your sites and we re-run the forecast automatically whenever a new rainfall forecast is issued, with depth in metres at every asset and its issue time.</p>
-                        <ul class="product-specs"><li>Per asset</li><li>Each forecast issue</li><li>Issue time</li></ul>
-                    </article>
-                    <article class="product-card">
-                        <div class="product-head"><span class="product-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v2M12 19v2M3 12h2M19 12h2"/><rect x="6.5" y="6.5" width="11" height="11" rx="2.5"/><path d="M9.5 13.5c.7.7 1.5 1 2.5 1s1.8-.3 2.5-1"/><circle cx="10" cy="10.5" r=".6" fill="currentColor"/><circle cx="14" cy="10.5" r=".6" fill="currentColor"/></svg></span><span class="status status--dev">In development</span></div>
-                        <h3>For AI assistants</h3>
-                        <p>Ask Claude or another AI assistant about flood depth at your sites. Our MCP server gives it the depths, bands and caveats the API returns, in plain words first.</p>
-                        <ul class="product-specs"><li>MCP server</li><li>Same data as the API</li></ul>
-                    </article>
+                <div class="section-head">
+                    <p class="eyebrow">Products</p>
+                    <h2 class="section-title" id="products-title">What you can see</h2>
+                    <p class="section-lede">In private preview. <a href="#contact">Book a demo</a> to see it for your sites.</p>
                 </div>
-                <p class="product-cta">In private preview. <a href="#contact">Book a demo</a> to see it for your sites.</p>
+
+                <!-- Showpiece: the Finkele platform on a laptop and a phone. Frames are CSS; the screens are
+                     captures of the platform (frontend/, run locally on 2026-10-24 with no Mapbox token, so the
+                     map has no third-party backdrop). Loop: assets/media/platform-hebden-*; still and poster:
+                     assets/img/showpieces/. Captions checked against the replay and campaign data. -->
+                <figure class="devices reveal" data-devices>
+                    <div class="devices-stage">
+                        <div class="laptop">
+                            <div class="laptop-lid">
+                                <div class="laptop-screen">
+                                    <img src="assets/img/showpieces/platform-hebden-poster-1280x800.webp" width="1280" height="800" loading="lazy" decoding="async" alt="The Finkele platform on a laptop: the Hebden Bridge area's flood depth map in blue, its depth legend, and the storm control set to a solver run of 29 mm of rain in 21 hours.">
+                                    <video muted loop playsinline preload="none" width="1280" height="800" hidden aria-describedby="devices-caption">
+                                        <source data-src="assets/media/platform-hebden-1280x800.webm" type="video/webm">
+                                        <source data-src="assets/media/platform-hebden-800x500.mp4" type="video/mp4" media="(max-width: 700px)">
+                                        <source data-src="assets/media/platform-hebden-1280x800.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                            </div>
+                            <div class="laptop-base" aria-hidden="true"></div>
+                        </div>
+                        <div class="phone">
+                            <div class="phone-screen">
+                                <img src="assets/img/showpieces/platform-hebden-phone-600.webp" width="600" height="1298" loading="lazy" decoding="async" alt="The same Hebden Bridge depth map on a phone, for a solver run of 211 mm of rain in 24 hours, with the depth legend below it.">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="devices-controls">
+                        <button class="devices-toggle" type="button">
+                            <svg class="icon-pause" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+                            <svg class="icon-play" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>
+                            <span class="devices-toggle-label">Pause recording</span>
+                        </button>
+                    </div>
+                    <figcaption class="devices-caption" id="devices-caption">
+                        <p><strong>Hebden Bridge, a <span class="num">500&nbsp;m</span> area, design storm.</strong> Recorded from the Finkele platform. The storm control moves from a solver run of <span class="num">29&nbsp;mm</span> of rain in <span class="num">21&nbsp;h</span> to one of <span class="num">211&nbsp;mm</span> in <span class="num">24&nbsp;h</span>, and the water spreads. A click on one cell then gives its depth, <span class="num">0.7&nbsp;m</span>, and its band, <span class="num">0.6</span> to <span class="num">0.9&nbsp;m</span>. These depths are the solver's, not the model's: <span class="num">50</span> physics solver runs of different storms on bare-earth Environment Agency LiDAR terrain, interpolated between the two nearest runs where the control falls between them. Rain falling on the area only; buildings are not obstacles in these runs. The phone shows the same area on the mobile layout. The map is shown without a basemap.</p>
+                        <p class="showpiece-credit">Contains Environment Agency information © Environment Agency and/or database right 2026.</p>
+                    </figcaption>
+                </figure>
+
+                <ul class="product-grid" role="list">
+                    <li class="product-card reveal">
+                        <div class="product-art">
+                            <!-- Spot: assets/img/visuals/spot-depth-maps.svg -->
+                            <svg class="spot" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><defs><radialGradient id="depthmapsg"><stop offset="0" stop-color="#5cd08f" stop-opacity=".34"/><stop offset=".7" stop-color="#5cd08f" stop-opacity=".12"/><stop offset="1" stop-color="#5cd08f" stop-opacity="0"/></radialGradient><radialGradient id="depthmapsd" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#22395a"/><stop offset="1" stop-color="#14243a"/></radialGradient></defs><circle cx="160" cy="160" r="159" fill="url(#depthmapsg)"/><circle cx="160" cy="160" r="118" fill="url(#depthmapsd)"/><circle cx="160" cy="160" r="118" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><g transform="rotate(-8 160 160)"><rect x="90.0" y="90.0" width="140.0" height="140.0" fill="#2a4366"/><path fill="#4ebbf3" d="M160 90h21v7h-21zM139 97h7v7h-7zM160 97h14v7h-14zM181 97h35v7h-35zM160 104h7v7h-7zM188 104h14v7h-14zM216 104h14v7h-14zM97 111h7v7h-7zM195 111h7v7h-7zM223 111h7v7h-7zM160 118h7v7h-7zM195 118h7v7h-7zM223 118h7v7h-7zM195 125h7v7h-7zM90 132h14v7h-14zM160 132h7v7h-7zM195 132h7v7h-7zM97 139h7v7h-7zM139 139h7v7h-7zM160 139h7v7h-7zM195 139h7v7h-7zM97 146h14v7h-14zM160 146h7v7h-7zM195 146h7v7h-7zM104 153h7v7h-7zM125 153h7v7h-7zM160 153h7v7h-7zM195 153h7v7h-7zM97 160h14v7h-14zM160 160h7v7h-7zM195 160h7v7h-7zM97 167h14v7h-14zM160 167h7v7h-7zM181 167h7v7h-7zM195 167h7v7h-7zM209 167h7v7h-7zM132 174h14v7h-14zM160 174h7v7h-7zM181 174h7v7h-7zM209 174h7v7h-7zM132 181h14v7h-14zM153 181h14v7h-14zM181 181h7v7h-7zM209 181h7v7h-7zM104 188h7v7h-7zM139 188h28v7h-28zM181 188h7v7h-7zM209 188h7v7h-7zM104 195h14v7h-14zM153 195h14v7h-14zM181 195h7v7h-7zM209 195h7v7h-7zM111 202h7v7h-7zM153 202h14v7h-14zM181 202h7v7h-7zM118 209h7v7h-7zM146 209h21v7h-21zM181 209h7v7h-7zM209 209h7v7h-7zM97 216h7v7h-7zM111 216h14v7h-14zM146 216h21v7h-21zM181 216h14v7h-14zM209 216h7v7h-7zM97 223h7v7h-7zM118 223h7v7h-7zM146 223h21v7h-21zM181 223h14v7h-14z"/><path fill="#389eda" d="M132 90h7v7h-7zM181 90h49v7h-49zM216 97h14v7h-14zM118 104h7v7h-7zM132 104h7v7h-7zM118 111h7v7h-7zM132 111h7v7h-7zM188 111h7v7h-7zM216 111h7v7h-7zM118 118h7v7h-7zM153 118h7v7h-7zM188 118h7v7h-7zM216 118h7v7h-7zM160 125h7v7h-7zM188 125h7v7h-7zM216 125h14v7h-14zM188 132h7v7h-7zM216 132h14v7h-14zM90 139h7v7h-7zM125 139h7v7h-7zM188 139h7v7h-7zM216 139h14v7h-14zM90 146h7v7h-7zM125 146h7v7h-7zM153 146h7v7h-7zM188 146h7v7h-7zM216 146h14v7h-14zM90 153h7v7h-7zM132 153h7v7h-7zM188 153h7v7h-7zM216 153h14v7h-14zM90 160h7v7h-7zM132 160h14v7h-14zM188 160h7v7h-7zM216 160h14v7h-14zM90 167h7v7h-7zM132 167h14v7h-14zM188 167h7v7h-7zM216 167h14v7h-14zM90 174h14v7h-14zM188 174h7v7h-7zM216 174h14v7h-14zM90 181h14v7h-14zM188 181h7v7h-7zM216 181h14v7h-14zM90 188h14v7h-14zM188 188h7v7h-7zM216 188h14v7h-14zM90 195h14v7h-14zM188 195h7v7h-7zM216 195h14v7h-14zM90 202h21v7h-21zM188 202h7v7h-7zM209 202h21v7h-21zM90 209h28v7h-28zM188 209h7v7h-7zM216 209h14v7h-14zM90 216h7v7h-7zM104 216h7v7h-7zM216 216h14v7h-14zM90 223h7v7h-7zM104 223h14v7h-14z"/><path fill="#2d83bd" d="M118 90h14v7h-14zM118 97h21v7h-21zM125 104h7v7h-7zM125 111h7v7h-7zM125 118h14v7h-14zM146 118h7v7h-7zM125 125h14v7h-14zM125 132h14v7h-14zM132 139h7v7h-7zM132 146h7v7h-7z"/><path fill="#2672ac" d="M139 118h7v7h-7zM139 125h7v7h-7zM139 132h7v7h-7zM146 139h7v7h-7z"/><path fill="#1f5f9b" d="M153 125h7v7h-7zM153 139h7v7h-7z"/><path fill="#184f8a" d="M146 125h7v7h-7zM146 132h14v7h-14z"/><rect x="90.0" y="90.0" width="140.0" height="140.0" fill="none" stroke="#eef2f6" stroke-opacity=".5"/></g></svg>
+                        </div>
+                        <div class="product-body">
+                            <span class="chip chip--preview">Private preview</span>
+                            <h3 class="product-title"><a class="product-link" href="product/flood-depth-maps/">Flood depth maps for each area</a></h3>
+                            <p>Peak water depth in metres on a <span class="num">1&nbsp;m</span> grid across a <span class="num">5&nbsp;km</span> area, for a stated rainfall and with an uncertainty band. Download the grid to check it in your own GIS.</p>
+                            <ul class="product-specs" role="list"><li>1 m grid</li><li>5 km areas</li><li>GeoTIFF</li></ul>
+                            <span class="product-more" aria-hidden="true">See the product <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                        </div>
+                    </li>
+                    <li class="product-card reveal">
+                        <div class="product-art">
+                            <!-- Spot: assets/img/visuals/spot-rainfall-scenarios.svg -->
+                            <svg class="spot" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><defs><radialGradient id="rainfallscenariosg"><stop offset="0" stop-color="#5cd08f" stop-opacity=".34"/><stop offset=".7" stop-color="#5cd08f" stop-opacity=".12"/><stop offset="1" stop-color="#5cd08f" stop-opacity="0"/></radialGradient><radialGradient id="rainfallscenariosd" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#22395a"/><stop offset="1" stop-color="#14243a"/></radialGradient></defs><circle cx="160" cy="160" r="159" fill="url(#rainfallscenariosg)"/><circle cx="160" cy="160" r="118" fill="url(#rainfallscenariosd)"/><circle cx="160" cy="160" r="118" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><path d="M92 96V206H252" fill="none" stroke="#9fb0c2" stroke-opacity=".6"/><g stroke="#9fb0c2" stroke-opacity=".45"><path d="M88 185.6h4"/><path d="M88 165.2h4"/><path d="M88 144.8h4"/><path d="M88 124.4h4"/></g><path d="M97.3 201.1 L99.0 196.0 L100.4 195.4 L102.0 191.1 L104.2 189.9 L106.0 186.6 L107.5 185.2 L108.1 184.8 L109.7 177.0 L111.5 177.8 L113.0 179.1 L113.5 171.9 L115.5 175.8 L117.1 174.2 L118.7 173.0 L120.7 164.2 L121.2 169.3 L122.6 161.9 L125.3 159.9 L126.3 166.2 L127.8 156.8 L129.8 155.2 L130.3 157.4 L132.2 152.6 L133.1 153.6 L134.5 158.3 L136.5 157.7 L137.6 148.5 L139.0 154.0 L141.2 155.2 L141.9 151.7 L143.9 144.4 L146.0 151.9 L147.4 150.7 L148.1 141.9 L149.7 139.9 L151.7 145.6 L153.2 146.0 L155.2 143.6 L155.8 144.0 L157.3 142.4 L159.5 141.3 L159.8 143.2 L162.0 141.1 L164.1 132.6 L164.5 138.9 L166.3 137.7 L167.1 137.9 L168.9 136.4 L170.3 136.8 L171.8 135.8 L174.4 135.6 L174.8 133.4 L176.7 134.2 L178.3 132.2 L179.2 125.4 L180.8 130.9 L182.5 131.7 L184.8 130.1 L186.2 128.1 L186.6 128.5 L189.3 128.5 L190.3 127.3 L191.6 121.5 L192.6 125.4 L194.8 124.8 L195.7 124.4 L198.1 123.6 L198.8 124.8 L200.5 119.3 L201.6 119.3 L203.3 120.5 L204.6 118.7 L206.3 121.7 L208.7 120.9 L208.9 120.9 L210.5 117.3 L213.1 117.1 L213.3 116.9 L215.5 116.4 L217.0 116.2 L218.5 119.9 L219.7 115.6 L221.6 119.3 L223.2 118.7 L225.0 118.5 L225.8 118.3 L227.8 114.6 L229.1 117.5 L231.0 117.1 L232.6 116.9 L233.5 117.5 L234.7 116.6 L236.2 113.2 L238.0 112.8 L239.0 115.8 L241.4 112.4 L242.3 115.2 L243.9 112.0 L245.2 115.2" fill="none" stroke="#5cd08f" stroke-width="1.4" stroke-linejoin="round" stroke-opacity=".85"/><g fill="#4ebbf3"><circle cx="97.3" cy="201.1" r="2.3"/><circle cx="99.0" cy="196.0" r="2.3"/><circle cx="100.4" cy="195.4" r="2.3"/><circle cx="102.0" cy="191.1" r="2.3"/><circle cx="104.2" cy="189.9" r="2.3"/><circle cx="106.0" cy="186.6" r="2.3"/><circle cx="107.5" cy="185.2" r="2.3"/><circle cx="108.1" cy="184.8" r="2.3"/><circle cx="109.7" cy="177.0" r="2.3"/><circle cx="111.5" cy="177.8" r="2.3"/><circle cx="113.0" cy="179.1" r="2.3"/><circle cx="113.5" cy="171.9" r="2.3"/><circle cx="115.5" cy="175.8" r="2.3"/><circle cx="117.1" cy="174.2" r="2.3"/><circle cx="118.7" cy="173.0" r="2.3"/><circle cx="120.7" cy="164.2" r="2.3"/><circle cx="121.2" cy="169.3" r="2.3"/><circle cx="122.6" cy="161.9" r="2.3"/><circle cx="125.3" cy="159.9" r="2.3"/><circle cx="126.3" cy="166.2" r="2.3"/><circle cx="127.8" cy="156.8" r="2.3"/><circle cx="129.8" cy="155.2" r="2.3"/><circle cx="130.3" cy="157.4" r="2.3"/><circle cx="132.2" cy="152.6" r="2.3"/><circle cx="133.1" cy="153.6" r="2.3"/><circle cx="134.5" cy="158.3" r="2.3"/><circle cx="136.5" cy="157.7" r="2.3"/><circle cx="137.6" cy="148.5" r="2.3"/><circle cx="139.0" cy="154.0" r="2.3"/><circle cx="141.2" cy="155.2" r="2.3"/><circle cx="141.9" cy="151.7" r="2.3"/><circle cx="143.9" cy="144.4" r="2.3"/><circle cx="146.0" cy="151.9" r="2.3"/><circle cx="147.4" cy="150.7" r="2.3"/><circle cx="148.1" cy="141.9" r="2.3"/><circle cx="149.7" cy="139.9" r="2.3"/><circle cx="151.7" cy="145.6" r="2.3"/><circle cx="153.2" cy="146.0" r="2.3"/><circle cx="155.2" cy="143.6" r="2.3"/><circle cx="155.8" cy="144.0" r="2.3"/><circle cx="157.3" cy="142.4" r="2.3"/><circle cx="159.5" cy="141.3" r="2.3"/><circle cx="159.8" cy="143.2" r="2.3"/><circle cx="162.0" cy="141.1" r="2.3"/><circle cx="164.1" cy="132.6" r="2.3"/><circle cx="164.5" cy="138.9" r="2.3"/><circle cx="166.3" cy="137.7" r="2.3"/><circle cx="167.1" cy="137.9" r="2.3"/><circle cx="168.9" cy="136.4" r="2.3"/><circle cx="170.3" cy="136.8" r="2.3"/><circle cx="171.8" cy="135.8" r="2.3"/><circle cx="174.4" cy="135.6" r="2.3"/><circle cx="174.8" cy="133.4" r="2.3"/><circle cx="176.7" cy="134.2" r="2.3"/><circle cx="178.3" cy="132.2" r="2.3"/><circle cx="179.2" cy="125.4" r="2.3"/><circle cx="180.8" cy="130.9" r="2.3"/><circle cx="182.5" cy="131.7" r="2.3"/><circle cx="184.8" cy="130.1" r="2.3"/><circle cx="186.2" cy="128.1" r="2.3"/><circle cx="186.6" cy="128.5" r="2.3"/><circle cx="189.3" cy="128.5" r="2.3"/><circle cx="190.3" cy="127.3" r="2.3"/><circle cx="191.6" cy="121.5" r="2.3"/><circle cx="192.6" cy="125.4" r="2.3"/><circle cx="194.8" cy="124.8" r="2.3"/><circle cx="195.7" cy="124.4" r="2.3"/><circle cx="198.1" cy="123.6" r="2.3"/><circle cx="198.8" cy="124.8" r="2.3"/><circle cx="200.5" cy="119.3" r="2.3"/><circle cx="201.6" cy="119.3" r="2.3"/><circle cx="203.3" cy="120.5" r="2.3"/><circle cx="204.6" cy="118.7" r="2.3"/><circle cx="206.3" cy="121.7" r="2.3"/><circle cx="208.7" cy="120.9" r="2.3"/><circle cx="208.9" cy="120.9" r="2.3"/><circle cx="210.5" cy="117.3" r="2.3"/><circle cx="213.1" cy="117.1" r="2.3"/><circle cx="213.3" cy="116.9" r="2.3"/><circle cx="215.5" cy="116.4" r="2.3"/><circle cx="217.0" cy="116.2" r="2.3"/><circle cx="218.5" cy="119.9" r="2.3"/><circle cx="219.7" cy="115.6" r="2.3"/><circle cx="221.6" cy="119.3" r="2.3"/><circle cx="223.2" cy="118.7" r="2.3"/><circle cx="225.0" cy="118.5" r="2.3"/><circle cx="225.8" cy="118.3" r="2.3"/><circle cx="227.8" cy="114.6" r="2.3"/><circle cx="229.1" cy="117.5" r="2.3"/><circle cx="231.0" cy="117.1" r="2.3"/><circle cx="232.6" cy="116.9" r="2.3"/><circle cx="233.5" cy="117.5" r="2.3"/><circle cx="234.7" cy="116.6" r="2.3"/><circle cx="236.2" cy="113.2" r="2.3"/><circle cx="238.0" cy="112.8" r="2.3"/><circle cx="239.0" cy="115.8" r="2.3"/><circle cx="241.4" cy="112.4" r="2.3"/><circle cx="242.3" cy="115.2" r="2.3"/><circle cx="243.9" cy="112.0" r="2.3"/><circle cx="245.2" cy="115.2" r="2.3"/></g><g fill="none" stroke="#5cd08f" stroke-width="1.8" stroke-linecap="round"><path d="M99.1 218l-2.5 7"/><path d="M227.2 218l-2.5 7"/><path d="M234.2 218l-2.5 7"/><path d="M241.2 218l-2.5 7"/><path d="M248.2 218l-2.5 7"/></g></svg>
+                        </div>
+                        <div class="product-body">
+                            <span class="chip chip--preview">Private preview</span>
+                            <h3 class="product-title"><a class="product-link" href="product/rainfall-scenarios/">Rainfall scenarios</a></h3>
+                            <p>Move the rainfall from <span class="num">0.2</span> to <span class="num">6</span> times a storm that happened and watch the depth respond. Every tile says whether it is a solver run or a blend between runs.</p>
+                            <ul class="product-specs" role="list"><li>0.2× to 6× rainfall</li><li>3 to 48 h storms</li></ul>
+                            <span class="product-more" aria-hidden="true">See the product <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                        </div>
+                    </li>
+                    <li class="product-card reveal">
+                        <div class="product-art">
+                            <!-- Spot: assets/img/visuals/spot-3d-replays.webp -->
+                            <img class="spot" src="assets/img/visuals/spot-3d-replays.webp" alt="" width="320" height="320" loading="lazy" decoding="async">
+                        </div>
+                        <div class="product-body">
+                            <span class="chip chip--preview">Private preview</span>
+                            <h3 class="product-title"><a class="product-link" href="product/replays/">3D flood replays</a></h3>
+                            <p>A solver run of a real storm, played through time in 3D, showing where the water goes and when it gets there. A simulation of the storm, not a forecast.</p>
+                            <ul class="product-specs" role="list"><li>3D</li><li>Time-resolved</li><li>Solver run</li></ul>
+                            <span class="product-more" aria-hidden="true">See the product <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                        </div>
+                    </li>
+                    <li class="product-card reveal">
+                        <div class="product-art">
+                            <!-- Spot: assets/img/visuals/spot-find-your-area.svg -->
+                            <svg class="spot" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><defs><radialGradient id="findyourareag"><stop offset="0" stop-color="#5cd08f" stop-opacity=".34"/><stop offset=".7" stop-color="#5cd08f" stop-opacity=".12"/><stop offset="1" stop-color="#5cd08f" stop-opacity="0"/></radialGradient><radialGradient id="findyouraread" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#22395a"/><stop offset="1" stop-color="#14243a"/></radialGradient></defs><circle cx="160" cy="160" r="159" fill="url(#findyourareag)"/><circle cx="160" cy="160" r="118" fill="url(#findyouraread)"/><circle cx="160" cy="160" r="118" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><g fill="none" stroke="#9fb0c2" stroke-opacity=".55" stroke-width=".8"><circle cx="167" cy="206.3" r="1.3"/><circle cx="208.8" cy="194.9" r="1.3"/><circle cx="189.5" cy="145.2" r="1.3"/><circle cx="237.4" cy="202.9" r="1.3"/><circle cx="216.2" cy="183.3" r="1.3"/><circle cx="214.1" cy="196.1" r="1.3"/><circle cx="201.2" cy="192" r="1.3"/><circle cx="161.1" cy="123.5" r="1.3"/><circle cx="162.7" cy="123.5" r="1.3"/><circle cx="123.4" cy="239.2" r="1.3"/><circle cx="208.1" cy="219.4" r="1.3"/><circle cx="121.7" cy="234.4" r="1.3"/><circle cx="225.1" cy="153" r="1.3"/><circle cx="201.3" cy="187.3" r="1.3"/><circle cx="249.1" cy="171.2" r="1.3"/><circle cx="249.1" cy="172.8" r="1.3"/><circle cx="259.7" cy="162" r="1.3"/><circle cx="259.7" cy="163.6" r="1.3"/><circle cx="204.8" cy="188.4" r="1.3"/><circle cx="224.9" cy="225.4" r="1.3"/><circle cx="177.3" cy="124.7" r="1.3"/><circle cx="177.3" cy="123.1" r="1.3"/><circle cx="251.4" cy="212.8" r="1.3"/><circle cx="253.1" cy="212.8" r="1.3"/><circle cx="240" cy="185.3" r="1.3"/><circle cx="210.6" cy="226" r="1.3"/><circle cx="246.6" cy="191.2" r="1.3"/><circle cx="245" cy="191.2" r="1.3"/><circle cx="182.5" cy="192.1" r="1.3"/><circle cx="231.2" cy="221.4" r="1.3"/><circle cx="138.9" cy="238.7" r="1.3"/><circle cx="199.3" cy="202.5" r="1.3"/><circle cx="233.9" cy="231.1" r="1.3"/><circle cx="233.9" cy="229.5" r="1.3"/><circle cx="186.4" cy="139.8" r="1.3"/><circle cx="188" cy="141.4" r="1.3"/><circle cx="189.6" cy="141.4" r="1.3"/><circle cx="188" cy="139.8" r="1.3"/><circle cx="189.6" cy="139.8" r="1.3"/><circle cx="208.5" cy="100.4" r="1.3"/><circle cx="208.3" cy="214.1" r="1.3"/><circle cx="177.3" cy="193.4" r="1.3"/><circle cx="222.4" cy="176.7" r="1.3"/><circle cx="208.1" cy="221" r="1.3"/><circle cx="192.2" cy="117.4" r="1.3"/><circle cx="193.8" cy="117.4" r="1.3"/><circle cx="240.7" cy="227.8" r="1.3"/><circle cx="239.1" cy="227.8" r="1.3"/><circle cx="236.8" cy="185.3" r="1.3"/><circle cx="224.9" cy="223.8" r="1.3"/><circle cx="210.8" cy="201.5" r="1.3"/><circle cx="222.2" cy="123.1" r="1.3"/><circle cx="221.2" cy="170.7" r="1.3"/><circle cx="172" cy="166.1" r="1.3"/><circle cx="192.9" cy="209.8" r="1.3"/><circle cx="194.5" cy="209.8" r="1.3"/><circle cx="196.1" cy="209.8" r="1.3"/><circle cx="197.7" cy="209.8" r="1.3"/><circle cx="199.3" cy="209.8" r="1.3"/><circle cx="200.9" cy="209.8" r="1.3"/><circle cx="191.3" cy="208.1" r="1.3"/><circle cx="192.9" cy="208.1" r="1.3"/><circle cx="172.1" cy="76.6" r="1.3"/><circle cx="160.8" cy="99" r="1.3"/><circle cx="162.4" cy="99" r="1.3"/><circle cx="160.8" cy="97.4" r="1.3"/><circle cx="160.8" cy="100.6" r="1.3"/><circle cx="159.2" cy="99" r="1.3"/><circle cx="156" cy="102.2" r="1.3"/><circle cx="157.6" cy="102.2" r="1.3"/><circle cx="159.2" cy="102.2" r="1.3"/><circle cx="160.8" cy="102.2" r="1.3"/><circle cx="162.4" cy="102.2" r="1.3"/><circle cx="156" cy="100.6" r="1.3"/><circle cx="157.6" cy="100.6" r="1.3"/><circle cx="159.2" cy="100.6" r="1.3"/><circle cx="162.4" cy="100.6" r="1.3"/><circle cx="156" cy="99" r="1.3"/><circle cx="157.6" cy="99" r="1.3"/><circle cx="156" cy="97.4" r="1.3"/><circle cx="157.6" cy="97.4" r="1.3"/><circle cx="159.2" cy="97.4" r="1.3"/><circle cx="162.4" cy="97.4" r="1.3"/><circle cx="156" cy="95.8" r="1.3"/><circle cx="157.6" cy="95.8" r="1.3"/><circle cx="159.2" cy="95.8" r="1.3"/><circle cx="160.8" cy="95.8" r="1.3"/><circle cx="162.4" cy="95.8" r="1.3"/><circle cx="209.7" cy="221" r="1.3"/><circle cx="241.6" cy="185.3" r="1.3"/><circle cx="166.9" cy="175.3" r="1.3"/><circle cx="217" cy="192.6" r="1.3"/><circle cx="215.4" cy="192.6" r="1.3"/><circle cx="161.3" cy="169.9" r="1.3"/><circle cx="141.5" cy="215.9" r="1.3"/><circle cx="255.2" cy="184.9" r="1.3"/><circle cx="210.6" cy="224.4" r="1.3"/><circle cx="163.7" cy="110.6" r="1.3"/><circle cx="192.5" cy="74.8" r="1.3"/><circle cx="198.6" cy="234.8" r="1.3"/><circle cx="198.6" cy="233.2" r="1.3"/><circle cx="176.9" cy="73.4" r="1.3"/><circle cx="210.2" cy="164.4" r="1.3"/><circle cx="229.4" cy="210.2" r="1.3"/><circle cx="187.6" cy="114.1" r="1.3"/><circle cx="206.5" cy="223.9" r="1.3"/><circle cx="213.8" cy="224.4" r="1.3"/><circle cx="216.9" cy="200.6" r="1.3"/><circle cx="215.3" cy="200.6" r="1.3"/><circle cx="212.2" cy="224.4" r="1.3"/><circle cx="166.9" cy="140.6" r="1.3"/><circle cx="211.1" cy="131.6" r="1.3"/><circle cx="193.9" cy="139.1" r="1.3"/><circle cx="166.2" cy="163.2" r="1.3"/><circle cx="154.4" cy="86.2" r="1.3"/><circle cx="156" cy="86.2" r="1.3"/><circle cx="224.7" cy="176.5" r="1.3"/><circle cx="238.4" cy="185.3" r="1.3"/><circle cx="181.9" cy="103.2" r="1.3"/><circle cx="198.4" cy="96.5" r="1.3"/><circle cx="194" cy="220.3" r="1.3"/><circle cx="179" cy="188.8" r="1.3"/><circle cx="212.5" cy="196.1" r="1.3"/><circle cx="233.3" cy="218.7" r="1.3"/><circle cx="179.4" cy="94" r="1.3"/><circle cx="217.2" cy="167.4" r="1.3"/><circle cx="218.8" cy="167.4" r="1.3"/><circle cx="218.5" cy="200.6" r="1.3"/><circle cx="233.2" cy="223.8" r="1.3"/><circle cx="209.2" cy="201.5" r="1.3"/><circle cx="223.2" cy="168.1" r="1.3"/><circle cx="255.2" cy="183.3" r="1.3"/><circle cx="256.8" cy="183.3" r="1.3"/><circle cx="256.8" cy="184.9" r="1.3"/><circle cx="212.2" cy="121.5" r="1.3"/><circle cx="212.2" cy="119.9" r="1.3"/></g><path stroke="#5cd08f" stroke-opacity=".6" stroke-width="2.8" stroke-linecap="round" d="M246.6 192.8h0M245 192.8h0M198.4 200.2h0M261.8 180.5h0M261.8 182.1h0M200.9 211.4h0M202.5 211.4h0M209.9 215.8h0M172.4 96.5h0M215.4 227.6h0M215.4 229.2h0M247.8 219.1h0M247.8 217.5h0M246.2 217.5h0M190.9 74.8h0M220.9 118.8h0M257.1 156.1h0M197 186.3h0M213.5 153.9h0M193.6 133.1h0M136.3 220.7h0M156.4 112.6h0M174.5 210.6h0M176.1 210.6h0M191.1 106.9h0M202.6 202.1h0M172.1 196.9h0M172.1 198.5h0M172.1 200.1h0M182.4 53.9h0M215.7 122.4h0M221.4 155.3h0M228 211.8h0M191.3 167.4h0M186.5 170.6h0M184.9 170.6h0M183.3 173.8h0M184.9 173.8h0M186.5 173.8h0M188.1 173.8h0M183.3 172.2h0M188.1 172.2h0M183.3 170.6h0M188.1 170.6h0M183.3 169h0M184.9 169h0M186.5 169h0M188.1 169h0M186.5 172.2h0M184.9 172.2h0M172.3 126.1h0M161.1 125.1h0M192.5 76.4h0M173.4 132.2h0M190.6 66.4h0M186 232.5h0M186 234.1h0M184.4 234.1h0M187.8 124.5h0M177.7 210.6h0M177.7 212.2h0M176.1 212.2h0M246.7 196.5h0M250.3 185.1h0M250.3 183.5h0M173.4 169.4h0M160.2 219.5h0M187.2 127.8h0M224.6 229.8h0M167 211.1h0M168.6 211.1h0M170.2 211.1h0M171.8 211.1h0M167 209.5h0M168.6 209.5h0M170.2 209.5h0M171.8 209.5h0M167 207.9h0M168.6 207.9h0M170.2 207.9h0M171.8 207.9h0M168.6 206.3h0M170.2 206.3h0M171.8 206.3h0M192.3 196.2h0M192.3 197.8h0M190.7 197.8h0M180.9 176.3h0M217.2 196.7h0M204.1 211.4h0M204.1 209.8h0M192.3 155.6h0M192.3 157.2h0M190.3 159.9h0M108 250.2h0M229.2 180.5h0M227.6 182.1h0M229.2 182.1h0M230.8 182.1h0M227.6 180.5h0M230.8 180.5h0M227.6 178.9h0M229.2 178.9h0M230.8 178.9h0M182.1 163.5h0M240.1 204.9h0M162 142.7h0M163.3 85.2h0M165.9 83.6h0M174.1 137.4h0M196.2 126.9h0M196.2 139h0M188.4 103.6h0M237.2 197h0M180.8 192.1h0M216 209.7h0M163.4 145.9h0M193.3 146.6h0M194.9 146.6h0M196.5 146.6h0M193.3 145h0M194.9 145h0M196.5 145h0M193.3 143.4h0M194.9 143.4h0M210.1 229.8h0M180 207.8h0M187.6 234.1h0M253.1 194.6h0M225 132.3h0M154.4 93.2h0M221.9 149h0M182 82.5h0M208.6 141.6h0M193.2 173.9h0M193.2 175.5h0M194.8 175.5h0M215 151.3h0M223.2 219.9h0M173.2 149.6h0M215.7 124h0M167.6 108.8h0M166.1 129.1h0M224 209.7h0M107.8 255.2h0M200 200.2h0M200.9 179.3h0M193.9 155.6h0M190.4 128.2h0M200.7 175.8h0M201.1 134.1h0M219.9 215.5h0M256.6 217.9h0M203.9 124.7h0M203.9 126.3h0M197.4 175.8h0M197.4 177.4h0M152.9 101.8h0M152.9 103.4h0M248.8 226.1h0M250.4 226.1h0M191.3 89.4h0M227.1 129h0M197.1 158.8h0M200.7 124.7h0M200.7 126.3h0M200.7 127.9h0M163.6 142.7h0M231.9 173.5h0M226 200.4h0M183.7 185.3h0M148 233.8h0M151.2 233.8h0M146.4 235.4h0M148 235.4h0M149.6 235.4h0M146.4 233.8h0M149.6 233.8h0M146.4 232.2h0M148 232.2h0M149.6 232.2h0M187.2 199.9h0M112.4 252.9h0M197.1 197.5h0M209.9 214.1h0M198.1 227.7h0M198.1 229.3h0M198.1 230.9h0M196.5 229.3h0M255.5 188.5h0M197.8 126.9h0M168.5 140.6h0M168.5 139h0M166.9 139h0M203.4 130.9h0M161.1 120.3h0M161.1 118.7h0M253.8 219.8h0M187.6 227.7h0M187.6 226.1h0M170.5 196.9h0M121.7 245.9h0M121.7 247.5h0M123.3 247.5h0M208.6 138.4h0M223.2 218.3h0M179.2 192.1h0M206.4 127.5h0M201.6 231.1h0M263.5 164.7h0M223.4 131.9h0M214.5 215.5h0M230.2 195h0M228.6 195h0M198.9 92.6h0M197.7 202.5h0M197.7 204.1h0M253.9 188.5h0M211.3 221h0M205 130.9h0M205 132.5h0M205 134.1h0M166.3 98.2h0M207 204.9h0M166.8 186.5h0M180.4 82.5h0M163.5 116h0M161.1 121.9h0M157.1 216.7h0M173 143.6h0M173 145.2h0M174.6 145.2h0M187.1 129.8h0M217.9 125.3h0M217.6 131.9h0M204.6 215.7h0M204.6 217.3h0M186 121.9h0M186 120.3h0M220.7 130.2h0M115.9 242.8h0M115.9 244.4h0M201.1 135.7h0M251.9 185.1h0M171.8 204.7h0M242.5 207.4h0M251.4 194.6h0M209.5 131.6h0M184.4 121.9h0M167 105.4h0M219.1 130.2h0M219.1 128.6h0M189.7 169h0M189.7 167.4h0M234.4 160.8h0M240.4 209.3h0M240.4 207.7h0M220.8 209.7h0M188 138.2h0M189.6 138.2h0M238.4 172.9h0M165.7 115.4h0M136.6 245.5h0M186.8 217.1h0M192.7 178.3h0M192.1 124.3h0M190.4 125.9h0M192.1 125.9h0M193.7 125.9h0M190.4 124.3h0M193.7 124.3h0M190.4 122.7h0M192.1 122.7h0M193.7 122.7h0M192.7 106.9h0M201.2 165.7h0M166.4 180.4h0M227.9 228.1h0M213.8 144.3h0M215.4 230.8h0M162 137.9h0M160.4 137.9h0M224.8 205.7h0M228.8 208.1h0M228.8 206.5h0M228.8 204.9h0M228.8 203.3h0M230.5 208.1h0M232.1 208.1h0M233.7 208.1h0M235.3 208.1h0M230.5 206.5h0M232.1 206.5h0M233.7 206.5h0M235.3 206.5h0M230.5 204.9h0M232.1 204.9h0M233.7 204.9h0M235.3 204.9h0M230.5 203.3h0M232.1 203.3h0M233.7 203.3h0M235.3 203.3h0M236.9 204.9h0M238.5 204.9h0M222.4 208.1h0M224 208.1h0M225.6 208.1h0M227.2 208.1h0M222.4 206.5h0M227.2 206.5h0M222.4 204.9h0M227.2 204.9h0M222.4 203.3h0M224 203.3h0M225.6 203.3h0M227.2 203.3h0M212.8 208.1h0M214.4 208.1h0M216 208.1h0M217.6 208.1h0M219.2 208.1h0M220.8 208.1h0M212.8 206.5h0M214.4 206.5h0M216 206.5h0M217.6 206.5h0M219.2 206.5h0M220.8 206.5h0M212.8 204.9h0M214.4 204.9h0M216 204.9h0M217.6 204.9h0M219.2 204.9h0M220.8 204.9h0M212.8 203.3h0M214.4 203.3h0M216 203.3h0M217.6 203.3h0M219.2 203.3h0M220.8 203.3h0M184.2 135.4h0M121.7 244.3h0M225.1 139.2h0M204.2 227.1h0M263.8 169.5h0M218.6 192.6h0M248.8 224.5h0M230.8 140h0M199.9 172h0M211 205.4h0M239 213.5h0M241.8 197h0M180.3 203.4h0M207.7 112.1h0M176.1 186.3h0M174.5 186.3h0M174.5 184.7h0M176.1 184.7h0M176.9 135.3h0M176.8 140h0M178.6 135.3h0M175.3 135.3h0M199.8 147.6h0M257.4 210.1h0M237.9 164.4h0M209.7 203.6h0M152.1 93.9h0M152.1 92.3h0M152.1 90.7h0M150.5 90.7h0M191.7 147.9h0M194.6 137.3h0M189.2 114.1h0M189.2 115.7h0M189.2 117.3h0M236.8 174.7h0M209.8 186.9h0M165.7 113.8h0M164.1 113.8h0M188.9 75.4h0M164 221h0M164 222.6h0M164 224.2h0M208.1 149.9h0M189.1 79.4h0M192.3 81.1h0M192.3 82.7h0M190.7 81.1h0M189.1 81.1h0M190.7 82.7h0M189.1 82.7h0M177.3 152.4h0M229.5 228.1h0M229.5 229.7h0M229.5 231.3h0M114.3 242.8h0M248.8 222.9h0M193.6 84.7h0M206.8 179.9h0M171.4 143.6h0M254.1 164.4h0M254.1 162.8h0M201 154.7h0M199.4 156.3h0M201 156.3h0M202.6 156.3h0M199.4 154.7h0M202.6 154.7h0M199.4 153.1h0M201 153.1h0M202.6 153.1h0M206.2 215.7h0M189 120.5h0M198.7 197.5h0M197.5 194.3h0M167 93.4h0M101.4 253.7h0M220.8 167.7h0M208.1 108.1h0M133.2 245.5h0M182.8 234.1h0M165.4 206.3h0M172.5 239.7h0M188.7 221.8h0M188.7 220.2h0M188.7 218.6h0M203.2 231.1h0M167.7 125.5h0M215.4 224.4h0M215.4 226h0M217.1 226h0M175.6 132.8h0M158 112.6h0M158 114.2h0M199.4 157.9h0M205.5 207.8h0M257.4 211.7h0M187.6 232.5h0M187.6 230.9h0M187.6 229.3h0M192.5 112.2h0M179.2 130.9h0M238.8 209.3h0M169.6 191.6h0M184.4 70.4h0M196.2 137.3h0M199.1 175.8h0M199.1 174.2h0M165.3 140.6h0M163.7 140.6h0M211.8 164.4h0M213.4 164.4h0M227 195h0M227 196.6h0M187.1 221.8h0M219.6 125.3h0M219.6 126.9h0M170.7 126.1h0M170.7 124.5h0M216 106.7h0M212.7 131.6h0M167 204.7h0M168.6 204.7h0M162 136.3h0M160.4 136.3h0M202.3 124.7h0M151.3 101.8h0M249.4 219.1h0M244.1 207.4h0M223 229.8h0M221.4 229.8h0M261.8 178.9h0M232.6 146.9h0M182.2 118.5h0M162.4 221h0M193.3 227.7h0M194.9 227.7h0M196.5 227.7h0M193.3 226.1h0M194.9 226.1h0M196.5 226.1h0M193.3 224.5h0M194.9 224.5h0M196.5 224.5h0M242.5 204.3h0M242.5 202.7h0M222.5 158.9h0M222.5 160.5h0M166 125.5h0M180 159.8h0M231.8 191.8h0M231.8 193.4h0M230.2 193.4h0M230.2 191.8h0M206.5 149.9h0M102.9 250.5h0M179.2 138.2h0M178.9 152.4h0M188.9 181.7h0M195.2 84.7h0M229.9 160.3h0M187.4 204.3h0M198.1 121.2h0M157.7 223.5h0M192 99.7h0M193.6 99.7h0M195.2 99.7h0M196.8 99.7h0M198.4 99.7h0M200 99.7h0M201.6 99.7h0M192 98.1h0M193.6 98.1h0M195.2 98.1h0M200 98.1h0M201.6 98.1h0M192 96.5h0M193.6 96.5h0M195.2 96.5h0M200 96.5h0M201.6 96.5h0M192 94.9h0M193.6 94.9h0M195.2 94.9h0M196.8 94.9h0M198.4 94.9h0M200 94.9h0M201.6 94.9h0M198.4 98.1h0M196.8 98.1h0M196.8 96.5h0M148.4 240.1h0M173.6 166.1h0M173.6 164.5h0M172 164.5h0M225 133.9h0M225 135.5h0M259.1 211.7h0M259.1 210.1h0M230.8 138.4h0M229.2 138.4h0M196.3 108.8h0M149 227.3h0M182.8 141.2h0M180.5 127.4h0M233.5 216.5h0M197.8 156.3h0M111.8 248.9h0M193.9 81.1h0M193.9 82.7h0M229.8 224.7h0M194.8 173.9h0M197.8 139h0M159.7 110h0M177.7 186.3h0M213.8 145.9h0M213.8 147.5h0M193.2 128.4h0M229.9 161.9h0M231.5 161.9h0M170.5 138.2h0M162.7 125.1h0M164.3 125.1h0M164.3 126.7h0M208.6 140h0M207 140h0M160.7 211.7h0M195.3 122.7h0M195.3 121.1h0M195.3 119.5h0M173.9 123.5h0M211.3 99.5h0M149.6 97.2h0M169.1 133.3h0M182.8 232.5h0M182.8 230.9h0M198.1 221.9h0M176.4 235.6h0M229.4 164.1h0M193.9 196.2h0M215.6 166.3h0M177.7 181.7h0M150.5 93.9h0M175.4 176.4h0M177 176.4h0M175.4 174.8h0M177 174.8h0M236.9 215.3h0M168.2 226.3h0M168.2 224.7h0M168.2 223.1h0M166.6 226.3h0M201.9 118.6h0M200.3 120.2h0M201.9 120.2h0M203.5 120.2h0M200.3 118.6h0M203.5 118.6h0M200.3 117h0M201.9 117h0M203.5 117h0"/><g fill="#5cd08f" stroke="#eef2f6" stroke-width="1"><circle cx="180.9" cy="177.9" r="2.6"/><circle cx="196.5" cy="143.4" r="2.6"/><circle cx="196.8" cy="143.4" r="2.6"/><circle cx="185.4" cy="127.1" r="2.6"/><circle cx="182.3" cy="126.4" r="2.6"/><circle cx="175.7" cy="137.4" r="2.6"/><circle cx="242.2" cy="173.9" r="2.6"/></g><path d="M150 140L190.5 143.4" stroke="#eef2f6" stroke-opacity=".55" stroke-dasharray="2 3"/><circle cx="196.5" cy="143.4" r="6" fill="none" stroke="#eef2f6" stroke-width="1.6"/><rect x="50" y="127" width="100" height="26" rx="13" fill="#22395a" stroke="#5cd08f" stroke-opacity=".6"/><circle cx="65" cy="139" r="5" fill="none" stroke="#eef2f6" stroke-width="1.6"/><path d="M68.5 142.5l4 4" stroke="#eef2f6" stroke-width="1.6" stroke-linecap="round"/><path d="M81 140h52" stroke="#9fb0c2" stroke-opacity=".6" stroke-width="5" stroke-linecap="round"/></svg>
+                        </div>
+                        <div class="product-body">
+                            <span class="chip chip--preview">Private preview</span>
+                            <h3 class="product-title"><a class="product-link" href="product/find-your-area/">Find your area</a></h3>
+                            <p>Search over <span class="num">750</span> registered areas in England by name or county, see on a map which have forecasts or solver runs, and open any area's depth map in one click.</p>
+                            <ul class="product-specs" role="list"><li>Search</li><li>Coverage map</li><li>Status per area</li></ul>
+                            <span class="product-more" aria-hidden="true">See the product <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                        </div>
+                    </li>
+                    <li class="product-card reveal">
+                        <div class="product-art">
+                            <!-- Spot: assets/img/visuals/spot-storm-events.svg -->
+                            <svg class="spot" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><defs><radialGradient id="stormeventsg"><stop offset="0" stop-color="#5cd08f" stop-opacity=".34"/><stop offset=".7" stop-color="#5cd08f" stop-opacity=".12"/><stop offset="1" stop-color="#5cd08f" stop-opacity="0"/></radialGradient><radialGradient id="stormeventsd" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#22395a"/><stop offset="1" stop-color="#14243a"/></radialGradient></defs><circle cx="160" cy="160" r="159" fill="url(#stormeventsg)"/><circle cx="160" cy="160" r="118" fill="url(#stormeventsd)"/><circle cx="160" cy="160" r="118" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><g fill="#5cd08f"><rect x="103.1" y="193.4" width="9.4" height="9.4" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><rect x="77.5" y="167.3" width="9.4" height="9.4" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><rect x="176.1" y="249.7" width="9.4" height="9.4" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><rect x="112.5" y="193.4" width="9.4" height="9.4" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><rect x="86.9" y="167.3" width="9.4" height="9.4" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><rect x="94.4" y="146.8" width="9.4" height="9.4" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><rect x="103.8" y="146.8" width="9.4" height="9.4" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><rect x="223.3" y="206.9" width="9.4" height="9.4" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><rect x="93.8" y="193.4" width="9.4" height="9.4" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><rect x="113.1" y="146.8" width="9.4" height="9.4" fill-opacity="0.22"/><rect x="88.7" y="227.8" width="9.4" height="9.4" fill-opacity="0.22"/><rect x="182.4" y="209.1" width="9.4" height="9.4" fill-opacity="0.22"/><rect x="98.1" y="218.4" width="9.4" height="9.4" fill-opacity="0.25"/><rect x="162.4" y="170.0" width="9.4" height="9.4" fill-opacity="0.25"/><rect x="191.8" y="209.1" width="9.4" height="9.4" fill-opacity="0.25"/><rect x="162.4" y="160.6" width="9.4" height="9.4" fill-opacity="0.27"/><rect x="88.7" y="218.4" width="9.4" height="9.4" fill-opacity="0.28"/><rect x="88.7" y="209.1" width="9.4" height="9.4" fill-opacity="0.29"/><rect x="79.3" y="209.1" width="9.4" height="9.4" fill-opacity="0.29"/><rect x="201.2" y="209.1" width="9.4" height="9.4" fill-opacity="0.29"/><rect x="98.1" y="237.2" width="9.4" height="9.4" fill-opacity="0.29"/><rect x="79.3" y="218.4" width="9.4" height="9.4" fill-opacity="0.29"/><rect x="173.1" y="209.1" width="9.4" height="9.4" fill-opacity="0.29"/><rect x="105.1" y="170.8" width="9.4" height="9.4" fill-opacity="0.30"/><rect x="191.8" y="218.4" width="9.4" height="9.4" fill-opacity="0.30"/><rect x="98.1" y="209.1" width="9.4" height="9.4" fill-opacity="0.30"/><rect x="182.4" y="218.4" width="9.4" height="9.4" fill-opacity="0.32"/><rect x="201.2" y="218.4" width="9.4" height="9.4" fill-opacity="0.33"/><rect x="98.1" y="227.8" width="9.4" height="9.4" fill-opacity="0.34"/><rect x="107.4" y="209.1" width="9.4" height="9.4" fill-opacity="0.34"/><rect x="107.4" y="218.4" width="9.4" height="9.4" fill-opacity="0.35"/><rect x="201.2" y="227.8" width="9.4" height="9.4" fill-opacity="0.39"/><rect x="191.8" y="227.8" width="9.4" height="9.4" fill-opacity="0.39"/><rect x="210.6" y="209.1" width="9.4" height="9.4" fill-opacity="0.39"/><rect x="190.6" y="151.2" width="9.4" height="9.4" fill-opacity="0.40"/><rect x="116.8" y="218.4" width="9.4" height="9.4" fill-opacity="0.41"/><rect x="181.2" y="141.9" width="9.4" height="9.4" fill-opacity="0.41"/><rect x="210.6" y="218.4" width="9.4" height="9.4" fill-opacity="0.42"/><rect x="222.1" y="172.8" width="9.4" height="9.4" fill-opacity="0.42"/><rect x="182.4" y="227.8" width="9.4" height="9.4" fill-opacity="0.42"/><rect x="107.4" y="227.8" width="9.4" height="9.4" fill-opacity="0.43"/><rect x="163.7" y="209.1" width="9.4" height="9.4" fill-opacity="0.44"/><rect x="156.6" y="192.7" width="9.4" height="9.4" fill-opacity="0.44"/><rect x="190.6" y="141.9" width="9.4" height="9.4" fill-opacity="0.44"/><rect x="191.8" y="237.2" width="9.4" height="9.4" fill-opacity="0.46"/><rect x="173.1" y="218.4" width="9.4" height="9.4" fill-opacity="0.46"/><rect x="116.8" y="227.8" width="9.4" height="9.4" fill-opacity="0.46"/><rect x="219.9" y="218.4" width="9.4" height="9.4" fill-opacity="0.46"/><rect x="163.7" y="227.8" width="9.4" height="9.4" fill-opacity="0.46"/><rect x="181.2" y="160.6" width="9.4" height="9.4" fill-opacity="0.47"/><rect x="171.8" y="160.6" width="9.4" height="9.4" fill-opacity="0.47"/><rect x="181.2" y="151.2" width="9.4" height="9.4" fill-opacity="0.48"/><rect x="107.4" y="237.2" width="9.4" height="9.4" fill-opacity="0.48"/><rect x="210.6" y="227.8" width="9.4" height="9.4" fill-opacity="0.49"/><rect x="116.8" y="237.2" width="9.4" height="9.4" fill-opacity="0.49"/><rect x="126.2" y="227.8" width="9.4" height="9.4" fill-opacity="0.49"/><rect x="163.7" y="237.2" width="9.4" height="9.4" fill-opacity="0.49"/><rect x="126.2" y="209.1" width="9.4" height="9.4" fill-opacity="0.50"/><rect x="126.2" y="218.4" width="9.4" height="9.4" fill-opacity="0.50"/><rect x="116.8" y="209.1" width="9.4" height="9.4" fill-opacity="0.51"/><rect x="135.6" y="237.2" width="9.4" height="9.4" fill-opacity="0.52"/><rect x="173.1" y="237.2" width="9.4" height="9.4" fill-opacity="0.52"/><rect x="126.2" y="237.2" width="9.4" height="9.4" fill-opacity="0.53"/><rect x="173.1" y="227.8" width="9.4" height="9.4" fill-opacity="0.53"/><rect x="135.6" y="227.8" width="9.4" height="9.4" fill-opacity="0.54"/><rect x="126.2" y="246.6" width="9.4" height="9.4" fill-opacity="0.55"/><rect x="163.7" y="218.4" width="9.4" height="9.4" fill-opacity="0.56"/><rect x="135.6" y="218.4" width="9.4" height="9.4" fill-opacity="0.58"/><rect x="229.3" y="218.4" width="9.4" height="9.4" fill-opacity="0.59"/><rect x="154.3" y="209.1" width="9.4" height="9.4" fill-opacity="0.59"/><rect x="182.4" y="237.2" width="9.4" height="9.4" fill-opacity="0.60"/><rect x="201.2" y="237.2" width="9.4" height="9.4" fill-opacity="0.61"/><rect x="135.6" y="209.1" width="9.4" height="9.4" fill-opacity="0.64"/><rect x="154.3" y="237.2" width="9.4" height="9.4" fill-opacity="0.67"/><rect x="144.9" y="237.2" width="9.4" height="9.4" fill-opacity="0.68"/><rect x="149.6" y="223.1" width="9.4" height="9.4" fill-opacity="0.69"/><rect x="144.9" y="218.4" width="18.7" height="18.7" fill-opacity="0.69"/><rect x="144.9" y="209.1" width="9.4" height="9.4" fill-opacity="0.71"/><rect x="210.6" y="237.2" width="9.4" height="9.4" fill-opacity="0.92"/><rect x="144.9" y="246.6" width="9.4" height="9.4" fill-opacity="1.00"/></g><rect x="144.9" y="246.6" width="9.4" height="9.4" fill="none" stroke="#eef2f6" stroke-width="1.5"/><g transform="translate(166 104) scale(.8)"><path d="M-46 14a20 20 0 0 1 8-37a27 27 0 0 1 50-6a19 19 0 0 1 33 15a16 16 0 0 1-3 28z" fill="#eef2f6" fill-opacity=".92"/><path d="M-30 22l-5 13" stroke="#4ebbf3" stroke-width="2.2" stroke-linecap="round"/><path d="M-14 22l-5 13" stroke="#4ebbf3" stroke-width="2.2" stroke-linecap="round"/><path d="M2 22l-5 13" stroke="#4ebbf3" stroke-width="2.2" stroke-linecap="round"/><path d="M18 22l-5 13" stroke="#4ebbf3" stroke-width="2.2" stroke-linecap="round"/><path d="M34 22l-5 13" stroke="#4ebbf3" stroke-width="2.2" stroke-linecap="round"/></g></svg>
+                        </div>
+                        <div class="product-body">
+                            <span class="chip chip--preview">Private preview</span>
+                            <h3 class="product-title"><a class="product-link" href="product/storm-events/">Storm event pages</a></h3>
+                            <p>One page per named storm: the areas its forecast rain reaches, our flood forecast for each, and a scorecard after it passes. Storm Austen, October 2026, is the first.</p>
+                            <ul class="product-specs" role="list"><li>Per storm</li><li>Scorecard after</li></ul>
+                            <span class="product-more" aria-hidden="true">See the product <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                        </div>
+                    </li>
+                    <li class="product-card reveal">
+                        <div class="product-art">
+                            <!-- Spot: assets/img/visuals/spot-ea-warnings.svg -->
+                            <svg class="spot" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><defs><radialGradient id="eawarningsg"><stop offset="0" stop-color="#5cd08f" stop-opacity=".34"/><stop offset=".7" stop-color="#5cd08f" stop-opacity=".12"/><stop offset="1" stop-color="#5cd08f" stop-opacity="0"/></radialGradient><radialGradient id="eawarningsd" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#22395a"/><stop offset="1" stop-color="#14243a"/></radialGradient></defs><circle cx="160" cy="160" r="159" fill="url(#eawarningsg)"/><circle cx="160" cy="160" r="118" fill="url(#eawarningsd)"/><circle cx="160" cy="160" r="118" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><g transform="translate(22 6)"><path d="M66 128c14-22 44-26 58-14s10 30 24 36s10 34-8 44s-44 6-58-6s-34-38-16-60z" fill="#eef2f6" fill-opacity=".06" stroke="#eef2f6" stroke-width="2" stroke-dasharray="5 4" stroke-linejoin="round"/><path d="M66 110l9-16l9 16z" fill="#eef2f6"/><path d="M75 100v5m0 3v1" stroke="#14243a" stroke-width="1.8" stroke-linecap="round"/></g><rect x="180" y="118" width="84.0" height="84.0" fill="#2a4366"/><path fill="#4ebbf3" d="M243 132h7v7h-7zM243 146h7v7h-7zM250 153h14v7h-14zM187 174h7v7h-7zM215 174h7v7h-7zM236 174h7v7h-7zM229 181h7v7h-7zM187 188h7v7h-7zM215 188h7v7h-7z"/><path fill="#389eda" d="M250 118h7v7h-7zM236 125h14v7h-14zM180 132h7v7h-7zM236 132h7v7h-7zM236 139h7v7h-7zM229 146h14v7h-14zM222 153h28v7h-28zM215 160h35v7h-35zM194 167h7v7h-7zM208 167h35v7h-35zM201 174h7v7h-7zM222 174h14v7h-14zM187 181h7v7h-7zM222 181h7v7h-7zM257 181h7v7h-7zM222 188h7v7h-7zM250 188h7v7h-7zM215 195h7v7h-7z"/><path fill="#2d83bd" d="M180 118h14v7h-14zM236 118h14v7h-14zM180 125h7v7h-7zM201 125h7v7h-7zM229 132h7v7h-7zM208 139h7v7h-7zM222 139h14v7h-14zM222 146h7v7h-7zM201 153h7v7h-7zM215 153h7v7h-7zM208 160h7v7h-7zM194 181h7v7h-7z"/><path fill="#2672ac" d="M194 118h21v7h-21zM229 118h7v7h-7zM229 125h7v7h-7zM215 146h7v7h-7zM201 167h7v7h-7zM194 174h7v7h-7zM257 188h7v7h-7zM257 195h7v7h-7z"/><path fill="#1f5f9b" d="M215 118h14v7h-14zM208 125h21v7h-21zM215 132h14v7h-14zM215 139h7v7h-7zM208 146h7v7h-7zM208 153h7v7h-7zM201 160h7v7h-7zM250 195h7v7h-7z"/><rect x="180" y="118" width="84.0" height="84.0" fill="none" stroke="#eef2f6" stroke-opacity=".5"/><path d="M168 104v112" stroke="#9fb0c2" stroke-opacity=".35" stroke-dasharray="2 4"/></svg>
+                        </div>
+                        <div class="product-body">
+                            <span class="chip chip--preview">Private preview</span>
+                            <h3 class="product-title"><a class="product-link" href="product/flood-warnings/">Environment Agency warnings</a></h3>
+                            <p>The Environment Agency's latest official flood warnings for each area, in their own words with a link to GOV.UK, shown beside our forecast but kept apart from it.</p>
+                            <ul class="product-specs" role="list"><li>EA warnings</li><li>GOV.UK links</li></ul>
+                            <span class="product-more" aria-hidden="true">See the product <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                        </div>
+                    </li>
+                    <li class="product-card reveal">
+                        <div class="product-art">
+                            <!-- Spot: assets/img/visuals/spot-api.svg -->
+                            <svg class="spot" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><defs><radialGradient id="apig"><stop offset="0" stop-color="#5cd08f" stop-opacity=".34"/><stop offset=".7" stop-color="#5cd08f" stop-opacity=".12"/><stop offset="1" stop-color="#5cd08f" stop-opacity="0"/></radialGradient><radialGradient id="apid" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#22395a"/><stop offset="1" stop-color="#14243a"/></radialGradient></defs><circle cx="160" cy="160" r="159" fill="url(#apig)"/><circle cx="160" cy="160" r="118" fill="url(#apid)"/><circle cx="160" cy="160" r="118" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><rect x="72" y="96" width="176" height="34" rx="8" fill="#22395a" stroke="#5cd08f" stroke-opacity=".5"/><text x="86" y="118" font-family="'Geist Mono', ui-monospace, monospace" font-size="13" fill="#5cd08f" font-weight="600">POST</text><text x="128" y="118" font-family="'Geist Mono', ui-monospace, monospace" font-size="13" fill="#eef2f6">/assess</text><path d="M160 136v18m-6-6l6 6l6-6" fill="none" stroke="#9fb0c2" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><rect x="72" y="160" width="176" height="74" rx="8" fill="#22395a" stroke="#9fb0c2" stroke-opacity=".4"/><g font-family="'Geist Mono', ui-monospace, monospace" font-size="13"><text x="84" y="182" fill="#9fb0c2">{</text><text x="96" y="201" fill="#5cd08f">"depth_m"</text><rect x="178" y="192" width="44" height="10" rx="3" fill="#4ebbf3" fill-opacity=".8"/><text x="96" y="220" fill="#5cd08f">"inside"</text><rect x="170" y="211" width="30" height="10" rx="3" fill="#9fb0c2" fill-opacity=".5"/><text x="84" y="232" fill="#9fb0c2">}</text></g></svg>
+                        </div>
+                        <div class="product-body">
+                            <span class="chip chip--preview">Private preview</span>
+                            <h3 class="product-title"><a class="product-link" href="product/api/">API for your sites</a></h3>
+                            <p>Send coordinates and get back a depth in metres for each location, with its uncertainty band and caveats, as JSON. Portfolio screening is in development.</p>
+                            <ul class="product-specs" role="list"><li>JSON API</li><li>Per location</li></ul>
+                            <span class="product-more" aria-hidden="true">See the product <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                        </div>
+                    </li>
+                    <li class="product-card reveal">
+                        <div class="product-art">
+                            <!-- Spot: assets/img/visuals/spot-live-forecasts.svg -->
+                            <svg class="spot" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><defs><radialGradient id="liveforecastsg"><stop offset="0" stop-color="#5cd08f" stop-opacity=".34"/><stop offset=".7" stop-color="#5cd08f" stop-opacity=".12"/><stop offset="1" stop-color="#5cd08f" stop-opacity="0"/></radialGradient><radialGradient id="liveforecastsd" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#22395a"/><stop offset="1" stop-color="#14243a"/></radialGradient></defs><circle cx="160" cy="160" r="159" fill="url(#liveforecastsg)"/><circle cx="160" cy="160" r="118" fill="url(#liveforecastsd)"/><circle cx="160" cy="160" r="118" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><path d="M66 206H254" stroke="#9fb0c2" stroke-opacity=".6"/><path d="M69.8 206v4" stroke="#9fb0c2" stroke-opacity=".5"/><path d="M160.0 206v4" stroke="#9fb0c2" stroke-opacity=".5"/><path d="M250.2 206v4" stroke="#9fb0c2" stroke-opacity=".5"/><path d="M66.0 206.0 L69.8 206.0 L73.5 204.1 L77.3 200.0 L81.0 193.6 L84.8 174.0 L88.6 159.4 L92.3 153.0 L96.1 153.0 L99.8 153.0 L103.6 153.0 L107.4 153.0 L111.1 153.0 L114.9 153.0 L118.6 153.0 L122.4 153.0 L126.2 153.0 L129.9 153.0 L133.7 153.0 L137.4 151.9 L141.2 151.9 L145.0 151.9 L148.7 151.9 L152.5 151.9 L156.2 151.9 L160.0 151.9 L163.8 151.9 L167.5 151.9 L171.3 151.9 L175.0 151.9 L178.8 151.9 L182.6 151.9 L186.3 151.9 L190.1 151.9 L193.8 151.9 L197.6 151.9 L201.4 151.9 L205.1 151.5 L208.9 150.0 L212.6 148.1 L216.4 145.1 L220.2 139.1 L223.9 131.6 L227.7 125.5 L231.4 118.8 L235.2 118.8 L239.0 118.8 L242.7 118.8 L246.5 118.8 L250.2 118.8" fill="none" stroke="#9fb0c2" stroke-width="1.5" stroke-dasharray="4 3" stroke-opacity=".8"/><path d="M66.0 206.0 L69.8 206.0 L73.5 204.1 L77.3 199.6 L81.0 190.6 L84.8 174.0 L88.6 163.9 L92.3 163.1 L96.1 163.1 L99.8 163.1 L103.6 163.1 L107.4 163.1 L111.1 163.1 L114.9 163.1 L118.6 163.1 L122.4 163.1 L126.2 163.1 L129.9 163.1 L133.7 163.1 L137.4 163.1 L141.2 163.1 L145.0 163.1 L148.7 163.1 L152.5 163.1 L156.2 163.1 L160.0 163.1 L163.8 163.1 L167.5 163.1 L171.3 163.1 L175.0 163.1 L178.8 163.1 L182.6 163.1 L186.3 163.1 L190.1 163.1 L193.8 163.1 L197.6 163.1 L201.4 163.1 L205.1 162.6 L208.9 161.1 L212.6 159.6 L216.4 157.4 L220.2 151.0 L223.9 143.8 L227.7 140.5 L231.4 131.1 L235.2 131.1 L239.0 131.1 L242.7 131.1 L246.5 131.1 L250.2 131.1" fill="none" stroke="#5cd08f" stroke-width="2.2" stroke-linejoin="round"/><path d="M99.8 200v14" stroke="#9fb0c2" stroke-width="2.2" stroke-linecap="round"/><path d="M111.1 200v14" stroke="#5cd08f" stroke-width="2.2" stroke-linecap="round"/><circle cx="250.2" cy="118.8" r="3" fill="#9fb0c2"/><circle cx="250.2" cy="131.1" r="3.5" fill="#5cd08f"/></svg>
+                        </div>
+                        <div class="product-body">
+                            <span class="chip chip--dev">In development</span>
+                            <h3 class="product-title"><a class="product-link" href="product/live-forecasts/">Live forecasts for your assets</a></h3>
+                            <p>Choose your sites and we re-run the forecast automatically whenever a new rainfall forecast is issued, with depth in metres at every asset and its issue time.</p>
+                            <ul class="product-specs" role="list"><li>Per asset</li><li>Forecast issue</li><li>Issue time</li></ul>
+                            <span class="product-more" aria-hidden="true">See the product <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                        </div>
+                    </li>
+                    <li class="product-card reveal">
+                        <div class="product-art">
+                            <!-- Spot: assets/img/visuals/spot-ai-assistants.svg -->
+                            <svg class="spot" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><defs><radialGradient id="aiassistantsg"><stop offset="0" stop-color="#5cd08f" stop-opacity=".34"/><stop offset=".7" stop-color="#5cd08f" stop-opacity=".12"/><stop offset="1" stop-color="#5cd08f" stop-opacity="0"/></radialGradient><radialGradient id="aiassistantsd" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#22395a"/><stop offset="1" stop-color="#14243a"/></radialGradient></defs><circle cx="160" cy="160" r="159" fill="url(#aiassistantsg)"/><circle cx="160" cy="160" r="118" fill="url(#aiassistantsd)"/><circle cx="160" cy="160" r="118" fill="none" stroke="#5cd08f" stroke-opacity=".35"/><path d="M78 98h120a12 12 0 0 1 12 12v22a12 12 0 0 1-12 12h-92l-16 12v-12h-12a12 12 0 0 1-12-12v-22a12 12 0 0 1 12-12z" fill="none" stroke="#9fb0c2" stroke-opacity=".7" stroke-width="1.6"/><path d="M90 114h96M90 128h64" stroke="#9fb0c2" stroke-opacity=".5" stroke-width="5" stroke-linecap="round"/><path d="M126 166h112a12 12 0 0 1 12 12v32a12 12 0 0 1-12 12h-12v12l-16-12h-84a12 12 0 0 1-12-12v-32a12 12 0 0 1 12-12z" fill="#22395a" stroke="#5cd08f" stroke-opacity=".6" stroke-width="1.6"/><text x="138" y="196" font-family="Geist, 'Geist Sans', system-ui, sans-serif" font-size="22" font-weight="500" fill="#eef2f6">… m</text><path d="M196 189h36" stroke="#9fb0c2" stroke-opacity=".5" stroke-width="5" stroke-linecap="round"/><g><rect x="138" y="206" width="11" height="6" fill="#4ebbf3"/><rect x="149" y="206" width="11" height="6" fill="#389eda"/><rect x="160" y="206" width="11" height="6" fill="#2d83bd"/><rect x="171" y="206" width="11" height="6" fill="#2672ac"/><rect x="182" y="206" width="11" height="6" fill="#1f5f9b"/><rect x="193" y="206" width="11" height="6" fill="#184f8a"/><rect x="204" y="206" width="11" height="6" fill="#113e7a"/><rect x="215" y="206" width="11" height="6" fill="#092c6d"/><rect x="226" y="206" width="11" height="6" fill="#031272"/></g></svg>
+                        </div>
+                        <div class="product-body">
+                            <span class="chip chip--dev">In development</span>
+                            <h3 class="product-title"><a class="product-link" href="product/ai-assistants/">For AI assistants</a></h3>
+                            <p>Ask Claude or another AI assistant about flood depth at your sites. Our MCP server gives it the depths, bands and caveats the API returns, in plain words first.</p>
+                            <ul class="product-specs" role="list"><li>MCP server</li><li>Same data as the API</li></ul>
+                            <span class="product-more" aria-hidden="true">See the product <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </section>
-        <section class="marquee-section">
-            <p class="marquee-label">Supported by</p>
-            <div class="marquee-track-wrapper">
-                <div class="marquee-track">
-                    <a class="marquee-item" href="https://www.jbs.cam.ac.uk/" target="_blank" rel="noopener" aria-label="Cambridge Judge Business School (opens in a new tab)"><img src="assets/img/support/cambridge-jbs.png" alt="Cambridge Judge Business School"></a>
-                    <a class="marquee-item" href="https://www.carbon13.com/" target="_blank" rel="noopener" aria-label="Carbon13 (opens in a new tab)"><img src="assets/img/support/carbon13.png" alt="Carbon 13"></a>
-                    <a class="marquee-item" href="https://www.go-eit.eu/calling2scale-floods/" target="_blank" rel="noopener" aria-label="Calling2Scale Floods (opens in a new tab)"><img src="assets/img/support/c2s.png" alt="Calling2Scale" style="height:50px"></a>
-                    <a class="marquee-item" href="https://geovation.uk/" target="_blank" rel="noopener" aria-label="Geovation (opens in a new tab)"><img src="assets/img/support/geovation.png" alt="Geovation" style="height:50px"></a>
-                    <a class="marquee-item" href="https://www.ordnancesurvey.co.uk/" target="_blank" rel="noopener" aria-label="Ordnance Survey (opens in a new tab)"><img src="assets/img/support/ordnance-survey.jpg" alt="Ordnance Survey"></a>
-                    <a class="marquee-item" href="https://cloud.google.com/startup" target="_blank" rel="noopener" aria-label="Google for Startups Cloud Program (opens in a new tab)"><img src="assets/img/support/google-cloud.png" alt="Google Cloud" style="height:84px"></a>
-                    <a class="marquee-item" href="https://www.nvidia.com/en-us/startups/" target="_blank" rel="noopener" aria-label="NVIDIA Inception Program (opens in a new tab)"><img src="assets/img/support/nvidia-inception.webp" alt="NVIDIA Inception Program" style="height:44px"></a>
-                    <a class="marquee-item marquee-item--named" href="https://www.anthropic.com/" target="_blank" rel="noopener" aria-label="Anthropic (opens in a new tab)"><img src="assets/img/support/anthropic.svg" alt="" style="height:30px"><span class="marquee-name">Anthropic</span></a>
-                    <!-- duplicated for seamless loop -->
-                    <a class="marquee-item" href="https://www.jbs.cam.ac.uk/" target="_blank" rel="noopener" aria-label="Cambridge Judge Business School (opens in a new tab)"><img src="assets/img/support/cambridge-jbs.png" alt="Cambridge Judge Business School"></a>
-                    <a class="marquee-item" href="https://www.carbon13.com/" target="_blank" rel="noopener" aria-label="Carbon13 (opens in a new tab)"><img src="assets/img/support/carbon13.png" alt="Carbon 13"></a>
-                    <a class="marquee-item" href="https://www.go-eit.eu/calling2scale-floods/" target="_blank" rel="noopener" aria-label="Calling2Scale Floods (opens in a new tab)"><img src="assets/img/support/c2s.png" alt="Calling2Scale" style="height:50px"></a>
-                    <a class="marquee-item" href="https://geovation.uk/" target="_blank" rel="noopener" aria-label="Geovation (opens in a new tab)"><img src="assets/img/support/geovation.png" alt="Geovation" style="height:50px"></a>
-                    <a class="marquee-item" href="https://www.ordnancesurvey.co.uk/" target="_blank" rel="noopener" aria-label="Ordnance Survey (opens in a new tab)"><img src="assets/img/support/ordnance-survey.jpg" alt="Ordnance Survey"></a>
-                    <a class="marquee-item" href="https://cloud.google.com/startup" target="_blank" rel="noopener" aria-label="Google for Startups Cloud Program (opens in a new tab)"><img src="assets/img/support/google-cloud.png" alt="Google Cloud" style="height:84px"></a>
-                    <a class="marquee-item" href="https://www.nvidia.com/en-us/startups/" target="_blank" rel="noopener" aria-label="NVIDIA Inception Program (opens in a new tab)"><img src="assets/img/support/nvidia-inception.webp" alt="NVIDIA Inception Program" style="height:44px"></a>
-                    <a class="marquee-item marquee-item--named" href="https://www.anthropic.com/" target="_blank" rel="noopener" aria-label="Anthropic (opens in a new tab)"><img src="assets/img/support/anthropic.svg" alt="" style="height:30px"><span class="marquee-name">Anthropic</span></a>
+
+        <!-- Research: candidate models that are not served. Figures from the platform's
+             docs/paper/RESULTS_AND_VALIDATION.md and docs/DECISIONS.md (checked 2026-10-24);
+             loops rendered from local solver and model data. Script: assets/js/research.js. -->
+        <section id="research" class="research dark" aria-labelledby="research-title">
+            <div class="container">
+                <div class="section-head">
+                    <p class="eyebrow">Research</p>
+                    <h2 class="section-title" id="research-title">Models we are testing, not yet in the product</h2>
+                    <p class="section-lede">None of these is the model we serve. Each result compares a model with the physics solver, or with itself, on the same storm: that is verification, not validation against an observed flood.</p>
+                </div>
+                <ul class="research-grid" role="list">
+                    <li class="research-card reveal">
+                        <figure class="research-media" data-research-loop>
+                            <div class="research-frame">
+                                <img src="assets/research/depth-1m-manchester.jpg" width="800" height="450" loading="lazy" decoding="async" alt="Peak flood depth in blue on a 400 m square of Manchester: on the left the research model's prediction; on the right the physics solver at 1 m." aria-describedby="rc-depth-cap">
+                                <video muted loop playsinline preload="none" width="800" height="450" hidden aria-hidden="true">
+                                    <source data-src="assets/research/depth-1m-manchester.webm" type="video/webm">
+                                    <source data-src="assets/research/depth-1m-manchester.mp4" type="video/mp4">
+                                </video>
+                                <button class="research-toggle" type="button" hidden>
+                                    <svg class="icon-pause" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+                                    <svg class="icon-play" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>
+                                    <span class="visually-hidden">Pause animation</span>
+                                </button>
+                            </div>
+                            <div class="research-labels" aria-hidden="true"><span>Model · research candidate</span><span>Physics solver</span></div>
+                        </figure>
+                        <div class="research-body">
+                            <span class="chip chip--research">Research</span>
+                            <h3 class="research-title"><a class="research-link" href="research.html#depth-1m">Depth at <span class="num">1&nbsp;m</span> across whole <span class="num">5&nbsp;km</span> areas</a></h3>
+                            <p class="research-text">It predicts peak water depth for every <span class="num">1&nbsp;m</span> cell across a whole <span class="num">5&nbsp;km</span> area, and was checked against the solver on areas and storms it never saw.</p>
+                            <ul class="research-specs" role="list"><li>1 m depth</li><li>5 km areas</li><li>Not served yet</li></ul>
+                            <p class="research-caption" id="rc-depth-cap">Peak depth on a <span class="num">400&nbsp;m</span> square of the Manchester test area, held-out storm ho3 (<span class="num">150&nbsp;mm</span> over <span class="num">24&nbsp;h</span>, synthetic). Left: the research model. Right: the physics solver at <span class="num">1&nbsp;m</span>.<span class="research-credit">Contains Environment Agency information © Environment Agency and/or database right 2026.</span></p>
+                            <span class="research-more" aria-hidden="true">More on this topic <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                        </div>
+                    </li>
+                    <li class="research-card reveal">
+                        <figure class="research-media" data-research-loop>
+                            <div class="research-frame">
+                                <img src="assets/research/grid-shift-manchester.jpg" width="800" height="450" loading="lazy" decoding="async" alt="The research model's peak flood depth across the Manchester test area; the animation switches between its prediction with the model's grid as used and with the grid moved 250 m." aria-describedby="rc-grid-cap">
+                                <video muted loop playsinline preload="none" width="800" height="450" hidden aria-hidden="true">
+                                    <source data-src="assets/research/grid-shift-manchester.webm" type="video/webm">
+                                    <source data-src="assets/research/grid-shift-manchester.mp4" type="video/mp4">
+                                </video>
+                                <button class="research-toggle" type="button" hidden>
+                                    <svg class="icon-pause" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+                                    <svg class="icon-play" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>
+                                    <span class="visually-hidden">Pause animation</span>
+                                </button>
+                            </div>
+                            <div class="research-labels research-labels--one" aria-hidden="true"><span>Model · research candidate</span></div>
+                        </figure>
+                        <div class="research-body">
+                            <span class="chip chip--research">Research</span>
+                            <h3 class="research-title"><a class="research-link" href="research.html#grid-shift">Testing that moving the grid does not move the answer</a></h3>
+                            <p class="research-text">With the model's grid moved <span class="num">250&nbsp;m</span>, the answer barely changed: at most <span class="num">2</span> of about <span class="num">21</span>&nbsp;million cells per area switched between wet and dry at <span class="num">15&nbsp;cm</span>, on ten test areas.</p>
+                            <ul class="research-specs" role="list"><li>Moved 250 m</li><li>Ten test areas</li><li>Pre-registered</li></ul>
+                            <p class="research-caption" id="rc-grid-cap">Peak depth across the Manchester test area, held-out storm ho3 (<span class="num">150&nbsp;mm</span> over <span class="num">24&nbsp;h</span>, synthetic), with the model's grid as used and moved <span class="num">250&nbsp;m</span>. Each position shows that grid's own prediction.<span class="research-credit">Contains Environment Agency information © Environment Agency and/or database right 2026.</span></p>
+                            <span class="research-more" aria-hidden="true">More on this topic <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                        </div>
+                    </li>
+                    <li class="research-card reveal">
+                        <figure class="research-media" data-research-loop>
+                            <div class="research-frame">
+                                <img src="assets/research/time-manchester.jpg" width="800" height="450" loading="lazy" decoding="async" alt="Flood depth in blue on the Manchester test area 15 hours into a 24-hour storm, the solver on the left and the research model on the right, with a bar of the storm's hourly rain below; the animation steps through the storm every 30 minutes." aria-describedby="rc-time-cap">
+                                <video muted loop playsinline preload="none" width="800" height="450" hidden aria-hidden="true">
+                                    <source data-src="assets/research/time-manchester.webm" type="video/webm">
+                                    <source data-src="assets/research/time-manchester.mp4" type="video/mp4">
+                                </video>
+                                <button class="research-toggle" type="button" hidden>
+                                    <svg class="icon-pause" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+                                    <svg class="icon-play" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>
+                                    <span class="visually-hidden">Pause animation</span>
+                                </button>
+                            </div>
+                            <div class="research-labels" aria-hidden="true"><span>Physics solver</span><span>Model · research candidate</span></div>
+                        </figure>
+                        <div class="research-body">
+                            <span class="chip chip--research">Research</span>
+                            <h3 class="research-title"><a class="research-link" href="research.html#time">Water through time</a></h3>
+                            <p class="research-text">A model of depth every <span class="num">30</span>&nbsp;minutes through a storm. On nine held-out runs it came closer to the solver than a fixed peak map, but missed its timing test.</p>
+                            <ul class="research-specs" role="list"><li>Every 30 min</li><li>9 held-out runs</li><li>Timing missed</li></ul>
+                            <p class="research-caption" id="rc-time-cap">Depth every <span class="num">30</span>&nbsp;minutes on the Manchester test area, held-out storm ho3 (<span class="num">150&nbsp;mm</span> over <span class="num">24&nbsp;h</span>, synthetic), on a <span class="num">10&nbsp;m</span> grid. Left: the solver. Right: the time-resolved research candidate.<span class="research-credit">Contains Environment Agency information © Environment Agency and/or database right 2026.</span></p>
+                            <span class="research-more" aria-hidden="true">More on this topic <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                        </div>
+                    </li>
+                </ul>
+                <p class="research-all"><a href="research.html" class="btn btn-ghost">Results, gaps and checks for each topic</a></p>
+            </div>
+        </section>
+
+        <!-- How it works -->
+        <section id="how" class="how band--white light" aria-labelledby="how-title">
+            <div class="container">
+                <div class="section-head">
+                    <p class="eyebrow">How it works</p>
+                    <h2 class="section-title" id="how-title">From terrain to depth in metres</h2>
+                </div>
+
+                <ol class="steps" role="list">
+                    <li class="step reveal">
+                        <svg class="step-icon" viewBox="0 0 48 48" width="48" height="48" aria-hidden="true">
+                            <path d="M4 34c6-10 10-14 15-14s7 6 12 6 8-8 13-12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M4 40c6-6 10-8 15-8s7 3 12 3 8-4 13-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+                        </svg>
+                        <p class="step-num">Step 1</p>
+                        <h3 class="step-title">Terrain</h3>
+                        <p>Environment Agency <span class="num">1&nbsp;m</span> LiDAR terrain.</p>
+                    </li>
+                    <li class="step reveal">
+                        <svg class="step-icon" viewBox="0 0 48 48" width="48" height="48" aria-hidden="true">
+                            <g fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="6" width="36" height="36" rx="3"/><path d="M18 6v36M30 6v36M6 18h36M6 30h36" opacity=".5"/></g>
+                            <rect x="19" y="31" width="10" height="10" fill="#2d83bd"/><rect x="31" y="31" width="10" height="10" fill="#4ebbf3"/><rect x="31" y="19" width="10" height="10" fill="#4ebbf3"/>
+                        </svg>
+                        <p class="step-num">Step 2</p>
+                        <h3 class="step-title">Solver runs</h3>
+                        <p>Physics solver runs over many storms.</p>
+                    </li>
+                    <li class="step reveal">
+                        <svg class="step-icon" viewBox="0 0 48 48" width="48" height="48" aria-hidden="true">
+                            <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10" cy="14" r="4"/><circle cx="10" cy="34" r="4"/><circle cx="38" cy="24" r="4"/><path d="M14 14l20 9M14 34l20-9"/></g>
+                        </svg>
+                        <p class="step-num">Step 3</p>
+                        <h3 class="step-title">TERRA</h3>
+                        <p>Finkele's own machine-learning model, trained on those runs, which gives depth in metres from a storm's rainfall.</p>
+                        <div class="ramp" aria-hidden="true"><span class="ramp-bar"></span><span class="ramp-labels"><span>shallow</span><span>deep</span></span></div>
+                    </li>
+                </ol>
+                <p class="steps-note">It is as early as the rainfall forecast it is given.</p>
+                <figure class="layers reveal" aria-labelledby="layers-title">
+                    <div class="layers-stack">
+                        <div class="layers-frame">
+                            <!-- The exploded stack without baked-in labels: cropped from site-visuals/layers.png (labels and notes masked). The labels are the HTML list beside it. -->
+                            <img src="assets/img/visuals/layers-stack.webp" srcset="assets/img/visuals/layers-stack-1x.webp 525w, assets/img/visuals/layers-stack.webp 1050w" sizes="(min-width: 1000px) 560px, 100vw" width="1050" height="1070" loading="lazy" decoding="async" alt="An exploded view of one square of Exeter city centre, its layers drawn apart: terrain at the bottom, buildings above it, the storm's rainfall above those, and the water depth on top.">
+                        </div>
+                        <ol class="layer-labels" role="list">
+                            <li style="--y: 26.4%"><span class="layer-name">Water depth</span><span class="layer-src">Physics solver run, <span class="num">2&nbsp;m</span> cells</span><span class="layer-q">Where does the water collect, and how deep?</span></li>
+                            <li style="--y: 42.5%"><span class="layer-name">Rainfall</span><span class="layer-src">Recorded by three Environment Agency gauges</span><span class="layer-q">How much rain falls, and when?</span></li>
+                            <li style="--y: 58.6%"><span class="layer-name">Buildings</span><span class="layer-src">Ordnance Survey OpenMap Local footprints</span><span class="layer-q">Where can water not go?</span></li>
+                            <li style="--y: 74.6%"><span class="layer-name">Terrain</span><span class="layer-src">Environment Agency <span class="num">1&nbsp;m</span> LiDAR, bare earth</span><span class="layer-q">What shape is the ground?</span></li>
+                        </ol>
+                    </div>
+                    <figcaption class="layers-caption">
+                        <h3 id="layers-title">One place, layer by layer</h3>
+                        <p>The layers behind the Exeter replay at the top of this page, drawn apart. They share the same ground: the terrain, the buildings standing on it, the rain that fell on it, and the water depth the solver computed. Heights exaggerated three times.</p>
+                        <p>The forecast model learns from many runs like this one, on other ground and other storms.</p>
+                        <p class="layers-credit">Contains Environment Agency information © Environment Agency and/or database right 2026. Contains OS data © Crown copyright and database right 2026.</p>
+                    </figcaption>
+                </figure>
+                <!-- Showpiece: drag to compare, rendered from the replay packs in deploy/data/replays
+                     (depth in DEPTH_COLOURS over a hillshade of EA LiDAR). Script: assets/js/showpieces.js. -->
+                <figure class="compare reveal" aria-labelledby="cmp-exeter-title">
+                    <div class="compare-head">
+                        <h3 id="cmp-exeter-title">Before the storm, and at the peak</h3>
+                        <p>Drag the divider across the same <span class="num">2&nbsp;km</span> by <span class="num">1.25&nbsp;km</span> of Exeter: water depth at <span class="num">07:45</span> on the left, at <span class="num">14:15</span> on the right.</p>
+                    </div>
+                    <div class="compare-frame" data-compare>
+                        <img src="assets/img/showpieces/compare-exeter-1415-1600.webp" srcset="assets/img/showpieces/compare-exeter-1415-800.webp 800w, assets/img/showpieces/compare-exeter-1415-1600.webp 1600w" sizes="(min-width: 1300px) 1240px, calc(100vw - 64px)" width="1600" height="1000" loading="lazy" decoding="async" alt="Exeter city centre from above at 14:15 BST on 17 September 2023: blue water along the river and across streets on both sides of it, darker where it is deeper.">
+                        <div class="compare-before">
+                            <img src="assets/img/showpieces/compare-exeter-0745-1600.webp" srcset="assets/img/showpieces/compare-exeter-0745-800.webp 800w, assets/img/showpieces/compare-exeter-0745-1600.webp 1600w" sizes="(min-width: 1300px) 1240px, calc(100vw - 64px)" width="1600" height="1000" loading="lazy" decoding="async" alt="Exeter city centre from above at 07:45 BST on 17 September 2023: grey buildings on shaded terrain, with only small patches of blue water.">
+                        </div>
+                        <span class="compare-label compare-label--a" aria-hidden="true">Before the storm · 07:45 BST</span>
+                        <span class="compare-label compare-label--b" aria-hidden="true">At the peak · 14:15 BST</span>
+                        <span class="compare-divider" aria-hidden="true"></span>
+                        <span class="compare-grip" role="slider" tabindex="0" aria-label="Divider: drag, or use the arrow keys, to compare before the storm with at the peak" aria-orientation="horizontal" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="50% before the storm, 50% at the peak" data-a="before the storm" data-b="at the peak"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span>
+                    </div>
+                    <div class="compare-legend" aria-hidden="true">
+                        <span class="compare-ramp">0.05&nbsp;m <span class="compare-ramp-bar"><span style="background:#4ebbf3"></span><span style="background:#389eda"></span><span style="background:#2d83bd"></span><span style="background:#2672ac"></span><span style="background:#1f5f9b"></span><span style="background:#184f8a"></span><span style="background:#113e7a"></span><span style="background:#092c6d"></span><span style="background:#031272"></span></span> 4.8&nbsp;m and deeper</span>
+                        <span>Water under <span class="num">0.05&nbsp;m</span> is not drawn.</span>
+                    </div>
+                    <figcaption class="compare-caption">
+                        <p><strong>Exeter city centre, 17 September 2023.</strong> One physics solver run of the storm's rainfall as recorded by three Environment Agency gauges, <span class="num">65.0&nbsp;mm</span> in all, on <span class="num">2&nbsp;m</span> cells, drawn here on <span class="num">4&nbsp;m</span> cells, with buildings as solid blocks. At <span class="num">07:45</span> BST light overnight rain has left little standing water. <span class="num">14:15</span> BST is the time with the largest wet area in the run. Rain only: drains and the River Exe's own flow are not modelled. A simulation, not a forecast, and not compared with observed flooding.</p>
+                        <p class="showpiece-credit">Contains Environment Agency information © Environment Agency and/or database right 2026. Contains OS data © Crown copyright and database right 2026.</p>
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+
+
+        <!-- What goes into a forecast: each card checked against the platform's README, CLAUDE.md, VOCABULARY.md and DECISIONS.md (2026-10-24) -->
+        <section id="inputs" class="inputs dark" aria-labelledby="inputs-title">
+            <div class="container">
+                <div class="section-head section-head--stack">
+                    <p class="eyebrow">Inputs</p>
+                    <h2 class="section-title" id="inputs-title">What goes into a Finkele flood forecast</h2>
+                    <p class="section-lede">Four inputs and the model that uses them. Each is named, so you can see what a depth rests on.</p>
+                </div>
+                <ul class="input-grid" role="list">
+                    <li class="input-card reveal">
+                        <span class="input-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18c3-5 5-7 8-7s4 3 7 3 3-3 5-5"/><path d="M2 22h20" opacity=".5"/></svg></span>
+                        <p class="input-kicker">Ground</p>
+                        <h3 class="input-title">Terrain</h3>
+                        <p>Environment Agency LiDAR on a <span class="num">1&nbsp;m</span> grid: the bare-earth ground the water runs over, street by street.</p>
+                    </li>
+                    <li class="input-card reveal">
+                        <span class="input-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V10l5-3v14M8 21V5l7-2v18M15 21v-9l6 2v7"/><path d="M2 21h20"/></svg></span>
+                        <p class="input-kicker">On the ground</p>
+                        <h3 class="input-title">Buildings</h3>
+                        <p>Ordnance Survey footprints, as solid blocks where a solver run models buildings, as in our replays.</p>
+                    </li>
+                    <li class="input-card reveal">
+                        <span class="input-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 14a4 4 0 0 1-.6-7.95A5.5 5.5 0 0 1 17 7a3.5 3.5 0 0 1 .5 7H7Z"/><path d="m8 17-1 3M12 17l-1 3M16 17l-1 3"/></svg></span>
+                        <p class="input-kicker">The storm</p>
+                        <h3 class="input-title">Rainfall</h3>
+                        <p>Forecast rain for coming storms, gauge records for replays, and design storms for scenarios.</p>
+                    </li>
+                    <li class="input-card reveal">
+                        <span class="input-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18" opacity=".55"/><rect x="9" y="15" width="6" height="6" fill="currentColor" stroke="none" opacity=".7"/><rect x="15" y="9" width="6" height="6" fill="currentColor" stroke="none" opacity=".4"/></svg></span>
+                        <p class="input-kicker">Training data</p>
+                        <h3 class="input-title">Solver runs</h3>
+                        <p>Physics solver runs over many storms on real terrain: the training data our model learns from.</p>
+                    </li>
+                    <li class="input-card input-card--model reveal">
+                        <span class="input-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="7" r="2"/><circle cx="5" cy="17" r="2"/><circle cx="19" cy="12" r="2"/><path d="M7 7.8 17 11M7 16.2 17 13"/></svg></span>
+                        <p class="input-kicker">The model</p>
+                        <h3 class="input-title">TERRA</h3>
+                        <p>Our AI model, trained on those runs, gives water depth in metres, with an uncertainty band.</p>
+                    </li>
+                </ul>
+                <p class="inputs-note">The forecast model's terrain is bare earth today, without buildings or flood defences. It uses rain falling on the area only, not river or coastal flow.</p>
+            </div>
+        </section>
+
+        <!-- Evidence and limits -->
+        <section id="evidence" class="evidence light" aria-labelledby="evidence-title">
+            <div class="container">
+                <div class="section-head">
+                    <p class="eyebrow">Evidence and limits</p>
+                    <h2 class="section-title" id="evidence-title">What we check, and what it does not do yet</h2>
+                </div>
+                <div class="info-grid">
+                    <article class="info-card reveal" aria-labelledby="check-title">
+                        <h3 class="info-title" id="check-title">What we check and how</h3>
+                        <p>Comparing TERRA with the solver's own runs is verification. Comparing it with recorded floods is validation. We report the two separately.</p>
+                        <ul>
+                            <li><strong>Verification.</strong> How often the physics solver's depth falls inside our uncertainty band. This coverage is being re-measured on the band we now ship, so we give no figure until that is done.</li>
+                            <li><strong>Validation.</strong> Comparison with recorded floods is open work.</li>
+                        </ul>
+                    </article>
+                    <article class="info-card reveal" aria-labelledby="gaps-title">
+                        <h3 class="info-title" id="gaps-title">What it does not do yet</h3>
+                        <ul>
+                            <li>No return periods: each map is for a stated rainfall.</li>
+                            <li>Bare-earth terrain: buildings removed, flood defences not included.</li>
+                            <li>Peak depth, not the time the water arrives.</li>
+                            <li>Rain falling on the area only, not river or coastal flooding.</li>
+                            <li>Checking results against satellite images will come later.</li>
+                        </ul>
+                    </article>
+                </div>
+                <!-- Showpiece: drag to compare, rendered from the replay packs in deploy/data/replays
+                     (depth in DEPTH_COLOURS over a hillshade of EA LiDAR). Script: assets/js/showpieces.js. -->
+                <figure class="compare reveal" aria-labelledby="cmp-manchester-title">
+                    <div class="compare-head">
+                        <h3 id="cmp-manchester-title">Solver and model, on a storm the model never saw</h3>
+                        <p>Verification against the solver: the same moment of the same storm, physics solver on the left, research candidate model on the right.</p>
+                    </div>
+                    <div class="compare-frame" data-compare>
+                        <img src="assets/img/showpieces/compare-manchester-ho3-model-1600.webp" srcset="assets/img/showpieces/compare-manchester-ho3-model-800.webp 800w, assets/img/showpieces/compare-manchester-ho3-model-1600.webp 1600w" sizes="(min-width: 1300px) 1240px, calc(100vw - 64px)" width="1600" height="1000" loading="lazy" decoding="async" alt="The same view from a research candidate model: a similar pattern of blue, with the large central pond drawn shallower and smaller.">
+                        <div class="compare-before">
+                            <img src="assets/img/showpieces/compare-manchester-ho3-solver-1600.webp" srcset="assets/img/showpieces/compare-manchester-ho3-solver-800.webp 800w, assets/img/showpieces/compare-manchester-ho3-solver-1600.webp 1600w" sizes="(min-width: 1300px) 1240px, calc(100vw - 64px)" width="1600" height="1000" loading="lazy" decoding="async" alt="Part of Manchester along the river Irwell from above, 15 hours into a synthetic storm: the solver's water depth in blue along the river Irwell and in low ground, deepest in one large pond near the centre.">
+                        </div>
+                        <span class="compare-label compare-label--a" aria-hidden="true">Physics solver</span>
+                        <span class="compare-label compare-label--b" aria-hidden="true">Model · research candidate</span>
+                        <span class="compare-divider" aria-hidden="true"></span>
+                        <span class="compare-grip" role="slider" tabindex="0" aria-label="Divider: drag, or use the arrow keys, to compare solver with model" aria-orientation="horizontal" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="50% solver, 50% model" data-a="solver" data-b="model"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span>
+                    </div>
+                    <div class="compare-legend" aria-hidden="true">
+                        <span class="compare-ramp">0.05&nbsp;m <span class="compare-ramp-bar"><span style="background:#4ebbf3"></span><span style="background:#389eda"></span><span style="background:#2d83bd"></span><span style="background:#2672ac"></span><span style="background:#1f5f9b"></span><span style="background:#184f8a"></span><span style="background:#113e7a"></span><span style="background:#092c6d"></span><span style="background:#031272"></span></span> 4.8&nbsp;m and deeper</span>
+                        <span>Water under <span class="num">0.05&nbsp;m</span> is not drawn.</span>
+                    </div>
+                    <figcaption class="compare-caption">
+                        <p><strong>Manchester, Irwell, <span class="num">15&nbsp;h</span> into held-out storm ho3: <span class="num">150&nbsp;mm</span> of rain over <span class="num">24&nbsp;h</span>, synthetic.</strong> Left, the physics solver on <span class="num">1&nbsp;m</span> cells. Right, the depth a research candidate model predicts for the same time from the terrain and the rain fallen so far; it never trained on this area or this storm, and it is a prototype, not the model we serve. Both are bare-earth Environment Agency LiDAR terrain, drawn on <span class="num">10&nbsp;m</span> cells, in a <span class="num">5&nbsp;km</span> by <span class="num">3.125&nbsp;km</span> window. Where the two differ, the model is wrong against the solver. Comparing them is verification against the solver, not validation against an observed flood.</p>
+                        <p class="showpiece-credit">Contains Environment Agency information © Environment Agency and/or database right 2026.</p>
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- Who it is for -->
+        <section id="for-whom" class="whom light" aria-labelledby="whom-title">
+            <div class="container whom-grid">
+                <div>
+                    <p class="eyebrow">Who it is for</p>
+                    <h2 class="section-title" id="whom-title">Depth in metres per site, rather than a risk score</h2>
+                </div>
+                <ul class="whom-list" role="list">
+                    <li>Asset and property managers</li>
+                    <li>Property investment funds</li>
+                    <li>Insurers screening locations</li>
+                    <li>Utilities</li>
+                    <li>Transport and infrastructure operators</li>
+                    <li>Civil engineering firms</li>
+                    <li>Local authorities</li>
+                    <li>University and hospital estates</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Acceleration: the programme we are in, kept apart from supporters and awards -->
+        <section id="acceleration" class="acceleration" aria-labelledby="acc-title">
+            <div class="container acc-grid">
+                <a class="acc-logo reveal" href="https://www.jbs.cam.ac.uk/entrepreneurship/programmes/accelerate-cambridge/" target="_blank" rel="noopener" aria-label="Accelerate Cambridge (opens in a new tab)">
+                    <img src="assets/img/support/cjbs-square.webp" alt="University of Cambridge Judge Business School" width="640" height="640" loading="lazy" decoding="async">
+                </a>
+                <div class="acc-text">
+                    <p class="eyebrow">Acceleration</p>
+                    <h2 class="section-title" id="acc-title">Growing the company at Cambridge Judge Business School</h2>
+                    <p class="section-lede">Finkele was selected for Accelerate Cambridge, the startup accelerator of Cambridge Judge Business School at the University of Cambridge, twice in <span class="num">2026</span>: for the spring cohort and the autumn. Each round runs about four months, and we use it to sharpen our market focus and growth plan with a dedicated coach, milestone reviews and the Entrepreneurship Centre&#39;s mentors.</p>
+                    <a class="product-more" href="https://www.jbs.cam.ac.uk/entrepreneurship/programmes/accelerate-cambridge/" target="_blank" rel="noopener">About the programme <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
                 </div>
             </div>
         </section>
 
         <!-- Awards -->
-        <section id="awards" class="awards-section reveal">
+        <section id="awards" class="awards" aria-labelledby="awards-title">
             <div class="container">
-                <p class="awards-label">Recognition</p>
+                <div class="section-head">
+                    <p class="eyebrow">Awards</p>
+                    <h2 class="section-title" id="awards-title">Three times a finalist</h2>
+                </div>
                 <div class="awards-grid">
-                    <!-- HIDDEN: Accelerate Cambridge card — re-enable when ready
+                    <!-- HIDDEN: Accelerate Cambridge card, re-enable when ready
                     <a class="award-card award-card--text" href="https://www.jbs.cam.ac.uk/entrepreneurship/programmes/accelerate-cambridge/" target="_blank" rel="noopener">
                         <div class="award-card-logo-wrap">
-                            <img src="assets/img/awards/accelerate_cambridge_jbs.jpg" alt="Accelerate Cambridge – Cambridge Judge Business School" class="award-logo-img">
+                            <img src="assets/img/awards/accelerate_cambridge_jbs.jpg" alt="Accelerate Cambridge, Cambridge Judge Business School" class="award-logo-img">
                         </div>
                         <div class="award-card-body">
                             <span class="award-badge">Selected</span>
@@ -212,26 +664,26 @@
                         </div>
                     </a>
                     -->
-                    <a class="award-card" href="https://www.cambridgeindependent.co.uk/business/finalists-for-the-2026-cambridge-independent-science-and-tec-9457875/" target="_blank" rel="noopener">
-                        <img src="assets/img/awards/cambridge-ista-2026.jpg" alt="Cambridge Independent Science & Technology Awards 2026">
+                    <a class="award-card reveal" href="https://www.cambridgeindependent.co.uk/business/finalists-for-the-2026-cambridge-independent-science-and-tec-9457875/" target="_blank" rel="noopener">
+                        <div class="award-media"><img src="assets/img/awards/cambridge-ista-2026.webp" alt="Cambridge Independent Science &amp; Technology Awards 2026" width="960" height="640" loading="lazy" decoding="async"></div>
                         <div class="award-card-body">
-                            <span class="award-badge">Finalist</span>
-                            <p class="award-name">Cambridge Independent Science &amp; Technology Awards 2026</p>
-                            <p class="award-category">Cleantech Company of the Year</p>
+                            <span class="tag tag--green">Finalist</span>
+                            <p class="award-name">Cambridge Science &amp; Technology Awards</p>
+                            <p class="award-category">Cleantech Company of the Year, 2026</p>
                         </div>
                     </a>
-                    <a class="award-card" href="https://www.hcrlaw.com/impact55/" target="_blank" rel="noopener">
-                        <img src="assets/img/awards/impact55.jpg" alt="HCR Impact55">
+                    <a class="award-card reveal" href="https://www.hcrlaw.com/impact55/" target="_blank" rel="noopener">
+                        <div class="award-media"><img src="assets/img/awards/impact55.webp" alt="HCR Impact55" width="960" height="533" loading="lazy" decoding="async"></div>
                         <div class="award-card-body">
-                            <span class="award-badge">Finalist</span>
+                            <span class="tag tag--green">Finalist</span>
                             <p class="award-name">HCR Impact55</p>
-                            <p class="award-category">One of 11 national finalists: startups driving positive environmental change.</p>
+                            <p class="award-category">Among <span class="num">11</span> national finalists</p>
                         </div>
                     </a>
-                    <a class="award-card" href="https://climatelaunchpad.org/" target="_blank" rel="noopener">
-                        <img src="assets/img/awards/climate-launchpad.jpg" alt="ClimateLaunchpad, powered by Climate KIC" loading="lazy" width="900" height="500">
+                    <a class="award-card reveal" href="https://climatelaunchpad.org/" target="_blank" rel="noopener">
+                        <div class="award-media"><img src="assets/img/awards/climate-launchpad.webp" alt="ClimateLaunchpad, powered by Climate KIC" width="900" height="500" loading="lazy" decoding="async"></div>
                         <div class="award-card-body">
-                            <span class="award-badge">Finalist</span>
+                            <span class="tag tag--green">Finalist</span>
                             <p class="award-name">ClimateLaunchpad</p>
                             <p class="award-category">UK national finalist</p>
                         </div>
@@ -240,57 +692,82 @@
             </div>
         </section>
 
-        <!-- CTA — Book a Demo -->
-        <section class="cta-demo reveal">
-            <div class="cta-demo-inner">
-                <div class="cta-demo-pulse">
-                    <span class="pulse-ring"></span>
-                    <span class="pulse-ring pulse-ring--2"></span>
-                    <span class="pulse-dot">&#x1F4CD;</span>
-                </div>
-                <div class="cta-demo-text">
-                    <h2 class="cta-demo-heading">See Finkele in action</h2>
-                    <p class="cta-demo-sub">Book a 20-minute demo and see flood depth maps for your area.</p>
-                    <div class="cta-demo-btns">
-                        <a href="mailto:june.soh@finkele.com?subject=Demo%20Request" class="btn btn-primary btn-demo">Book a Demo &rarr;</a>
+        <!-- Supported by: a scrolling row in the founder's fixed order; a static wrapped row under reduced motion -->
+        <section class="supporters" aria-labelledby="supporters-title">
+            <div class="container">
+                <h2 class="supporters-label" id="supporters-title">Supported by</h2>
+                <div class="logo-marquee">
+                    <div class="logo-track">
+                        <ul class="logo-row" role="list">
+                    <!-- Placeholder: funding acknowledgement logo goes first in this row (to come). -->
+                    <li class="logo-item"><a href="https://www.jbs.cam.ac.uk/" target="_blank" rel="noopener" aria-label="Cambridge Judge Business School (opens in a new tab)"><img src="assets/img/support/cambridge-jbs.webp" class="logo--cjbs" alt="Cambridge Judge Business School" width="165" height="48" loading="lazy" decoding="async"></a></li>
+                    <li class="logo-item"><a href="https://www.carbon13.com/" target="_blank" rel="noopener" aria-label="Carbon13 (opens in a new tab)"><img src="assets/img/support/carbon13.webp" class="logo--carbon13" alt="Carbon13" width="86" height="48" loading="lazy" decoding="async"></a></li>
+                    <li class="logo-item"><a href="https://www.go-eit.eu/calling2scale-floods/" target="_blank" rel="noopener" aria-label="Calling2Scale Floods (opens in a new tab)"><img src="assets/img/support/c2s.webp" class="logo--c2s" alt="Calling2Scale" width="49" height="48" loading="lazy" decoding="async"></a></li>
+                    <li class="logo-item"><a href="https://geovation.uk/" target="_blank" rel="noopener" aria-label="Geovation (opens in a new tab)"><img src="assets/img/support/geovation.webp" class="logo--geovation" alt="Geovation" width="194" height="24" loading="lazy" decoding="async"></a></li>
+                    <li class="logo-item"><a href="https://www.ordnancesurvey.co.uk/" target="_blank" rel="noopener" aria-label="Ordnance Survey (opens in a new tab)"><img src="assets/img/support/ordnance-survey.webp" class="logo--os" alt="Ordnance Survey" width="143" height="35" loading="lazy" decoding="async"></a></li>
+                    <li class="logo-item"><a href="https://cloud.google.com/startup" target="_blank" rel="noopener" aria-label="Google for Startups Cloud Program (opens in a new tab)"><img src="assets/img/support/google-cloud.webp" class="logo--gcloud" alt="Google Cloud" width="185" height="29" loading="lazy" decoding="async"></a></li>
+                    <li class="logo-item"><a href="https://www.nvidia.com/en-us/startups/" target="_blank" rel="noopener" aria-label="NVIDIA Inception Program (opens in a new tab)"><img src="assets/img/support/nvidia-inception.webp" class="logo--nvidia" alt="NVIDIA Inception Program" width="345" height="120" loading="lazy" decoding="async"></a></li>
+                    <li class="logo-item logo-item--named"><a href="https://www.anthropic.com/" target="_blank" rel="noopener" aria-label="Anthropic (opens in a new tab)"><img src="assets/img/support/anthropic.svg" alt="" width="30" height="30" loading="lazy" decoding="async"><span class="logo-name">Anthropic</span></a></li>
+                        </ul>
+                        <ul class="logo-row logo-row--copy" role="list" aria-hidden="true">
+                    <li class="logo-item"><a tabindex="-1" href="https://www.jbs.cam.ac.uk/" target="_blank" rel="noopener" aria-label="Cambridge Judge Business School (opens in a new tab)"><img src="assets/img/support/cambridge-jbs.webp" class="logo--cjbs" alt="" width="165" height="48" loading="lazy" decoding="async"></a></li>
+                    <li class="logo-item"><a tabindex="-1" href="https://www.carbon13.com/" target="_blank" rel="noopener" aria-label="Carbon13 (opens in a new tab)"><img src="assets/img/support/carbon13.webp" class="logo--carbon13" alt="" width="86" height="48" loading="lazy" decoding="async"></a></li>
+                    <li class="logo-item"><a tabindex="-1" href="https://www.go-eit.eu/calling2scale-floods/" target="_blank" rel="noopener" aria-label="Calling2Scale Floods (opens in a new tab)"><img src="assets/img/support/c2s.webp" class="logo--c2s" alt="" width="49" height="48" loading="lazy" decoding="async"></a></li>
+                    <li class="logo-item"><a tabindex="-1" href="https://geovation.uk/" target="_blank" rel="noopener" aria-label="Geovation (opens in a new tab)"><img src="assets/img/support/geovation.webp" class="logo--geovation" alt="" width="194" height="24" loading="lazy" decoding="async"></a></li>
+                    <li class="logo-item"><a tabindex="-1" href="https://www.ordnancesurvey.co.uk/" target="_blank" rel="noopener" aria-label="Ordnance Survey (opens in a new tab)"><img src="assets/img/support/ordnance-survey.webp" class="logo--os" alt="" width="143" height="35" loading="lazy" decoding="async"></a></li>
+                    <li class="logo-item"><a tabindex="-1" href="https://cloud.google.com/startup" target="_blank" rel="noopener" aria-label="Google for Startups Cloud Program (opens in a new tab)"><img src="assets/img/support/google-cloud.webp" class="logo--gcloud" alt="" width="185" height="29" loading="lazy" decoding="async"></a></li>
+                    <li class="logo-item"><a tabindex="-1" href="https://www.nvidia.com/en-us/startups/" target="_blank" rel="noopener" aria-label="NVIDIA Inception Program (opens in a new tab)"><img src="assets/img/support/nvidia-inception.webp" class="logo--nvidia" alt="" width="345" height="120" loading="lazy" decoding="async"></a></li>
+                    <li class="logo-item logo-item--named"><a tabindex="-1" href="https://www.anthropic.com/" target="_blank" rel="noopener" aria-label="Anthropic (opens in a new tab)"><img src="assets/img/support/anthropic.svg" alt="" width="30" height="30" loading="lazy" decoding="async"><span class="logo-name">Anthropic</span></a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Contact -->
-        <section id="contact" class="contact-strip reveal">
+
+        <!-- Book a demo and contact -->
+        <section id="contact" class="contact light" aria-labelledby="demo-title">
             <div class="container">
-                <div class="contact-inner">
-                    <div class="contact-col">
-                        <h2 class="contact-col-heading">Get in touch</h2>
-                        <div class="linkedin-row" style="margin-top:.4rem">
-                            <a href="mailto:june.soh@finkele.com" class="btn btn-linkedin btn-linkedin-icon" style="background:transparent;border:1px solid rgba(0,0,0,.12);">
-                                <img src="assets/img/finkele-logo-square.png" alt="Finkele" style="width:85%;height:85%;object-fit:contain;">
-                            </a>
-                            <p class="contact-sub">Interested in flood risk intelligence for your organisation? Contact us.</p>
-                        </div>
-                        <p style="margin-top:.75rem;font-size:1.1rem;font-weight:600;color:var(--black);">June Soh</p>
-                        <p style="font-size:1rem;color:var(--muted);margin-bottom:.6rem">CEO, Founder</p>
-                        <a href="mailto:june.soh@finkele.com" class="btn btn-primary" style="width:100%;text-align:center;box-sizing:border-box;display:block;padding:.7rem 1.6rem;line-height:1.5;margin-top:auto;">june.soh@finkele.com</a>
+                <div class="demo-band reveal">
+                    <div>
+                        <p class="eyebrow">Giving confidence to act before flood becomes disaster.</p>
+                        <h2 class="section-title" id="demo-title">See Finkele in action</h2>
+                        <p class="section-lede">Book a <span class="num">20</span>-minute demo and see flood depth maps for your area.</p>
                     </div>
-                    <div class="contact-divider"></div>
-                    <div class="contact-col">
-                        <h2 class="contact-col-heading">Stay Connected</h2>
-                        <div class="linkedin-row" style="margin-top:.4rem">
-                            <a href="https://www.linkedin.com/company/finkele/" target="_blank" rel="noopener" class="btn btn-linkedin btn-linkedin-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.354V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.284zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                            </a>
-                            <p class="contact-sub">Sign up for updates on features, flood risk insights, and news.</p>
-                        </div>
-                        <h2 class="contact-col-heading" style="margin-top:1.5rem; display:none">Keep up to date</h2>
-                        <form action="https://formspree.io/f/mlgazojo" method="POST" class="signup-form" style="margin-top:.75rem;flex:1;display:flex;flex-direction:column;">
-                            <div class="signup-name-row">
-                                <input type="text" name="first_name" placeholder="First Name" required>
-                                <input type="text" name="last_name" placeholder="Last Name" required>
-                                <input type="email" name="email" placeholder="Email" required>
+                    <a href="mailto:june.soh@finkele.com?subject=Demo%20Request" class="btn btn-primary">Book a demo</a>
+                </div>
+
+                <div class="contact-grid">
+                    <div class="contact-card reveal">
+                        <h3 class="info-title">Get in touch</h3>
+                        <p class="contact-sub">Interested in flood risk intelligence for your organisation? Contact us.</p>
+                        <p class="contact-name">June Soh</p>
+                        <p class="contact-role">CEO, Founder</p>
+                        <a class="linkedin" href="https://www.linkedin.com/company/finkele/" target="_blank" rel="noopener">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.354V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.284zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                            Finkele on LinkedIn
+                        </a>
+                        <a href="mailto:june.soh@finkele.com" class="btn btn-primary btn-block">june.soh@finkele.com</a>
+                    </div>
+                    <div class="contact-card reveal">
+                        <h3 class="info-title">Stay connected</h3>
+                        <p class="contact-sub">Sign up for updates on features, flood risk insights, and news.</p>
+                        <form action="https://formspree.io/f/mlgazojo" method="POST" class="signup-form">
+                            <div class="field-row">
+                                <div class="field">
+                                    <label for="f-first">First name</label>
+                                    <input id="f-first" type="text" name="first_name" autocomplete="given-name" required>
+                                </div>
+                                <div class="field">
+                                    <label for="f-last">Last name</label>
+                                    <input id="f-last" type="text" name="last_name" autocomplete="family-name" required>
+                                </div>
                             </div>
-                            <button type="submit" class="btn btn-primary" style="padding:.7rem 1.6rem;width:100%;line-height:1.5;margin-top:.6rem;">Subscribe</button>
+                            <div class="field">
+                                <label for="f-email">Email</label>
+                                <input id="f-email" type="email" name="email" autocomplete="email" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Subscribe</button>
                         </form>
                     </div>
                 </div>
@@ -299,21 +776,56 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container footer-inner">
-            <div class="footer-left">
-                <img src="assets/img/finkele-logo-square.png" alt="Finkele" class="footer-logo">
-                <span class="footer-copy">&copy; 2026 Finkele Ltd. All rights reserved.</span>
+    <footer class="footer dark">
+        <div class="container footer-top">
+            <div class="footer-brand">
+                <img src="assets/img/finkele-logo-on-navy.webp" alt="Finkele" width="78" height="36" loading="lazy" decoding="async">
+                <p>Flood depth in metres for areas in England, from a model trained on physics-based solver runs.</p>
+                <p class="axiom">We also develop AXIOM, a protocol for checking machine-learning surrogates in engineering simulation.</p>
             </div>
-            <div class="footer-links">
-                <a href="#products">Products</a>
-                <a href="mailto:june.soh@finkele.com">Contact</a>
-                <a href="https://www.linkedin.com/company/finkele/" target="_blank" rel="noopener">LinkedIn</a>
-            </div>
+            <nav class="footer-col" aria-labelledby="f-products">
+                <h2 class="footer-heading" id="f-products">Products</h2>
+                <ul role="list">
+                    <li><a href="product/flood-depth-maps/">Flood depth maps</a></li>
+                    <li><a href="product/rainfall-scenarios/">Rainfall scenarios</a></li>
+                    <li><a href="product/replays/">3D flood replays</a></li>
+                    <li><a href="product/find-your-area/">Find your area</a></li>
+                    <li><a href="product/storm-events/">Storm event pages</a></li>
+                    <li><a href="product/flood-warnings/">Environment Agency warnings</a></li>
+                    <li><a href="product/api/">API</a></li>
+                    <li><a href="product/live-forecasts/">Live forecasts</a></li>
+                    <li><a href="product/ai-assistants/">For AI assistants</a></li>
+                </ul>
+            </nav>
+            <nav class="footer-col" aria-labelledby="f-company">
+                <h2 class="footer-heading" id="f-company">Company</h2>
+                <ul role="list">
+                    <li><a href="#technology">Technology</a></li>
+                    <li><a href="research.html">Research</a></li>
+                    <li><a href="#awards">Awards</a></li>
+                    <li><a href="mailto:june.soh@finkele.com?subject=Demo%20Request">Book a demo</a></li>
+                    <li><a href="mailto:june.soh@finkele.com">Contact</a></li>
+                    <li><a href="https://www.linkedin.com/company/finkele/" target="_blank" rel="noopener">LinkedIn</a></li>
+                </ul>
+            </nav>
         </div>
-        <p class="container footer-legal">Finkele Ltd is a private limited company registered in England and Wales, company number 16223616. Registered office: 9 Caxton House, Broad Street, Cambourne, Cambridge CB23 6JN, United Kingdom.</p>
+        <div class="container footer-credits" aria-labelledby="data-title">
+            <h2 class="footer-heading" id="data-title">Data and credits</h2>
+            <dl class="credits">
+                <div><dt>Terrain</dt><dd>Environment Agency LiDAR. Contains public sector information licensed under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="noopener">Open Government Licence v3.0</a>.</dd></div>
+                <div><dt>River levels and warnings</dt><dd>Environment Agency flood-monitoring and Hydrology APIs, under the Open Government Licence v3.0.</dd></div>
+                <div><dt>Mapping</dt><dd>Ordnance Survey OpenData, under the Open Government Licence v3.0. Contains OS data © Crown copyright and database right 2026.</dd></div>
+                <div><dt>Rainfall</dt><dd>Weather data by <a href="https://open-meteo.com/" rel="noopener">Open-Meteo.com</a>, under <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener">CC‑BY&nbsp;4.0</a>.</dd></div>
+            </dl>
+        </div>
+        <div class="container footer-bottom">
+            <p class="footer-copy">&copy; 2026 Finkele Ltd. All rights reserved.</p>
+            <p class="footer-legal">Finkele Ltd is a private limited company registered in England and Wales, company number 16223616. Registered office: 9 Caxton House, Broad Street, Cambourne, Cambridge CB23 6JN, United Kingdom.</p>
+        </div>
     </footer>
 
-    <script src="assets/js/main.js"></script>
+    <script src="assets/js/main.js" defer></script>
+    <script src="assets/js/showpieces.js" defer></script>
+    <script src="assets/js/research.js" defer></script>
 </body>
 </html>

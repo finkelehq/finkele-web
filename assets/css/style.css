@@ -573,6 +573,7 @@ section { background: var(--bg); color: var(--fg); }
 .logo-item > a { display: flex; align-items: center; gap: .55rem; color: inherit; text-decoration: none; border-radius: 6px; }
 .logo-item > a:focus-visible { outline: 2px solid var(--green); outline-offset: 6px; }
 .logo--nvidia { --h: 40px; }
+.logo--aws { --h: 34px; }
 .logo-item--named img { height: 30px; width: 30px; }
 .logo-name { font-size: 1.35rem; font-weight: 600; letter-spacing: -.01em; color: #5f6b6b; }
 @media (hover: hover) and (pointer: fine) { .logo-item:hover { filter: none; opacity: 1; } }
